@@ -1,4 +1,4 @@
-# OFFLINE FORUM
+# OPENWRT FORUM
 
 A tiny, self-contained communication tool that doesn't require any internets
 
@@ -23,6 +23,8 @@ to OpenWRT, but I've also successfully run it on Mac OS X and Ubuntu.
 3. Move `forum.cgi` to a folder configured to execute CGIs
 4. Change `forum.cgi`'s [hash bang][hb]
 5. Modify `config.lua`
+6. Check file permissions (base and `app` directories executable and `data`
+   directory writable by the httpd user)
 
 ## Installing on OpenWRT
 
