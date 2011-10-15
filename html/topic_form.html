@@ -1,0 +1,26 @@
+<form action="?x=post#preview" method="post">
+  <input type="hidden" name="timestamp" id="timestamp" value="" />
+  <input type="hidden" name="time" id="time" value="" />
+  <input type="hidden" name="date" id="date" value="" />
+  <h2>post a topic</h2>
+  <label>
+    author
+    <input type="text" name="author" value="{author}" class="text" />
+  </label>
+  <label>
+    topic
+    <textarea name="content" rows="2" cols="40" class="text">{content}</textarea>
+  </label>
+  <div id="first_comment">
+    <label>
+      first comment
+      <textarea name="first_comment" rows="10" cols="40" class="text">{first_comment}</textarea>
+    </label>
+  </div>
+  <a href="#" id="add_first_comment">add first comment</a>
+  <div class="buttons">
+    <input type="submit" name="task" value="post" class="button" />
+    <input type="submit" name="task" value="preview" class="button" />
+    <div class="clear"></div>
+  </div>
+</form>

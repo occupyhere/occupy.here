@@ -1,0 +1,188 @@
+body {
+  font: 16px/22px DroidSansRegular, helvetica, sans-serif;
+  margin: 20px;
+}
+
+strong, h1, h2, h3 {
+  font-weight: normal;
+  font-family: DroidSansBold, helvetica, sans-serif;
+}
+
+a {
+  color: #bc1d0d;
+}
+
+a:hover {
+  color: #ff4c23;
+}
+
+a:active {
+  color: #000;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+h1 {
+  margin-top: 1.5em;
+}
+
+h1 a {
+  color: #000;
+  text-decoration: none;
+}
+
+h1 a:hover {
+  color: #bc1d0d;
+  text-decoration: underline;
+}
+
+nav {
+  display: block;
+  border-bottom: 2px dotted #808080;
+  padding: 5px 0;
+  width: 100%;
+}
+
+#pagination {
+  color: #808080;
+  margin-top: 2.5em;
+  border-top: 2px dotted #808080;
+  border-bottom: 0;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+form {
+  margin: 2em 0;
+}
+
+input, textarea, select {
+  display: block;
+  font: 13px DroidSansRegular, helvetica, sans-serif;
+}
+
+form input.text {
+  width: 480px;
+  padding: 7px;
+  border: 1px solid #808080;
+  margin: 3px 0 20px 0;
+}
+
+form textarea.text {
+  width: 480px;
+  padding: 7px;
+  border: 1px solid #808080;
+  margin: 3px 0 20px 0;
+}
+
+#page {
+  width: 500px;
+  padding-bottom: 50px;
+}
+
+article {
+  display: block;
+  margin: 1.5em 0;
+}
+
+article .meta,
+article .meta .date-time {
+  color: #808080;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+article .meta .date-time:hover,
+article .meta .date-time:hover .date,
+article .meta .date-time:hover .time {
+  color: #bc1d0d;
+  text-decoration: underline;
+}
+
+article .meta .author,
+article .meta .date,
+article .meta .time {
+  color: #000;
+}
+
+body.topic .meta .comments,
+body.topic .meta .reply {
+  display: none;
+}
+
+#reply {
+  border-top: 2px dotted #808080;
+  padding: 5px 0;
+}
+
+section {
+  display: block;
+}
+
+#replies {
+  margin-left: 20px;
+}
+
+#replies h2 {
+  margin-left: -20px;
+}
+
+.button {
+  float: left;
+  margin-right: 5px;
+}
+
+.preview {
+  padding: 0 20px;
+  background: #f2f2f2;
+  border: 2px dotted #ff8c71;
+}
+
+.meta {
+  margin-top: 5px;
+  line-height: 15px;
+}
+
+.meta a {
+  white-space: nowrap;
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+#first_comment {
+  position: absolute;
+  visibility: hidden;
+}
+
+#first_comment textarea.text {
+  margin-bottom: 15px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  input.text, textarea.text {
+    width: 288px !important;
+  }
+  
+  nav .right {
+    margin-top: 3px;
+    font-size: 1.4em;
+  }
+}

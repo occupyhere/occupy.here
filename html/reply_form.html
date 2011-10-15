@@ -1,0 +1,18 @@
+<form action="?x=reply#preview" method="post" id="reply">
+  <input type="hidden" name="topic" value="{topic}" />
+  <input type="hidden" name="timestamp" id="timestamp" value="" />
+  <input type="hidden" name="time" id="time" value="" />
+  <input type="hidden" name="date" id="date" value="" />
+  <h2>post a reply</h2>
+  <label>
+    author
+    <input type="text" name="author" value="{author}" class="text" />
+  </label>
+  <label>
+    reply
+    <textarea name="content" rows="10" cols="40" class="text">{content}</textarea>
+  </label>
+  <input type="submit" name="task" value="post" class="button" />
+  <input type="submit" name="task" value="preview" class="button" />
+  <div class="clear"></div>
+</form>
