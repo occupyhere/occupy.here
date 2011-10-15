@@ -5,10 +5,13 @@ A tiny, self-contained communication tool that doesn't require any internets
 ## Purpose
 
 This was originally created to support the [Occupy Wall Street][ows] protest
-in New York City. I'm interested in how physical proximity might be a good
-filter for asynchronous discussions—as in email or blogs. Protest and the
-[Human Microphone][hm] are *very synchronous*, and have their own strengths
-and weaknesses.
+in New York City. The motivation behind ows.offline is that the web offers a
+fantastic array of communication tools, but often the conversation suffers from
+certain trade-offs as the number of participants rises. Proximity could be a
+useful filter for those with the greatest need for better communication tools.
+The forum is an attempt to complement the existing deliberative process of the
+NYC General Assembly and offer its constituents a text-based forum to hash out
+their ideas with greater subtlety.
 
 ## How to install
 
