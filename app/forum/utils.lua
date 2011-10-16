@@ -163,7 +163,7 @@ end
 function htmlspecialchars(text)
   text = text:gsub("&", "&amp;")
   text = text:gsub("\"", "&quot;")
-  text = text:gsub("'", "&039;")
+  text = text:gsub("'", "&#039;")
   text = text:gsub("<", "&lt;")
   text = text:gsub(">", "&gt;")
   return text
