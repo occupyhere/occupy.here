@@ -16,17 +16,22 @@ their ideas with greater subtlety.
 ## How to install
 
 This forum software was designed for the [Linksys WRT54GL][wrt54g] router
-running [OpenWRT][owrt] Linux. For now I'll limit the detailed instructions
-to OpenWRT, but I've also successfully run it on Mac OS X and Ubuntu.
+running [OpenWRT][owrt] Linux and [uhttpd]. But I've also successfully run it
+on Mac OS X and Debian/Ubuntu with [thttpd].
+
+## Installing dependencies on Debian/Ubuntu
+
+1. Get a root shell: `sudo -i`
+2. Install [Lua][lua] and [Luarocks][lrock]: `apt-get install lua luarocks`
+3. Install [LuaFileSystem][lfs]: `luarocks install lfs`
 
 ## Installing on any platform
 
-1. Install dependencies: [Lua](lua) + [LuaFileSystem][lfs]
+1. Install dependencies: [Lua][lua] + [LuaFileSystem][lfs]
 2. Unpack the zip file in a public web folder
 3. Move `forum.cgi` to a folder configured to execute CGIs
-4. Change `forum.cgi`'s [hash bang][hb]
-5. Modify `config.lua`
-6. Check file permissions (base and `app` directories executable and `data`
+4. Edit configuration in `forum.cgi`
+5. Check file permissions (base and `app` directories executable and `data`
    directory writable by the httpd user)
 
 ## Installing on OpenWRT
@@ -70,6 +75,9 @@ behave as a kind of captive portal.
 [hb]: http://en.wikipedia.org/wiki/Shebang_%28Unix%29
 [lua]: http://lua.org/
 [lfs]: http://keplerproject.github.com/luafilesystem/
+[lrock]: http://luarocks.org/
 [flash]: http://wiki.openwrt.org/doc/howto/generic.flashing
 [squashfs]: http://downloads.openwrt.org/backfire/10.03/brcm-2.4/openwrt-wrt54g-squashfs.bin
 [lfsipk]: http://downloads.openwrt.org/backfire/10.03/brcm-2.4/packages/luafilesystem_1.5.0-1_brcm-2.4.ipk
+[uhttpd]: http://code.google.com/p/uhttpd/
+[thttpd]: http://acme.com/software/thhtpd/
