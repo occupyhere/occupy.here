@@ -155,7 +155,18 @@ end
 -- From Lua Web Server API (WSAPI)
 -- http://keplerproject.github.com/wsapi/
 function sanitize(text)
-   return text:gsub(">", "&gt;"):gsub("<", "&lt;")
+  return htmlspecialchars(text)
+--  return text:gsub(">", "&gt;"):gsub("<", "&lt;")
+end
+
+-- More complete sanitizer, similar to the PHP function
+function htmlspecialchars(text)
+  text = text:gsub("&", "&amp;")
+  text = text:gsub("\"", "&quot;")
+  text = text:gsub("'", "&039;")
+  text = text:gsub("<", "&lt;")
+  text = text:gsub(">", "&gt;")
+  return text
 end
 
 function content_type(value)

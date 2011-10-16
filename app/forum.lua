@@ -1,6 +1,5 @@
 module("forum", package.seeall)
 
-require "config"
 require "lfs"
 require "json/json"
 require "forum/utils"
@@ -8,14 +7,17 @@ require "forum/utils"
 public_root = public_root or "/"
 cgi = os.getenv("SCRIPT_NAME")
 
-if forum_base ~= nil then
-  lfs.chdir(forum_base)
-end
-
 request = {
-  post = parse_qs(io.read("*all")), -- POST data comes from STDIN
+  post = {},
   get = parse_qs(os.getenv("QUERY_STRING"))
 }
+
+-- read POST data from STDIN
+-- only read if there is any data,
+-- otherwise the script hangs on some servers
+if tonumber(os.getenv("CONTENT_LENGTH")) ~= nil then
+  request.post = parse_qs(io.read("*all"))
+end
 
 function main()
   if request.get.x == "post" then
