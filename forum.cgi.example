@@ -1,0 +1,33 @@
+#!/usr/bin/lua
+
+----------------------------
+-- Begin of configuration --
+
+-- For future use (p2p forum!)
+location_name = 'nyc'
+location_latlng = '40.709328,-74.011245'
+
+-- If this CGI file is located in a different directory than the rest of the
+-- forum, use forum_base to guide it back to the forum base directory. For
+-- example if forum.cgi has been moved to /www/cgi-bin and all the other files
+-- are in /www then set forum_base to '../'. Absolute file system paths should
+-- also work here (i.e., '/www').
+forum_base = './'
+
+-- Set public_root to the path where the forum appears publicly, including a
+-- trailing slash. If you're serving all your files right off the server root
+-- you'll want to use '/'.
+public_root = '/openwrt-forum/'
+
+-- End of configuration --
+--------------------------
+
+package.path = package.path .. ";" .. forum_base .. "app/?.lua"
+
+require "lfs"
+if forum_base ~= nil then
+  lfs.chdir(forum_base)
+end
+
+local forum = require "forum"
+forum.main()
