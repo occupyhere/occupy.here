@@ -45,8 +45,13 @@ scp and vi.*
    (place the file in `/tmp`)
 3. Install the package using: `ipkg install /tmp/luafilesystem_1.5.0-1_brcm-2.4.ipk`
 4. Use scp to put all the forum's files in `/www` on the router
-5. Move `forum.cgi` to `/www/cgi-bin` (I also like to rename it to plain `forum`)
-6. Modify `config.lua`: set your location data and update `forum_base` to `'../'`
+5. Copy `forum.cgi.example` to `forum.cgi` (or plain `forum`, since uhttpd doesn't
+   require a special file extension to execute CGIs)
+5. Move the forum CGI to `/www/cgi-bin`
+6. Modify the configuration settings in `forum.cgi`:
+    * Set your location name and coordinates (for future p2p functionality)
+    * Update `forum_base` to `'../'`
+    * Update `public_root` to `'/'`
 7. Try it out in a browser! (something like `http://192.168.1.1/cgi-bin/forum`)
 
 ## Tuning OpenWRT
