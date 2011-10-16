@@ -22,7 +22,11 @@ public_root = '/openwrt-forum/'
 -- End of configuration --
 --------------------------
 
+-- used for bootstrapping
 package.path = package.path .. ";" .. forum_base .. "app/?.lua"
+
+-- used after chdir to forum_base
+package.path = package.path .. ";./app/?.lua"
 
 local forum = require "forum"
 forum.main()
