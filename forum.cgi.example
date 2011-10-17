@@ -11,7 +11,7 @@ location_latlng = '40.709328,-74.011245'
 -- forum, use forum_base to guide it back to the forum base directory. For
 -- example if forum.cgi has been moved to /www/cgi-bin and all the other files
 -- are in /www then set forum_base to '../'. Absolute file system paths should
--- also work here (i.e., '/www').
+-- also work here (i.e., '/www/'). You must use a trailing slash.
 forum_base = './'
 
 -- Set public_root to the path where the forum appears publicly, including a
@@ -22,12 +22,11 @@ public_root = '/openwrt-forum/'
 -- End of configuration --
 --------------------------
 
+-- used for bootstrapping
 package.path = package.path .. ";" .. forum_base .. "app/?.lua"
 
-require "lfs"
-if forum_base ~= nil then
-  lfs.chdir(forum_base)
-end
+-- used after chdir to forum_base
+package.path = package.path .. ";./app/?.lua"
 
 local forum = require "forum"
 forum.main()

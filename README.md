@@ -29,10 +29,19 @@ on Mac OS X and Debian/Ubuntu with [thttpd].
 
 1. Install dependencies: [Lua][lua] + [LuaFileSystem][lfs]
 2. Unpack the zip file in a public web folder
-3. Move `forum.cgi` to a folder configured to execute CGIs
-4. Edit configuration in `forum.cgi`
-5. Check file permissions (base and `app` directories executable and `data`
-   directory writable by the httpd user)
+3. Copy `forum.cgi.example` to `forum.cgi` (or plain `forum`, if your webserver
+   doen't enforce extensions for CGIs)
+5. Move `forum.cgi` to your webserver's CGI directory (e.g. `/www/cgi-bin`)
+6. Modify the configuration settings in `forum.cgi`:
+    * Set your location name and coordinates (for future p2p functionality)
+    * Point `forum_base` to the forum's directory in the filesystem
+    * Point `public_root` to the forum's URL as seen from the "web"
+7. Adjust file permissions if necessary:
+    * Base and subdirectories accessible (executable) and readable by
+      the httpd user
+    * `data` directory writable by the httpd user
+    * Some webservers don't like executable static files (css, javascript)
+7. Try it out in a browser by calling the CGI script!
 
 ## Installing on OpenWRT
 
@@ -47,7 +56,7 @@ scp and vi.*
 4. Use scp to put all the forum's files in `/www` on the router
 5. Copy `forum.cgi.example` to `forum.cgi` (or plain `forum`, since uhttpd doesn't
    require a special file extension to execute CGIs)
-5. Move the forum CGI to `/www/cgi-bin`
+5. Move `forum.cgi` to `/www/cgi-bin`
 6. Modify the configuration settings in `forum.cgi`:
     * Set your location name and coordinates (for future p2p functionality)
     * Update `forum_base` to `'../'`
