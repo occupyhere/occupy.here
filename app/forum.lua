@@ -4,6 +4,10 @@ require "lfs"
 require "json/json"
 require "forum/utils"
 
+if forum_base ~= nil then
+  lfs.chdir(forum_base)   
+end
+
 public_root = public_root or "/"
 cgi = os.getenv("SCRIPT_NAME")
 
