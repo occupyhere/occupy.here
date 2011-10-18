@@ -1,4 +1,4 @@
-local id = normalize_id(tonumber(forum.request.get.id))
+local id = tonumber(forum.request.get.id)
 local posts = get_posts("data/replies/" .. id)
 local num = table.maxn(posts)
 local s = "s"
