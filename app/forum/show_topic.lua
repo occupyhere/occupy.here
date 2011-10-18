@@ -8,7 +8,7 @@ include("html/header.html", {
   class = 'topic'
 })
 
-local id = normalize_id(tonumber(forum.request.get.id) or tonumber(forum.request.post.topic))
+local id = tonumber(forum.request.get.id) or tonumber(forum.request.post.topic)
 local replies = get_posts("data/replies/" .. id)
 local author = sanitize(forum.request.post.author or get_cookie('author', 'Anonymous'))
 

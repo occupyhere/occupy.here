@@ -76,11 +76,6 @@ function get_posts(dir)
   return posts
 end
 
-function normalize_id(id)
-  -- this is from when I was using 00001 type file naming, now it's vestigial
-  return id
-end
-
 function topic_html(post)
   post.id_attr = 'post-' .. post.timestamp
   post = sanitize_post(post)
