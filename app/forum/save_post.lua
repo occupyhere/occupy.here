@@ -39,16 +39,19 @@ if task == "preview" or (post.content == '') then
   })
   include("html/footer.html")
 else
-  local f = assert(io.open("data/topics/" .. post.timestamp .. ".json", "w"))
-  
-  f:write(json.encode(post))
-  f:close()
-  lfs.mkdir("data/replies/" .. post.timestamp)
-  set_cookie('author', post.author)
+  local filename = "data/topics/" .. post.timestamp .. ".json"
+  if file_exists(filename) ~= true then
+    local f = assert(io.open(filename, "w"))
+    f:write(json.encode(post))
+    f:close()
+    lfs.mkdir("data/replies/" .. post.timestamp)
+    set_cookie('author', post.author)
+  end
   
   local first_comment = forum.request.post.first_comment
-  if (first_comment ~= nil and first_comment ~= "") then
-    f = assert(io.open("data/replies/" .. post.timestamp .. "/" .. post.timestamp .. ".json", "w"))
+  filename = "data/replies/" .. post.timestamp .. "/" .. post.timestamp .. ".json"
+  if file_exists(filename) ~= true and first_comment ~= nil and first_comment ~= "" then
+    f = assert(io.open(filename, "w"))
     local reply = {
       timestamp = post.timestamp,
       content = first_comment,
