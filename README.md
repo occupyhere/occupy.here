@@ -59,7 +59,7 @@ scp and vi.*
 5. Move `forum.cgi` to `/www/cgi-bin`
 6. Modify the configuration settings in `forum.cgi`:
     * Set your location name and coordinates (for future p2p functionality)
-    * Update `forum_base` to `'../'`
+    * Update `forum_base` to `'/www/'`
     * Update `public_root` to `'/'`
 7. Try it out in a browser! (something like `http://192.168.1.1/cgi-bin/forum`)
 
@@ -70,9 +70,8 @@ guide users to the right place.
 
 ### Change the base redirect
 
-  * Edit `/www/index.html` to redirect to the forum
-    CGI URL (with the wildcard DNS below, you can choose a non-standard URL like
-    `http://ows.offline/`)
+  * Edit `/www/index.html` to redirect to the forum URL (with the wildcard DNS
+    below, you can choose a non-standard URL like `http://ows.offline/cgi-bin/forum`)
 
 ### Set up a wildcard DNS entry
 
