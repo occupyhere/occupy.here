@@ -5,7 +5,9 @@ local post = {
   content = forum.request.post.content or '',
   author = forum.request.post.author or get_cookie('author', 'Anonymous'),
   date = forum.request.post.date or os.date("%a %b %d, %Y"),
-  time = forum.request.post.time or os.date("%I:%M %p")
+  time = forum.request.post.time or os.date("%I:%M %p"),
+  location = forum.location_name,
+  latlng = forum.location_latlng
 }
 
 if task == "preview" or (post.content == '') then
@@ -57,7 +59,9 @@ else
       content = first_comment,
       author = post.author,
       date = post.date,
-      time = post.time
+      time = post.time,
+      location = forum.location_name,
+      latlng = forum.location_latlng
     }
     f:write(json.encode(reply))
     f:close()
