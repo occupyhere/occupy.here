@@ -16,8 +16,9 @@ if (task == 'preview') then
   forum.preview_post = post
   require "forum/show_topic"
 else
-  if (post.content ~= nil and post.content ~= '') then
-    local f = assert(io.open("data/replies/" .. post.topic .. "/" .. post.timestamp .. ".json", "w"))
+  local filename = "data/replies/" .. post.topic .. "/" .. post.timestamp .. ".json"
+  if file_exists(filename) ~= true and post.content ~= nil and post.content ~= '' then
+    local f = assert(io.open(filename, "w"))
     local json = json.encode(post)
     f:write(json)
     f:close()
