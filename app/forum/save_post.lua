@@ -14,7 +14,8 @@ if task == "preview" or (post.content == '') then
   content_type('text/html')
   end_headers()
   include("html/header.html", {
-    class = 'topic'
+    class = 'topic',
+    username = username_html()
   })
   if task == "preview" then
     post.id = 'preview'

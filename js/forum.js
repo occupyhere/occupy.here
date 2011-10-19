@@ -14,7 +14,7 @@ window.addEvent('domready', function() {
     var input = $$('input[name=author]')[0];
     input.addEvent('blur', function() {
       Cookie.write('author', input.value, {
-        duration: 365
+        duration: 365 * 10
       });
     });
   }

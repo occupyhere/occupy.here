@@ -63,6 +63,17 @@ function select_posts(posts, offset, number, reverse, callback)
   end
 end
 
+function username_html()
+  local author = get_cookie('author', '')
+  if author == '' then
+    return ''
+  else
+    return template('html/username_link.html', {
+      author = author
+    })
+  end
+end
+
 function get_posts(dir)
   -- Grab all the JSON filenames in a given directory
   local posts = {}

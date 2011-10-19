@@ -24,7 +24,9 @@ if tonumber(os.getenv("CONTENT_LENGTH")) ~= nil then
 end
 
 function main()
-  if request.get.x == "post" then
+  if get_cookie('author', '') == '' or request.get.x == "username" then
+    require "forum/username"
+  elseif request.get.x == "post" then
     require "forum/save_post"
   elseif request.get.x == "topic" then
     require "forum/show_topic"
