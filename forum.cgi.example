@@ -7,6 +7,9 @@
 location_name = 'nyc'
 location_latlng = '40.709328,-74.011245'
 
+-- Forum title
+forum_title = 'OFFLINE WIKI'
+
 -- If this CGI file is located in a different directory than the rest of the
 -- forum, use forum_base to guide it back to the forum base directory. For
 -- example if forum.cgi has been moved to /www/cgi-bin and all the other files

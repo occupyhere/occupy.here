@@ -59,6 +59,7 @@ scp and vi.*
 5. Move `forum.cgi` to `/www/cgi-bin`
 6. Modify the configuration settings in `forum.cgi`:
     * Set your location name and coordinates (for future p2p functionality)
+    * Set the `forum_title`
     * Update `forum_base` to `'/www/'`
     * Update `public_root` to `'/'`
 7. Try it out in a browser! (something like `http://192.168.1.1/cgi-bin/forum.cgi`)

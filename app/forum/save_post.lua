@@ -15,6 +15,7 @@ if task == "preview" or (post.content == '') then
   end_headers()
   include("html/header.html", {
     class = 'topic',
+    title = forum.forum_title,
     username = username_html()
   })
   if task == "preview" then
