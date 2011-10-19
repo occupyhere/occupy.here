@@ -52,7 +52,7 @@ scp and vi.*
    your router][flash] with the [OpenWRT system image][squashfs]
 2. Download and scp the [LuaFileSystem package][lfsipk] to the router
    (place the file in `/tmp`)
-3. Install the package using: `ipkg install /tmp/luafilesystem_1.5.0-1_brcm-2.4.ipk`
+3. Install the package using: `opkg install /tmp/luafilesystem_1.5.0-1_brcm-2.4.ipk`
 4. Use scp to put all the forum's files in `/www` on the router
 5. Copy `forum.cgi.example` to `forum.cgi` (you can also rename it to plain
    `forum`, since uhttpd doesn't require a special file extension to execute CGIs)
