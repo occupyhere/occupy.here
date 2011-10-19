@@ -5,7 +5,8 @@ content_type('text/html')
 end_headers()
 
 include("html/header.html", {
-  class = 'topic'
+  class = 'topic',
+  username = username_html()
 })
 
 local id = tonumber(forum.request.get.id) or tonumber(forum.request.post.topic)

@@ -4,7 +4,8 @@ content_type('text/html')
 end_headers()
 
 include("html/header.html", {
-  class = 'home'
+  class = 'home',
+  username = username_html()
 })
 
 local offset = tonumber(forum.request.get.offset) or 0

@@ -74,31 +74,35 @@ form {
 
 input, textarea, select {
   display: block;
-  font: 13px DroidSansRegular, helvetica, sans-serif;
 }
 
-form input.text {
-  width: 480px;
-  padding: 7px;
-  border: 1px solid #808080;
-  margin: 3px 0 20px 0;
-}
-
+form input.text,
 form textarea.text {
-  width: 480px;
+  font: 24px/30px DroidSansRegular, helvetica, sans-serif;
+  width: 620px;
   padding: 7px;
   border: 1px solid #808080;
   margin: 3px 0 20px 0;
+}
+
+form .buttons input {
+  font: 16px DroidSansRegular, helvetica, sans-serif;
 }
 
 #page {
-  width: 500px;
+  position: relative;
+  width: 640px;
   padding-bottom: 50px;
 }
 
 article {
   display: block;
   margin: 1.5em 0;
+}
+
+article .content {
+  font-size: 24px;
+  line-height: 30px;
 }
 
 article .meta,
@@ -174,6 +178,12 @@ section {
 
 #first_comment textarea.text {
   margin-bottom: 15px;
+}
+
+#username {
+  position: absolute;
+  right: 0;
+  top: 5px;
 }
 
 @media only screen and (max-device-width: 480px) {
