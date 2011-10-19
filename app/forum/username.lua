@@ -8,6 +8,7 @@ else
   end_headers()
   include("html/header.html", {
     class = 'username',
+    title = forum.forum_title,
     username = username_html()
   })
   include('html/username_form.html', {

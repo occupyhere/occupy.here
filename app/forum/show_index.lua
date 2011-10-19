@@ -5,6 +5,7 @@ end_headers()
 
 include("html/header.html", {
   class = 'home',
+  title = forum.forum_title,
   username = username_html()
 })
 
