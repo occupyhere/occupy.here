@@ -29,6 +29,7 @@ function show_post(filename)
   if string.find(filename, "replies", 0, true) then
     io.write(reply_html(vars))
   else
+    vars.comment_count = get_comment_count(vars.id)
     io.write(topic_html(vars))
   end
 end
@@ -64,14 +65,9 @@ function select_posts(posts, offset, number, reverse, callback)
 end
 
 function username_html()
-  local author = get_cookie('author', '')
-  if author == '' then
-    return ''
-  else
-    return template('html/username_link.html', {
-      author = author
-    })
-  end
+  return template('html/username_link.html', {
+    author = get_cookie('author', 'Anonymous')
+  })
 end
 
 function get_posts(dir)
@@ -88,15 +84,25 @@ function get_posts(dir)
 end
 
 function topic_html(post)
-  post.id_attr = 'post-' .. post.timestamp
+  post.id_attr = 'post-' .. post.id
   post = sanitize_post(post)
   return template("html/post.html", post)
 end
 
 function reply_html(post)
-  post.id_attr = 'reply-' .. post.timestamp
+  post.id_attr = 'reply-' .. post.id
   post = sanitize_post(post)
   return template("html/post.html", post)
+end
+
+function get_comment_count(topic_id)
+  local replies = get_posts("data/replies/" .. topic_id)
+  local num = table.maxn(replies)
+  local s = "s"
+  if (num == 1) then
+    s = ""
+  end
+  return num .. " comment" .. s
 end
 
 function sanitize_post(post)
@@ -105,6 +111,14 @@ function sanitize_post(post)
   post.content = html
   post.author = sanitize(post.author)
   return post
+end
+
+-- Adapted from http://lua-users.org/wiki/SplitJoin
+function split(str, sep)
+  local sep, fields = sep or ":", {}
+  local pattern = string.format("([^%s]+)", sep)
+  str:gsub(pattern, function(c) fields[#fields+1] = c end)
+  return fields
 end
 
 -- From Lua Web Server API (WSAPI)

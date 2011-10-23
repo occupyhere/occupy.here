@@ -10,7 +10,7 @@ include("html/header.html", {
   username = username_html()
 })
 
-local id = tonumber(forum.request.get.id) or tonumber(forum.request.post.topic)
+local id = tonumber(forum.request.get.id) or tonumber(forum.request.post.topic_id)
 local replies = get_posts("data/replies/" .. id)
 local author = sanitize(forum.request.post.author or get_cookie('author', 'Anonymous'))
 
@@ -31,7 +31,7 @@ if table.maxn(replies) > 0 or task == 'preview' then
 end
 
 include("html/reply_form.html", {
-  topic = id,
+  topic_id = id,
   author = author,
   content = sanitize(forum.request.post.content or '')
 })

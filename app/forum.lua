@@ -27,13 +27,13 @@ function main()
   if get_cookie('author', '') == '' or request.get.x == "username" then
     require "forum/username"
   elseif request.get.x == "post" then
-    require "forum/save_post"
+    require "forum/save_topic"
   elseif request.get.x == "topic" then
     require "forum/show_topic"
   elseif request.get.x == "reply" then
     require "forum/save_reply"
-  elseif request.get.x == "comments" then
-    require "forum/comment_count"
+  elseif request.get.x == "sync_data" then
+    require "forum/sync_data"
   else
     require "forum/show_index"
   end
