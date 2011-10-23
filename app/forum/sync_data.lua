@@ -41,7 +41,7 @@ else
       local f = assert(io.open(filename, "r"))
       local topic = f:read("*all")
       f:close()
-      topic_contents = topic_contents .. topic_id .. ':' .. topic .. ","
+      topic_contents = topic_contents .. '"' .. topic_id .. '":' .. topic .. ","
     else
       known_topics = string.gsub(known_topics, topic_id .. ",", "")
     end

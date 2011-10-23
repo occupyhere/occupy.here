@@ -43,6 +43,10 @@ function select_posts(posts, offset, number, reverse, callback)
     table.sort(posts, function(a, b)
       return (b < a)
     end)
+  else
+    table.sort(posts, function(a, b)
+      return (a < b)
+    end)
   end
   
   -- Iterate over each post and grab the ones that fall in the desired range
@@ -111,6 +115,16 @@ function sanitize_post(post)
   post.content = html
   post.author = sanitize(post.author)
   return post
+end
+
+function validate_id(id)
+  if (id == nil) then
+    return nil
+  elseif (id:match('^%d+$') ~= nil and tonumber(id) > 1318640000000) then
+    return id
+  else
+    return nil
+  end
 end
 
 -- Adapted from http://lua-users.org/wiki/SplitJoin

@@ -1,6 +1,6 @@
 local task = forum.request.post.task
 local post = {
-  id = tonumber(forum.request.post.id) or 0,
+  id = validate_id(forum.request.post.id),
   content = forum.request.post.content or '',
   author = forum.request.post.author or get_cookie('author', 'Anonymous'),
   date = forum.request.post.date or os.date("%a %b %d, %Y"),
