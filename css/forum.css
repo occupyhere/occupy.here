@@ -184,6 +184,15 @@ section {
   position: absolute;
   right: 0;
   top: 5px;
+  color: #808080;
+}
+
+#username a {
+  color: #666;
+}
+
+#username a:hover {
+  color: #bc1d0d;
 }
 
 @media only screen and (max-device-width: 480px) {

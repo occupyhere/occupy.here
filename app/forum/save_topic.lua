@@ -1,7 +1,6 @@
 local task = forum.request.post.task
-local timestamp = tonumber(forum.request.post.timestamp) or 0
 local post = {
-  timestamp = timestamp,
+  id = tonumber(forum.request.post.id) or 0,
   content = forum.request.post.content or '',
   author = forum.request.post.author or get_cookie('author', 'Anonymous'),
   date = forum.request.post.date or os.date("%a %b %d, %Y"),
@@ -25,8 +24,8 @@ if task == "preview" or (post.content == '') then
     io.write(topic_html(post))
     if (forum.request.post.first_comment ~= '') then
       local reply = {
-        topic = 'reply',
-        timestamp = 'preview',
+        id = 'preview',
+        topic_id = 'reply',
         content = forum.request.post.first_comment or '',
         author = forum.request.post.author or get_cookie('author', 'Anonymous'),
         date = os.date("%a %b %d, %Y"),
@@ -43,21 +42,22 @@ if task == "preview" or (post.content == '') then
   })
   include("html/footer.html")
 else
-  local filename = "data/topics/" .. post.timestamp .. ".json"
+  local filename = "data/topics/" .. post.id .. ".json"
   if file_exists(filename) ~= true then
     local f = assert(io.open(filename, "w"))
     f:write(json.encode(post))
     f:close()
-    lfs.mkdir("data/replies/" .. post.timestamp)
+    lfs.mkdir("data/replies/" .. post.id)
     set_cookie('author', post.author)
   end
   
   local first_comment = forum.request.post.first_comment
-  filename = "data/replies/" .. post.timestamp .. "/" .. post.timestamp .. ".json"
+  filename = "data/replies/" .. post.id .. "/" .. post.id .. ".json"
   if file_exists(filename) ~= true and first_comment ~= nil and first_comment ~= "" then
     f = assert(io.open(filename, "w"))
     local reply = {
-      timestamp = post.timestamp,
+      id = post.id,
+      topic_id = post.id,
       content = first_comment,
       author = post.author,
       date = post.date,
