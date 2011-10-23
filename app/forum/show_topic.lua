@@ -10,7 +10,7 @@ include("html/header.html", {
   username = username_html()
 })
 
-local id = tonumber(forum.request.get.id) or tonumber(forum.request.post.topic_id)
+local id = validate_id(forum.request.get.id) or validate_id(forum.request.post.topic_id)
 local replies = get_posts("data/replies/" .. id)
 local author = sanitize(forum.request.post.author or get_cookie('author', 'Anonymous'))
 
