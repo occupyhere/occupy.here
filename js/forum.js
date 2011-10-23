@@ -52,7 +52,7 @@ var LocalData = new Class({
   
   topics: {},
   replies: {},
-  updateFrequency: 0,
+  updateFrequency: 2 * 60 * 1000, // update every two minutes
   
   initialize: function() {
     if (localStorage.topics) {
