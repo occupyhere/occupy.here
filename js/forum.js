@@ -49,6 +49,7 @@ window.addEvent('domready', function() {
     data.check();
   }
   data.setupAuthorFilter();
+  data.setupMentionFilter();
   data.setupLinks();
 });
 
@@ -65,16 +66,28 @@ var LocalData = new Class({
     if (localStorage.replies) {
       this.replies = JSON.decode(localStorage.replies);
     }
-    this.indexReplyCounts();
+    this.indexPosts();
   },
   
-  indexReplyCounts: function() {
+  indexPosts: function() {
+    
+    this.authors = {};
+    var indexAuthor = function(post) {
+      var author = post.author.toLowerCase();
+      if (!this.authors[author]) {
+        this.authors[author] = [];
+      }
+      this.authors[author].push(post);
+    }.bind(this);
+    
     for (var id in this.topics) {
       this.topics[id].reply_count = 0;
+      indexAuthor(this.topics[id]);
     }
     for (var id in this.replies) {
       var topic_id = this.replies[id].topic_id;
       this.topics[topic_id].reply_count++;
+      indexAuthor(this.replies[id]);
     }
   },
   
@@ -134,6 +147,7 @@ var LocalData = new Class({
   },
   
   setupLinks: function() {
+    
     // Author links
     $$('.author').each(function(span) {
       if (!span.hasClass('setup')) {
@@ -142,6 +156,14 @@ var LocalData = new Class({
         span.set('html', '<a href="?x=filter&u=' + encodeURIComponent(author) + '">' + author + '</a>');
       }
     }.bind(this));
+    
+    var authorRegex = new RegExp('@(' + Object.keys(this.authors).join('|') + ')', 'i');
+    $$('.post .content').each(function(content) {
+      var html = content.get('html');
+      html = html.replace(authorRegex, '<a href="?x=filter&u=$1" class="handle">@$1</a>');
+      content.set('html', html);
+    }.bind(this));
+    
   },
   
   setupPagination: function(num) {
@@ -154,31 +176,48 @@ var LocalData = new Class({
     var authorURL = location.href.match(/x=filter&u=(.+)$/);
     if (authorURL) {
       var author = decodeURIComponent(authorURL[1]);
+      var posts = this.authors[author.toLowerCase()] || [];
+      posts.sort(this.postSort);
+      var title = 'posts by ' + author +
+                  '<a href="?x=filter&m=' + encodeURIComponent(author) + '">@' + author + ' mentions</a>';
+      this.renderPosts(title, posts);
+    }
+  },
+  
+  setupMentionFilter: function() {
+    var mentionURL = location.href.match(/x=filter&m=(.+)$/);
+    if (mentionURL) {
+      var author = decodeURIComponent(mentionURL[1]);
       var posts = [];
+      var regex = new RegExp('@' + author, 'i');
       for (var id in this.topics) {
         var topic = this.topics[id];
-        if (topic.author == author) {
+        if (topic.content.match(regex)) {
           posts.push(topic);
         }
       }
       for (var id in this.replies) {
         var reply = this.replies[id];
-        if (reply.author == author) {
+        if (reply.content.match(regex)) {
           posts.push(reply);
         }
       }
-      posts.sort(function(a, b) {
-        if (a.id > b.id) {
-          return -1;
-        } else if (a.id < b.id) {
-          return 1;
-        } else if (a.topic_id) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-      this.renderPosts('posts by &lsquo;' + author + '&rsquo;', posts);
+      posts.sort(this.postSort);
+      var title = '@' + author + ' mentions' +
+                  '<a href="?x=filter&u=' + encodeURIComponent(author) + '">posts by ' + author + '</a>';
+      this.renderPosts(title, posts);
+    }
+  },
+  
+  postSort: function(a, b) {
+    if (a.id > b.id) {
+      return -1;
+    } else if (a.id < b.id) {
+      return 1;
+    } else if (a.topic_id) {
+      return -1;
+    } else {
+      return 1;
     }
   },
   
