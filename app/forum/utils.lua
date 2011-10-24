@@ -90,6 +90,9 @@ end
 function topic_html(post)
   post.id_attr = 'post-' .. post.id
   post = sanitize_post(post)
+  post.meta = '<span class="comments"> &middot; ' ..
+              '<a href="?x=topic&id=' .. post.id .. '">' ..
+              post.comment_count .. '</a></span>'
   return template("html/post.html", post)
 end
 

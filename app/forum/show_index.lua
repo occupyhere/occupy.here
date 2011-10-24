@@ -1,5 +1,3 @@
-module("forum.index", package.seeall)
-
 content_type('text/html')
 end_headers()
 
