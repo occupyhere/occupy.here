@@ -206,6 +206,36 @@ body.loading #pagination .right {
   display: none;
 }
 
+a.handle {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 2px dotted #999;
+}
+
+a.handle:hover {
+  color: #bc1d0d;
+  border-bottom: 2px solid #bc1d0d;
+}
+
+#filter {
+  margin-bottom: 50px;
+}
+
+#filter a {
+  font-size: 18px;
+  font-family: DroidSansRegular, helvetica, sans-serif;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+#filter a:hover {
+  text-decoration: underline;
+}
+
+body.loading #filter {
+  color: #808080;
+}
+
 @media only screen and (max-device-width: 480px) {
   input.text, textarea.text {
     width: 288px !important;
