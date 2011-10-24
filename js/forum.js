@@ -15,6 +15,8 @@ window.addEvent('domready', function() {
       }
       if ($$('textarea')[0].value == '') {
         new Event(e).stop();
+      } else {
+        localStorage.updated = '';
       }
     });
   }
@@ -46,6 +48,8 @@ window.addEvent('domready', function() {
   if (data.itsPeanutButterJellyTime()) {
     data.check();
   }
+  data.setupAuthorFilter();
+  data.setupLinks();
 });
 
 var LocalData = new Class({
@@ -60,6 +64,17 @@ var LocalData = new Class({
     }
     if (localStorage.replies) {
       this.replies = JSON.decode(localStorage.replies);
+    }
+    this.indexReplyCounts();
+  },
+  
+  indexReplyCounts: function() {
+    for (var id in this.topics) {
+      this.topics[id].reply_count = 0;
+    }
+    for (var id in this.replies) {
+      var topic_id = this.replies[id].topic_id;
+      this.topics[topic_id].reply_count++;
     }
   },
   
@@ -111,14 +126,90 @@ var LocalData = new Class({
       replies.push(this.replies[id]);
     }.bind(this));
     new Request({
-      url: '?x=sync_data',
-      onComplete: function(response) {
-        console.log(response);
-      }
+      url: '?x=sync_data'
     }).post({
       new_topics: JSON.encode(topics),
       new_replies: JSON.encode(replies)
     });
+  },
+  
+  setupLinks: function() {
+    // Author links
+    $$('.author').each(function(span) {
+      if (!span.hasClass('setup')) {
+        span.addClass('setup');
+        var author = span.get('html');
+        span.set('html', '<a href="?x=filter&u=' + encodeURIComponent(author) + '">' + author + '</a>');
+      }
+    }.bind(this));
+  },
+  
+  setupPagination: function(num) {
+    $('pagination').getElement('.from').set('html', '1');
+    $('pagination').getElement('.to').set('html', num);
+    $('pagination').getElement('.total').set('html', num);
+  },
+  
+  setupAuthorFilter: function() {
+    var authorURL = location.href.match(/x=filter&u=(.+)$/);
+    if (authorURL) {
+      var author = decodeURIComponent(authorURL[1]);
+      var posts = [];
+      for (var id in this.topics) {
+        var topic = this.topics[id];
+        if (topic.author == author) {
+          posts.push(topic);
+        }
+      }
+      for (var id in this.replies) {
+        var reply = this.replies[id];
+        if (reply.author == author) {
+          posts.push(reply);
+        }
+      }
+      posts.sort(function(a, b) {
+        if (a.id > b.id) {
+          return -1;
+        } else if (a.id < b.id) {
+          return 1;
+        } else if (a.topic_id) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+      this.renderPosts('posts by &lsquo;' + author + '&rsquo;', posts);
+    }
+  },
+  
+  renderPosts: function(title, posts) {
+    new Request({
+      url: 'html/post.html',
+      onComplete: function(template) {
+        $('filter').set('html', title);
+        var html = '';
+        posts.each(function(post) {
+          if (post.topic_id) {
+            var topic = this.topics[post.topic_id].content;
+            if (topic.length > 50) {
+              topic = topic.substr(0, 50) + '...';
+            }
+            post.meta = ' &middot; reply to <a href="?x=topic&id=' + post.topic_id + '#reply-' + post.id + '">' + topic + '</a>';
+          } else {
+            if (post.reply_count == 1) {
+              post.meta = ' &middot; <a href="?x=topic&id=' + post.id + '">1 comment</a>';
+            } else {
+              post.meta = ' &middot; <a href="?x=topic&id=' + post.id + '">' + post.reply_count + ' comments</a>';
+            }
+          }
+          html += template.substitute(post);
+        }.bind(this));
+        $('posts').set('html', html);
+        this.setupLinks();
+        this.setupPagination(posts.length);
+        $(document.body).removeClass('loading');
+      }.bind(this)
+    }).get();
   }
   
 });

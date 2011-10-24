@@ -120,9 +120,16 @@ article .meta .date-time:hover .time {
 }
 
 article .meta .author,
+article .meta .author a,
 article .meta .date,
 article .meta .time {
   color: #000;
+  text-decoration: none;
+}
+
+article .meta .author a:hover {
+  color: #bc1d0d;
+  text-decoration: underline;
 }
 
 body.topic .meta .comments,
@@ -193,6 +200,10 @@ section {
 
 #username a:hover {
   color: #bc1d0d;
+}
+
+body.loading #pagination .right {
+  display: none;
 }
 
 @media only screen and (max-device-width: 480px) {

@@ -34,6 +34,8 @@ function main()
     require "forum/save_reply"
   elseif request.get.x == "sync_data" then
     require "forum/sync_data"
+  elseif request.get.x == "filter" then
+    require "forum/show_filtered"
   else
     require "forum/show_index"
   end
