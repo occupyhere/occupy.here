@@ -160,7 +160,7 @@ var LocalData = new Class({
     var authorRegex = new RegExp('@(' + Object.keys(this.authors).join('|') + ')', 'i');
     $$('.post .content').each(function(content) {
       var html = content.get('html');
-      html = html.replace(authorRegex, '<a href="?x=filter&u=$1" class="handle">@$1</a>');
+      html = html.replace(authorRegex, '<a href="?x=filter&m=$1" class="handle">@$1</a>');
       content.set('html', html);
     }.bind(this));
     
