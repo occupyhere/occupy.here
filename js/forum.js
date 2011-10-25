@@ -222,8 +222,9 @@ var LocalData = new Class({
   },
   
   renderPosts: function(title, posts) {
+    var root = $('page').get('data-public-root');
     new Request({
-      url: 'html/post.html',
+      url: root + 'html/post.html',
       onComplete: function(template) {
         $('filter').set('html', title);
         var html = '';
