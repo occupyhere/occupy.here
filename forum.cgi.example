@@ -3,12 +3,15 @@
 ----------------------------
 -- Begin of configuration --
 
--- For future use (p2p forum!)
+-- Forum title
+forum_title = 'OCCUPY.GLOBAL'
+
+-- Forum description
+forum_description = 'This site is hosted on local hardware. Only those physically in range of the wifi router can access local services. Local data is synced with other instances of the forum around the world.'
+
+-- Peer-to-peer location info
 location_name = 'nyc'
 location_latlng = '40.709328,-74.011245'
-
--- Forum title
-forum_title = 'OFFLINE WIKI'
 
 -- If this CGI file is located in a different directory than the rest of the
 -- forum, use forum_base to guide it back to the forum base directory. For
