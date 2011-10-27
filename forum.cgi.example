@@ -7,7 +7,7 @@
 forum_title = 'OCCUPY.GLOBAL'
 
 -- Forum description
-forum_description = 'This site is hosted on local hardware. Only those physically in range of the wifi router can access local services. Local data is synced with other instances of the forum around the world.'
+forum_description = 'Welcome to occupy.global, a federated peer-to-peer discussion board for the OWS movement. What is happening and what comes next?'
 
 -- Peer-to-peer location info
 location_name = 'nyc'

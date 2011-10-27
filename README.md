@@ -1,23 +1,28 @@
-# OPENWRT FORUM
+# OCCUPY.GLOBAL
 
-A tiny, self-contained communication tool that doesn't require any internets
+A federated peer-to-peer discussion board for the OWS movement
 
 ## Purpose
 
-This was originally created to support the [Occupy Wall Street][ows] protest
-in New York City. The motivation behind ows.offline is that the web offers a
-fantastic array of communication tools, but often the conversation suffers from
-certain trade-offs as the number of participants rises. Proximity could be a
-useful filter for those with the greatest need for better communication tools.
-The forum is an attempt to complement the existing deliberative process of the
-NYC General Assembly and offer its constituents a text-based forum to hash out
-their ideas with greater subtlety.
+This is a project to support the [Occupy Wall Street][ows] protest in New York
+City, as well as other occupations beyond Zuccotti Park. The project was
+formerly called ows.offline, referring to the fact that it's meant to be run on
+locally-hosted hardware instead of a remote server.
+
+The web offers a fantastic array of communication tools, but often the quality
+of conversation suffers as the number of participants increases. Proximity
+could be a useful filter for those with the greatest need for better
+communication tools.
+
+The forum is an attempt to complement the existing deliberative General Assembly
+process, offering its constituents an easy text-based forum that doesn't require
+consistent internet access.
 
 ## How to install
 
 This forum software was designed for the [Linksys WRT54GL][wrt54g] router
-running [OpenWRT][owrt] Linux and [uhttpd]. But I've also successfully run it
-on Mac OS X and Debian/Ubuntu with [thttpd].
+running [OpenWRT][owrt] Linux and [uhttpd]. It has also been tested on Mac OS X
+and Debian/Ubuntu with [thttpd].
 
 ## Installing dependencies on Debian/Ubuntu
 
@@ -29,37 +34,34 @@ on Mac OS X and Debian/Ubuntu with [thttpd].
 
 1. Install dependencies: [Lua][lua] + [LuaFileSystem][lfs]
 2. Unpack the zip file in a public web folder
-3. Copy `forum.cgi.example` to `forum.cgi` (or plain `forum`, if your webserver
-   doen't enforce extensions for CGIs)
-5. Move `forum.cgi` to your webserver's CGI directory (e.g. `/www/cgi-bin`)
-6. Modify the configuration settings in `forum.cgi`:
-    * Set your location name and coordinates (for future p2p functionality)
+3. Copy `forum.cgi.example` to `forum.cgi` and move it to your webserver's CGI
+   directory (e.g. `/www/cgi-bin`)
+4. Modify the configuration settings in `forum.cgi`:
+    * Set your location name and coordinates (for p2p functionality)
     * Point `forum_base` to the forum's directory in the filesystem
     * Point `public_root` to the forum's URL as seen from the "web"
-7. Adjust file permissions if necessary:
+6. Adjust file permissions if necessary:
     * Base and subdirectories accessible (executable) and readable by
       the httpd user
-    * `data` directory writable by the httpd user
+    * `data` directory writable by the httpd user (www-data or www)
     * Some webservers don't like executable static files (css, javascript)
-7. Try it out in a browser by calling the CGI script!
+7. Try it out in a browser by loading up the CGI script!
 
 ## Installing on OpenWRT
 
-*These instructions assume that you're experienced with basic Unix tools like ssh,
-scp and vi.*
+*These instructions currently assume that you're experienced with basic Unix
+tools and a sense of adventure. It is possible to brick your router if you're
+not careful with the settings, so please be cautious.*
 
 1. If you're running the default Linksys-provided OS, you'll first need to [flash
    your router][flash] with the [OpenWRT system image][squashfs]
 2. Download and scp the [LuaFileSystem package][lfsipk] to the router
-   (place the file in `/tmp`)
+   (scp the file to `/tmp` on your router)
 3. Install the package using: `opkg install /tmp/luafilesystem_1.5.0-1_brcm-2.4.ipk`
 4. Use scp to put all the forum's files in `/www` on the router
-5. Copy `forum.cgi.example` to `forum.cgi` (you can also rename it to plain
-   `forum`, since uhttpd doesn't require a special file extension to execute CGIs)
-5. Move `forum.cgi` to `/www/cgi-bin`
+5. Copy `forum.cgi.example` to `/www/cgi-bin/forum.cgi`
 6. Modify the configuration settings in `forum.cgi`:
-    * Set your location name and coordinates (for future p2p functionality)
-    * Set the `forum_title`
+    * Set your location name and coordinates
     * Update `forum_base` to `'/www/'`
     * Update `public_root` to `'/'`
 7. Try it out in a browser! (something like `http://192.168.1.1/cgi-bin/forum.cgi`)
@@ -69,11 +71,6 @@ scp and vi.*
 There are a couple things you can do to modify your router to make it to help
 guide users to the right place.
 
-### Change the base redirect
-
-  * Edit `/www/index.html` to redirect to the forum URL (with the wildcard DNS
-    below, you can choose a non-standard URL like `http://ows.offline/cgi-bin/forum.cgi`)
-
 ### Set up a wildcard DNS entry
 
 It's a good idea to resolve all domains to `192.168.1.1`. This will make the router
@@ -81,6 +78,12 @@ behave as a kind of captive portal.
 
   * Edit`/etc/dnsmasq.conf` and add the line `address=/#/192.168.1.1`
   * Restart the DNS daemon with `/etc/init.d/dnsmasq restart`
+
+### Change the base redirect
+
+  * Edit `/www/index.html` to redirect to the forum URL
+  * This URL is ideal for syncing purposes: `http://occupy.global/cgi-bin/forum.cgi`
+
 
 [ows]: http://occupywallst.org/
 [hm]: http://www.thenation.com/blog/163767/we-are-all-human-microphones-now
