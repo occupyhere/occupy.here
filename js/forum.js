@@ -50,6 +50,7 @@ window.addEvent('domready', function() {
   }
   data.setupAuthorFilter();
   data.setupMentionFilter();
+  data.setupLocationFilter();
   data.setupLinks();
 });
 
@@ -72,6 +73,8 @@ var LocalData = new Class({
   indexPosts: function() {
     
     this.authors = {};
+    this.locations = {};
+    
     var indexAuthor = function(post) {
       var author = post.author.toLowerCase();
       if (!this.authors[author]) {
@@ -80,14 +83,24 @@ var LocalData = new Class({
       this.authors[author].push(post);
     }.bind(this);
     
+    var indexLocation = function(post) {
+      var loc = post.location.toLowerCase();
+      if (!this.locations[loc]) {
+        this.locations[loc] = [];
+      }
+      this.locations[loc].push(post);
+    }.bind(this);
+    
     for (var id in this.topics) {
       this.topics[id].reply_count = 0;
       indexAuthor(this.topics[id]);
+      indexLocation(this.topics[id]);
     }
     for (var id in this.replies) {
       var topic_id = this.replies[id].topic_id;
       this.topics[topic_id].reply_count++;
       indexAuthor(this.replies[id]);
+      indexLocation(this.replies[id]);
     }
   },
   
@@ -157,12 +170,30 @@ var LocalData = new Class({
       }
     }.bind(this));
     
+    // Location links
+    $$('.location').each(function(span) {
+      if (!span.hasClass('setup')) {
+        span.addClass('setup');
+        var loc = span.get('html');
+        span.set('html', '<a href="?x=filter&l=' + encodeURIComponent(loc) + '">' + loc + '</a>');
+      }
+    }.bind(this));
+    
     var authorRegex = new RegExp('@(' + Object.keys(this.authors).join('|') + ')', 'i');
+    var urlRegex = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?)/gi;
     $$('.post .content').each(function(content) {
       var html = content.get('html');
       html = html.replace(authorRegex, '<a href="?x=filter&u=$1" class="handle">@$1</a>');
+      html = html.replace(urlRegex, '<a href="$1" class="off-site">$1</a>');
       content.set('html', html);
     }.bind(this));
+    
+    // Fix URLs
+    $$('a.off-site').each(function(link) {
+      if (link.get('html').indexOf('http') != 0) {
+        link.set('href', 'http://' + link.get('href'));
+      }
+    });
     
   },
   
@@ -180,6 +211,17 @@ var LocalData = new Class({
       posts.sort(this.postSort);
       var title = 'posts by ' + author +
                   '<a href="?x=filter&m=' + encodeURIComponent(author) + '">@' + author + ' mentions</a>';
+      this.renderPosts(title, posts);
+    }
+  },
+  
+  setupLocationFilter: function() {
+    var locationURL = location.href.match(/x=filter&l=(.+)$/);
+    if (locationURL) {
+      var loc = decodeURIComponent(locationURL[1]);
+      var posts = this.locations[loc] || [];
+      posts.sort(this.postSort);
+      var title = 'posts in ' + loc;
       this.renderPosts(title, posts);
     }
   },

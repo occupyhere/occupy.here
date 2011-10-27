@@ -121,13 +121,16 @@ article .meta .date-time:hover .time {
 
 article .meta .author,
 article .meta .author a,
+article .meta .location,
+article .meta .location a,
 article .meta .date,
 article .meta .time {
   color: #000;
   text-decoration: none;
 }
 
-article .meta .author a:hover {
+article .meta .author a:hover,
+article .meta .location a:hover {
   color: #bc1d0d;
   text-decoration: underline;
 }
@@ -233,7 +236,7 @@ a.handle:hover {
 }
 
 body.loading #filter {
-  color: #808080;
+  color: #999;
 }
 
 @media only screen and (max-device-width: 480px) {

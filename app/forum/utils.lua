@@ -90,6 +90,9 @@ end
 function topic_html(post)
   post.id_attr = 'post-' .. post.id
   post = sanitize_post(post)
+  if post.comment_count == nil then
+    post.comment_count = 0
+  end
   post.meta = '<span class="comments"> &middot; ' ..
               '<a href="?x=topic&id=' .. post.id .. '">' ..
               post.comment_count .. '</a></span>'
