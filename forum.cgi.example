@@ -7,7 +7,7 @@
 forum_title = 'OCCUPY.GLOBAL'
 
 -- Forum description
-forum_description = 'Welcome to occupy.global, a federated peer-to-peer discussion board for the OWS movement. What is happening and what comes next?'
+forum_description = 'Welcome to occupy.global, a federated peer-to-peer discussion board for the OWS movement. What is happening? And what comes next?'
 
 -- Peer-to-peer location info
 location_name = 'nyc'
