@@ -183,7 +183,7 @@ var LocalData = new Class({
     var urlRegex = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?)/gi;
     $$('.post .content').each(function(content) {
       var html = content.get('html');
-      html = html.replace(authorRegex, '<a href="?x=filter&u=$1" class="handle">@$1</a>');
+      html = html.replace(authorRegex, '<a href="?x=filter&m=$1" class="handle">@$1</a>');
       html = html.replace(urlRegex, '<a href="$1" class="off-site">$1</a>');
       content.set('html', html);
     }.bind(this));
@@ -264,8 +264,9 @@ var LocalData = new Class({
   },
   
   renderPosts: function(title, posts) {
+    var root = $('page').get('data-public-root');
     new Request({
-      url: 'html/post.html',
+      url: root + 'html/post.html',
       onComplete: function(template) {
         $('filter').set('html', title);
         var html = '';
