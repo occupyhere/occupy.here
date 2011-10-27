@@ -192,7 +192,7 @@ var LocalData = new Class({
     $$('a.off-site').each(function(link) {
       if (link.get('html').indexOf('@') != -1) {
         link.set('href', 'mailto:' + link.get('href'));
-      else if (link.get('html').indexOf('http') != 0) {
+      } else if (link.get('html').indexOf('http') != 0) {
         link.set('href', 'http://' + link.get('href'));
       }
     });
