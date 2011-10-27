@@ -24,7 +24,7 @@ forum_base = './'
 -- Set public_root to the path where the forum appears publicly, including a
 -- trailing slash. If you're serving all your files right off the server root
 -- you'll want to use '/'.
-public_root = '/openwrt-forum/'
+public_root = '/occupy.global/'
 
 -- End of configuration --
 --------------------------
