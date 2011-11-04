@@ -7,6 +7,11 @@ end
 function template(filename, vars)
   vars = vars or {}
   vars.public_root = forum.public_root
+  if vars.class == nil then
+    vars.class = forum.offline_class
+  else
+    vars.class = vars.class .. ' ' .. forum.offline_class
+  end
   local f = assert(io.open(filename, "r"))
   local t = f:read("*all")
   f:close()

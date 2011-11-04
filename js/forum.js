@@ -195,6 +195,13 @@ var LocalData = new Class({
       } else if (link.get('html').indexOf('http') != 0) {
         link.set('href', 'http://' + link.get('href'));
       }
+      if ($(document.body).hasClass('offline')) {
+        link.addEvent('click', function(e) {
+            if (!confirm('This wifi router is not connected to the Internet. Would you like to continue anyway?')) {
+              new Event(e).stop();
+            }
+        });
+      }
     });
     
   },

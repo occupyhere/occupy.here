@@ -9,6 +9,11 @@ if forum_base ~= nil then
 end
 
 public_root = public_root or "/"
+if forum_offline then
+  offline_class = 'offline'
+else
+  offline_class = ''
+end
 cgi = os.getenv("SCRIPT_NAME")
 
 request = {
