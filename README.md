@@ -1,28 +1,12 @@
-# OCCUPY.GLOBAL
+# OCCUPY.HERE
 
-A federated peer-to-peer discussion board for the OWS movement
+## Peer-to-peer forum software for the Occupy movement
 
-## Purpose
-
-This is a project to support the [Occupy Wall Street][ows] protest in New York
-City, as well as other occupations beyond Zuccotti Park. The project was
-formerly called ows.offline, referring to the fact that it's meant to be run on
-locally-hosted hardware instead of a remote server.
-
-The web offers a fantastic array of communication tools, but often the quality
-of conversation suffers as the number of participants increases. Proximity
-could be a useful filter for those with the greatest need for better
-communication tools.
-
-The forum is an attempt to complement the existing deliberative General Assembly
-process, offering its constituents an easy text-based forum that doesn't require
-consistent internet access.
+Occupy.here is a project to support the [Occupy Wall Street][ows] protest in New York City, as well as other occupations beyond Zuccotti Park. The project was formerly called ows.offline, referring to the possibility of running the software on locally-hosted hardware without an upstream Internet connection. The forum is open source software that can be installed on any wifi router capable of running OpenWRT. A simple syncing mechanism allows remote instances of the forum software to share content using a kind of cross-pollination enabled by the movement of their users.
 
 ## How to install
 
-This forum software was designed for the [Linksys WRT54GL][wrt54g] router
-running [OpenWRT][owrt] Linux and [uhttpd]. It has also been tested on Mac OS X
-and Debian/Ubuntu with [thttpd].
+This forum software was originally designed for the [Linksys WRT54GL][wrt54g] router running [OpenWRT][owrt] Linux and [uhttpd]. It has also been tested on Mac OS X (with Apache), Debian/Ubuntu (with [thttpd]).
 
 ## Installing dependencies on Debian/Ubuntu
 
@@ -82,7 +66,7 @@ behave as a kind of captive portal.
 ### Change the base redirect
 
   * Edit `/www/index.html` to redirect to the forum URL
-  * This URL is ideal for syncing purposes: `http://occupy.global/cgi-bin/forum.cgi`
+  * This URL is ideal for syncing purposes: `http://occupy.here/cgi-bin/forum.cgi`
 
 
 [ows]: http://occupywallst.org/
