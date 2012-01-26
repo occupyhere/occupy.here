@@ -2,22 +2,33 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{title}</title>
+    <title>{title} | {description}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" href="{public_root}css/droid-sans/stylesheet.css" />
-    <link rel="stylesheet" href="{public_root}css/forum.css" />
-    <meta name="viewport" content="width=680" />
+    <link rel="stylesheet" href="{public_root}css/reset.css" />
+    <link rel="stylesheet" href="{public_root}css/occupyhere.css" />
+    <link rel="shortcut icon" href="{public_root}favicon.ico" />
     <!--[if lt IE 9]>
     <script src="{public_root}js/html5shiv.js"></script>
     <![endif]-->
   </head>
   <body class="{class}">
+    <header>
+      <div class="holder">
+        <h1><a href="./" class="demo">occupy.here</a> <span>distributed wifi occupation</span></h1>
+        <nav>
+          <a href="?x=about">About</a>
+          <a href="?x=archive">Media Archive</a>
+          <a href="?x=forum" class="selected">Forum</a>
+          <br class="clear" />
+        </nav>
+      </div>
+    </header>
     <div id="page" data-public-root="{public_root}">
-      <h1><a href="?x=home">{title}</a></h1>
-      <p>{description}</p>
-      <nav>
-        <a href="?x=home">home</a> &middot;
-        <a href="?x=topic&id=1318648663178">about</a>
-        <a href="?x=post" class="right">post topic</a>
-        <br class="clear" />
-      </nav>
-      {username}
+      <div id="utilities">
+        {username}
+        <a href="?x=post" class="right">Post new topic</a>
+        <div class="clear"></div>
+      </div>
+      <div id="main">
