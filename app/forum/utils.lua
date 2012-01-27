@@ -101,6 +101,9 @@ function get_media(dir, ext)
       table.insert(files, file)
     end
   end
+  table.sort(files, function(a, b)
+    return (a < b)
+  end)
   return files
 end
 

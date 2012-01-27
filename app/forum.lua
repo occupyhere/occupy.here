@@ -45,6 +45,8 @@ function main()
     require "forum/show_archive"
   elseif request.get.x == "video" then
     require "forum/show_video"
+  elseif request.get.x == "stream_video" then
+    require "forum/stream_video"
   elseif request.get.x == "forum" then
     if get_cookie('author', '') == '' then
       require "forum/username"
