@@ -127,8 +127,15 @@ nav a:hover {
   text-decoration: underline;
 }
 
-nav a.selected {
+body.about nav a.about,
+body.archive nav a.archive,
+body.forum nav a.forum {
   background: #fff;
+}
+
+body.about #utilities,
+body.archive #utilities {
+  display: none;
 }
 
 form {
@@ -330,6 +337,22 @@ body.loading #filter {
   padding-top: 0.5em;
 }
 
+body.archive li {
+  list-style: none;
+  margin: 0.5em 0 0.5em 0;
+  padding: 0.5em 0 0.75em 0;
+  border-bottom: 1px solid #dedede;
+}
+
+body.archive li a {
+  font-size: 1.2em;
+}
+
+body.archive li .date {
+  color: #808080;
+  margin-left: 0.5em;
+}
+
 @media screen and (max-width: 1023px) {
   
   header {
@@ -394,12 +417,21 @@ body.loading #filter {
     background-position: 0 -91px;
   }
   
+  #page {
+    padding-bottom: 2.5em;
+  }
+  
   #main {
     width: 100%;
   }
   
   #slides {
     width: 100%;
+  }
+  
+  form input.text,
+  form textarea.text {
+    width: 93%;
   }
   
   header .holder {
@@ -413,6 +445,10 @@ body.loading #filter {
   
   #utilities {
     width: 100%;
+  }
+  
+  article .content {
+    font-size: 1.2em;
   }
   
 }

@@ -92,6 +92,18 @@ function get_posts(dir)
   return posts
 end
 
+function get_media(dir, ext)
+  local files = {}
+  local n = 0
+  local id
+  for file in lfs.dir(dir) do
+    if string.find(file, "." .. ext, 0, true) then
+      table.insert(files, file)
+    end
+  end
+  return files
+end
+
 function topic_html(post)
   post.id_attr = 'post-' .. post.id
   post = sanitize_post(post)
