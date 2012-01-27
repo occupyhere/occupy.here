@@ -2,7 +2,7 @@ content_type('text/html')
 end_headers()
 
 include("html/header.html", {
-  class = 'home',
+  class = 'forum index',
   title = forum.forum_title,
   description = forum.forum_description,
   username = username_html()

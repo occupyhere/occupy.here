@@ -29,7 +29,7 @@ if tonumber(os.getenv("CONTENT_LENGTH")) ~= nil then
 end
 
 function main()
-  if get_cookie('author', '') == '' or request.get.x == "username" then
+  if request.get.x == "username" then
     require "forum/username"
   elseif request.get.x == "post" then
     require "forum/save_topic"
@@ -41,7 +41,17 @@ function main()
     require "forum/sync_data"
   elseif request.get.x == "filter" then
     require "forum/show_filtered"
+  elseif request.get.x == "archive" then
+    require "forum/show_archive"
+  elseif request.get.x == "video" then
+    require "forum/show_video"
+  elseif request.get.x == "forum" then
+    if get_cookie('author', '') == '' then
+      require "forum/username"
+    else
+      require "forum/show_index"
+    end
   else
-    require "forum/show_index"
+    require "forum/show_about"
   end
 end
