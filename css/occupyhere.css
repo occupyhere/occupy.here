@@ -110,14 +110,8 @@ nav {
 nav a {
   float: left;
   margin-right: 0.5em;
-  padding: 0.5em 0.75em 0.33em 0.75em;
+  padding: 0.5em 0.75em;
   text-decoration: none;
-  -webkit-border-top-left-radius: 0.5em;
-  -webkit-border-top-right-radius: 0.5em;
-  -moz-border-radius-topleft: 0.5em;
-  -moz-border-radius-topright: 0.5em;
-  border-top-left-radius: 0.5em;
-  border-top-right-radius: 0.5em;
   border: 2px solid #999;
   border-bottom: 0;
   margin-bottom: -2px;
@@ -489,6 +483,10 @@ body.archive li .date {
   
   #utilities {
     margin-bottom: 1em;
+  }
+  
+  nav {
+    margin-top: 1em;
   }
   
 }

@@ -20,7 +20,7 @@ for i,file in ipairs(files) do
   })
   local date_formatted = os.date('%b %d, %Y', time)
   local file_encoded = url_encode(file)
-  print('<li><a href="archive/videos/' .. file .. '">' .. title .. '</a><span class="date">' .. date_formatted .. "</span></li>")
+  print('<li><a href="http://192.168.1.1:8080/archive/videos/' .. file .. '">' .. title .. '</a><span class="date">' .. date_formatted .. "</span></li>")
 end
 print "</ul>"
 
