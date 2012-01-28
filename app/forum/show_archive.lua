@@ -17,7 +17,7 @@ for i,file in ipairs(files) do
   })
   local date_formatted = os.date('%b %d, %Y', time)
   local file_encoded = url_encode(file)
-  print('<article><a href="' .. forum.archive_root .. 'videos/' .. file .. '"><span class="title">' .. title .. '</span><span class="date">' .. date_formatted .. "</span></a></article>")
+  print('<article><a href="?x=video&file=' .. file .. '"><span class="title">' .. title .. '</span><span class="date">' .. date_formatted .. "</span></a></article>")
 end
 io.write('</div>')
 
