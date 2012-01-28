@@ -52,6 +52,11 @@ window.addEvent('domready', function() {
   data.setupMentionFilter();
   data.setupLocationFilter();
   data.setupLinks();
+  
+  if ($('slides')) {
+    var slides = new Slides($('slides'));
+  }
+  
 });
 
 var LocalData = new Class({
@@ -305,3 +310,90 @@ var LocalData = new Class({
   
 });
 
+var Slides = new Class({
+    
+  initialize: function(el) {
+    this.el = el;
+    this.images = el.getElements('img');
+    this.holder = el.getElement('.holder');
+    this.index = 0;
+    this.holder.setStyle('width', this.images.length * 620);
+    this.holder.set('tween', {
+      duration: 750,
+      transition: Fx.Transitions.Quart.easeOut
+    });
+    
+    this.offset = 0;
+    window.addEvent('resize', this.resize.bind(this));
+    this.resize();
+    
+    this.el.addEvent('mouseenter', function() {
+      this.stopRotation();
+    }.bind(this));
+    this.el.addEvent('mouseleave', function() {
+      this.startRotation();
+    }.bind(this));
+    
+    this.holder.addEvent('mouseenter', function(e) {
+      this.el.getElement('.controls .next').addClass('hover');
+    }.bind(this));
+    this.holder.addEvent('mouseleave', function(e) {
+      this.el.getElement('.controls .next').removeClass('hover');
+    }.bind(this));
+    this.holder.addEvent('click', function(e) {
+      this.next();
+    }.bind(this));
+    this.setupControls();
+    this.select(0);
+    this.startRotation();
+  },
+  
+  setupControls: function() {
+    this.el.getElements('.controls a.page').each(function(link, index) {
+      link.addEvent('click', function(e) {
+        new Event(e).stop();
+        this.select(index);
+      }.bind(this));
+    }.bind(this));
+    this.el.getElement('.controls .next').addEvent('click', function(e) {
+      new Event(e).stop();
+      this.next();
+    }.bind(this));
+  },
+  
+  select: function(index) {
+    this.index = index;
+    this.holder.tween('left', -index * 620 + this.offset);
+    this.el.getElements('.controls .selected').removeClass('selected');
+    this.el.getElements('.controls .page')[index].addClass('selected');
+    this.el.getElement('.caption').set('html', this.images[index].get('alt'));
+    this.startRotation();
+  },
+  
+  next: function() {
+    var next = (this.index == this.images.length - 1) ? 0 : this.index + 1;
+    this.select(next);
+  },
+  
+  startRotation: function() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(this.next.bind(this), 8000);
+  },
+  
+  stopRotation: function() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+  },
+  
+  resize: function() {
+    if (window.getSize().x < 640) {
+      var x = 1 - (window.getSize().x - 277) / (639 - 277);
+      this.offset = -175 * x;
+    }
+  }
+  
+});

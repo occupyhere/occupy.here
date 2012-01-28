@@ -74,9 +74,14 @@ function select_posts(posts, offset, number, reverse, callback)
 end
 
 function username_html()
-  return template('html/username_link.html', {
-    author = get_cookie('author', 'Anonymous')
-  })
+  local cookie_author = get_cookie('author', '')
+  if cookie_author == '' then
+    return ''
+  else
+    return template('html/username_link.html', {
+      author = cookie_author
+    })
+  end
 end
 
 function get_posts(dir)

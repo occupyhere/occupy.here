@@ -4,10 +4,10 @@
 -- Begin of configuration --
 
 -- Forum title
-forum_title = 'OCCUPY.HERE'
+forum_title = 'occupy.here'
 
 -- Forum description
-forum_description = 'A discussion forum for the Occupy movement, hosted on local hardware instead of on the Internet. &ldquo;There is absolutely no inevitability, so long as there is a willingness to contemplate what is happening.&rdquo;'
+forum_description = 'distributed wifi occupation'
 
 -- Peer-to-peer location info
 location_name = 'nyc'
@@ -28,6 +28,10 @@ forum_base = '/www/'
 -- trailing slash. If you're serving all your files right off the server root
 -- you'll want to use '/'.
 public_root = '/'
+
+-- Set archive_root to indicate the base URL of the media archive files. Include
+-- a trailing slash.
+archive_root = 'http://192.168.1.1:8080/archive/'
 
 -- End of configuration --
 --------------------------
