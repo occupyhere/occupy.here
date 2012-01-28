@@ -230,7 +230,7 @@ var LocalData = new Class({
       }
       if ($(document.body).hasClass('offline')) {
         link.addEvent('click', function(e) {
-            if (!confirm('This wifi router is not connected to the Internet. Would you like to continue anyway?')) {
+            if (!confirm('This wifi router is not connected to the Internet. Continue anyway?')) {
               new Event(e).stop();
             }
         });

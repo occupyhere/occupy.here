@@ -569,7 +569,7 @@ body.hide-archive ul.continue li.archive {
     width: 100%;
   }
   
-  article .content {
+  .forum article .content {
     font-size: 1.2em;
   }
   
