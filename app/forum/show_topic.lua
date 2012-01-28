@@ -4,17 +4,15 @@ local task = forum.request.post.task
 content_type('text/html')
 end_headers()
 
-include("html/header.html", {
-  class = 'forum topic',
-  title = forum.forum_title,
-  description = forum.forum_description,
-  username = username_html()
+show_header({
+  class = 'forum topic'
 })
 
 local id = validate_id(forum.request.get.id) or validate_id(forum.request.post.topic_id)
 local replies = get_posts("data/replies/" .. id)
 local author = sanitize(forum.request.post.author or get_cookie('author', 'Anonymous'))
 
+io.write('<div id="articles">')
 show_post("data/topics/" .. id .. ".json")
 
 if table.maxn(replies) > 0 or task == 'preview' then
@@ -30,6 +28,7 @@ if table.maxn(replies) > 0 or task == 'preview' then
   end
   io.write('</section>')
 end
+io.write('</div>')
 
 include("html/reply_form.html", {
   topic_id = id,

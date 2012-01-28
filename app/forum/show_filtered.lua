@@ -1,11 +1,8 @@
 content_type('text/html')
 end_headers()
 
-include("html/header.html", {
-  class = 'forum filtered loading',
-  title = forum.forum_title,
-  description = forum.forum_description,
-  username = username_html()
+show_header({
+  class = 'forum filtered loading'
 })
 
 io.write('<h2 id="filter">loading...</h2>')

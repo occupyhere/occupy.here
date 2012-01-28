@@ -1,11 +1,8 @@
 content_type('text/html')
 end_headers()
 
-include("html/header.html", {
-  class = 'forum index',
-  title = forum.forum_title,
-  description = forum.forum_description,
-  username = username_html()
+show_header({
+  class = 'forum index'
 })
 
 local offset = tonumber(forum.request.get.offset) or 0
@@ -14,10 +11,12 @@ local posts = get_posts("data/topics")
 local total = table.maxn(posts)
 local shown = 0
 
+io.write('<div id="articles">')
 select_posts(posts, offset, count, true, function(file)
   shown = shown + 1
   show_post("data/topics/" .. file)
 end)
+io.write('</div>')
 
 if total > offset + count then
   include("html/pagination.html", {
