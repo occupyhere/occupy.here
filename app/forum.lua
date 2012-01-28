@@ -16,6 +16,12 @@ else
 end
 cgi = os.getenv("SCRIPT_NAME")
 
+if file_exists('archive') then
+  archive_class = 'show-archive'
+else
+  archive_class = 'hide-archive'
+end
+
 request = {
   post = {},
   get = parse_qs(os.getenv("QUERY_STRING"))

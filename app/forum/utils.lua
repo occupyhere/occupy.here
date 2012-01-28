@@ -7,11 +7,6 @@ end
 function template(filename, vars)
   vars = vars or {}
   vars.public_root = forum.public_root
-  if vars.class == nil then
-    vars.class = forum.offline_class
-  else
-    vars.class = vars.class .. ' ' .. forum.offline_class
-  end
   local f = assert(io.open(filename, "r"))
   local t = f:read("*all")
   f:close()
@@ -25,6 +20,19 @@ function template(filename, vars)
     end
   end)
   return t
+end
+
+function show_header(vars)
+  vars = vars or {}
+  if vars.class == nil then
+    vars.class = forum.offline_class .. ' ' .. forum.archive_class
+  else
+    vars.class = vars.class .. ' ' .. forum.offline_class .. ' ' .. forum.archive_class
+  end
+  vars.title = forum.forum_title
+  vars.description = forum.forum_description
+  vars.username = username_html()
+  include("html/header.html", vars)
 end
 
 function show_post(filename)

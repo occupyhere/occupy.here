@@ -154,7 +154,7 @@ form .buttons input {
 }
 
 #page {
-  padding-bottom: 5em;
+  padding-bottom: 3em;
   margin: 1.75em;
 }
 
@@ -177,43 +177,62 @@ form .buttons input {
   border-bottom: 2px dotted #808080;
 }
 
-article {
-  display: block;
-  margin: 1.5em 0;
+#articles {
+  margin-left: -1.75em;
+  margin-right: -1em;
 }
 
-article .content {
+.forum article {
+  display: block;
+  padding: 1.5em 1.75em;
+  border-top: 1px solid #dedede;
+}
+
+article.touched {
+  background: #dedede;
+}
+
+.forum article .content {
   font-size: 1.33em;
 }
 
-article .meta,
-article .meta .date-time {
+.forum article .meta,
+.forum article .meta .date-time {
   color: #808080;
   font-size: 13px;
   text-decoration: none;
 }
 
-article .meta .date-time:hover,
-article .meta .date-time:hover .date,
-article .meta .date-time:hover .time {
+.forum article .meta .date-time:hover,
+.forum article .meta .date-time:hover .date,
+.forum article .meta .date-time:hover .time {
   color: #bc1d0d;
   text-decoration: underline;
 }
 
-article .meta .author,
-article .meta .author a,
-article .meta .location,
-article .meta .location a,
-article .meta .date,
-article .meta .time {
+.forum article .meta .author,
+.forum article .meta .author a,
+.forum article .meta .location,
+.forum article .meta .location a,
+.forum article .meta .date,
+.forum article .meta .time {
   color: #000;
   text-decoration: none;
 }
 
-article .meta .author a:hover,
-article .meta .location a:hover {
+.forum article .meta .author a:hover,
+.forum article .meta .location a:hover {
   color: #bc1d0d;
   text-decoration: underline;
+}
+
+.forum article .meta {
+  margin-top: 5px;
+  line-height: 15px;
+}
+
+.forum article .meta a {
+  white-space: nowrap;
 }
 
 body.topic .meta .comments,
@@ -231,11 +250,7 @@ section {
 }
 
 #replies {
-  margin-left: 20px;
-}
-
-#replies h2 {
-  margin-left: -20px;
+  margin-left: 1.75em;
 }
 
 .button {
@@ -244,28 +259,17 @@ section {
 }
 
 .preview {
-  padding: 0 20px;
   background: #f2f2f2;
   border: 2px dotted #ff8c71;
 }
 
-article {
-  margin: 1em 0;
-  padding: 1em 0 0 0;
-  border-top: 1px solid #dedede;
-}
-
-article .meta {
-  margin-top: 5px;
-  line-height: 15px;
-}
-
-article .meta a {
-  white-space: nowrap;
-}
-
 .buttons {
   margin-top: 15px;
+}
+
+body.username .buttons {
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 #first_comment {
@@ -337,18 +341,46 @@ body.loading #filter {
   padding-top: 0.5em;
 }
 
-body.archive li {
-  list-style: none;
-  margin: 0.5em 0 0.5em 0;
-  padding: 0.5em 0 0.75em 0;
+body.archive article {
   border-bottom: 1px solid #dedede;
+  margin: 0;
+  padding: 0;
 }
 
-body.archive li a {
+body.archive article a {
+  display: block;
+  padding: 1em 1.75em;
+  text-decoration: none;
+  color: #333;
+}
+
+body.archive article .title {
   font-size: 1.2em;
 }
 
-body.archive li .date {
+body.archive article a:hover {
+  background: #dedede;
+}
+
+body.touch-ui article a:hover {
+  background: transparent;
+}
+
+body.archive article a:hover .title {
+  color: #bc1d0d;
+  text-decoration: underline;
+}
+
+body.touch-ui article a:hover .title {
+  color: #333;
+  text-decoration: none;
+}
+
+body.archive article.touched a .title {
+  color: #bc1d0d;
+}
+
+body.archive article .date {
   color: #808080;
   margin-left: 0.5em;
 }
@@ -426,6 +458,20 @@ body.archive li .date {
 }
 
 body.username #utilities {
+  display: none;
+}
+
+body.hide-archive nav a.archive {
+  display: none;
+}
+
+ul.continue {
+  border-top: 2px solid #999;
+  padding-top: 1em;
+  margin-top: 1.5em;
+}
+
+body.hide-archive ul.continue li.archive {
   display: none;
 }
 
@@ -569,6 +615,14 @@ body.username #utilities {
   
   nav {
     margin-top: 1em;
+  }
+  
+  article {
+    padding: 1.25em 0;
+  }
+  
+  #first_comment textarea {
+    height: 5em;
   }
   
 }

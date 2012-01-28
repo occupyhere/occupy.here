@@ -1,14 +1,11 @@
 content_type('text/html')
 end_headers()
 
-include("html/header.html", {
-  class = 'archive',
-  title = forum.forum_title,
-  description = forum.forum_description,
-  username = username_html()
+show_header({
+  class = 'archive'
 })
 
-print "<ul>"
+io.write('<div id="articles">')
 files = get_media("archive/videos", "mp4")
 for i,file in ipairs(files) do
   local title = string.sub(file, 14, -5)
@@ -20,8 +17,8 @@ for i,file in ipairs(files) do
   })
   local date_formatted = os.date('%b %d, %Y', time)
   local file_encoded = url_encode(file)
-  print('<li><a href="' .. forum.archive_root .. 'videos/' .. file .. '" target="_blank">' .. title .. '</a><span class="date">' .. date_formatted .. "</span></li>")
+  print('<article><a href="' .. forum.archive_root .. 'videos/' .. file .. '" target="_blank"><span class="title">' .. title .. '</span><span class="date">' .. date_formatted .. "</span></a></article>")
 end
-print "</ul>"
+io.write('</div>')
 
 include("html/footer.html")

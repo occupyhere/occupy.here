@@ -57,6 +57,34 @@ window.addEvent('domready', function() {
     var slides = new Slides($('slides'));
   }
   
+  if ($(document.body).hasClass('index') ||
+      $(document.body).hasClass('archive')) {
+    $$('article').each(function(article) {
+      article.addEvent('touchstart', function(e) {
+        $(document.body).addClass('touch-ui');
+        article.addClass('touched');
+      });
+      document.addEvent('touchend', function(ev) {
+        var e = new Event(ev);
+        if (e.target.get('href')) {
+          return;
+        }
+        if ($$('article.touched').length > 0) {
+          var touched = $$('article.touched')[0];
+          var link = touched.getElement('.comments a');
+          window.location = link.get('href');
+        }
+      });
+      document.addEvent('touchmove', function() {
+        $$('article.touched').removeClass('touched');
+      });
+    });
+  }
+  
+  if (!window.location.href.contains('#')) {
+    window.scrollTo(0, 1);
+  }
+  
 });
 
 var LocalData = new Class({

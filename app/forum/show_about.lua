@@ -1,11 +1,8 @@
 content_type('text/html')
 end_headers()
 
-include("html/header.html", {
-  class = 'about',
-  title = forum.forum_title,
-  description = forum.forum_description,
-  username = username_html()
+show_header({
+  class = 'about'
 })
 
 include("html/about.html")

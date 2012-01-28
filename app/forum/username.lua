@@ -6,11 +6,8 @@ if task == 'save' then
 else
   content_type('text/html')
   end_headers()
-  include("html/header.html", {
-    class = 'forum username',
-    title = forum.forum_title,
-    description = forum.forum_description,
-    username = username_html()
+  show_header({
+    class = 'forum username'
   })
   include('html/username_form.html', {
     author = get_cookie('author', '')
