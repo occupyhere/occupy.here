@@ -115,7 +115,7 @@ function get_media(dir, ext)
     end
   end
   table.sort(files, function(a, b)
-    return (a < b)
+    return (a > b)
   end)
   return files
 end
