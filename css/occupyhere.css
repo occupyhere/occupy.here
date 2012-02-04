@@ -107,7 +107,7 @@ nav {
   width: 100%;
 }
 
-nav a {
+header nav a {
   float: left;
   margin-right: 0.5em;
   padding: 0.5em 0.75em;
@@ -117,7 +117,7 @@ nav a {
   margin-bottom: -2px;
 }
 
-nav a:hover {
+header nav a:hover {
   text-decoration: underline;
 }
 
@@ -575,6 +575,10 @@ video {
   form input.text,
   form textarea.text {
     width: 93%;
+    font-size: 14px;
+    line-height: 18px;
+    border: 1px solid #808080;
+    padding: 0.5em;
   }
   
   header .holder {
