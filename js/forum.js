@@ -223,9 +223,9 @@ var LocalData = new Class({
     
     // Fix URLs
     $$('a.off-site').each(function(link) {
-      if (link.get('html').indexOf('@') != -1) {
+      if (link.get('href').indexOf('@') != -1) {
         link.set('href', 'mailto:' + link.get('href'));
-      } else if (link.get('html').indexOf('http') != 0) {
+      } else if (link.get('href').indexOf('http') != 0) {
         link.set('href', 'http://' + link.get('href'));
       }
       if ($(document.body).hasClass('offline')) {
