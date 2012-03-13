@@ -16,7 +16,7 @@ else
 end
 cgi = os.getenv("SCRIPT_NAME")
 
-if file_exists('archive') then
+if file_exists(archive_root) then
   archive_class = 'show-archive'
 else
   archive_class = 'hide-archive'

@@ -6,7 +6,7 @@ show_header({
 })
 
 io.write('<div id="articles">')
-files = get_media("archive/videos", "mp4")
+files = get_media(archive_root .. "/videos", "mp4")
 for i,file in ipairs(files) do
   local title = string.sub(file, 14, -5)
   local date = split(string.sub(file, 0, 10), '-')
