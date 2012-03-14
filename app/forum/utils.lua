@@ -42,7 +42,7 @@ function show_post(filename)
   if string.find(filename, "replies", 0, true) then
     io.write(reply_html(vars))
   else
-    vars.comment_count = get_comment_count(vars.id)
+    vars.comment_count = get_comment_count("data/forum/replies/" .. vars.id)
     io.write(topic_html(vars))
   end
 end
@@ -138,8 +138,8 @@ function reply_html(post)
   return template("html/post.html", post)
 end
 
-function get_comment_count(topic_id)
-  local replies = get_posts("data/replies/" .. topic_id)
+function get_comment_count(target)
+  local replies = get_posts(target)
   local num = table.maxn(replies)
   local s = "s"
   if (num == 1) then

@@ -18,7 +18,7 @@ show_post("data/forum/" .. id .. ".json")
 if table.maxn(replies) > 0 or task == 'preview' then
   io.write('<section id="replies">')
   select_posts(replies, 0, 99999, false, function(file)
-    show_post("data/replies/" .. id .. "/" .. file)
+    show_post("data/forum/replies/" .. id .. "/" .. file)
   end)
   if (task == 'preview') then
     io.write('<h2 id="preview">reply preview</h2>')
