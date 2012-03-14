@@ -9,11 +9,11 @@ show_header({
 })
 
 local id = validate_id(forum.request.get.id) or validate_id(forum.request.post.topic_id)
-local replies = get_posts("data/replies/" .. id)
+local replies = get_posts("data/forum/replies/" .. id)
 local author = sanitize(forum.request.post.author or get_cookie('author', 'Anonymous'))
 
 io.write('<div id="articles">')
-show_post("data/topics/" .. id .. ".json")
+show_post("data/forum/" .. id .. ".json")
 
 if table.maxn(replies) > 0 or task == 'preview' then
   io.write('<section id="replies">')
