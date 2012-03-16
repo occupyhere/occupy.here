@@ -4,8 +4,8 @@ require "lfs"
 require "json/json"
 require "forum/utils"
 
-if forum_base ~= nil then
-  lfs.chdir(forum_base)   
+if base_path ~= nil then
+  lfs.chdir(base_path)   
 end
 
 public_root = public_root or "/"
@@ -16,7 +16,7 @@ else
 end
 cgi = os.getenv("SCRIPT_NAME")
 
-if file_exists(archive_root) then
+if file_exists(archive_base) then
   archive_class = 'show-archive'
 else
   archive_class = 'hide-archive'
