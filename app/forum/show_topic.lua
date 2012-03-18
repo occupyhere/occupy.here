@@ -9,16 +9,17 @@ show_header({
 })
 
 local id = validate_id(forum.request.get.id) or validate_id(forum.request.post.topic_id)
-local replies = get_posts("data/forum/replies/" .. id)
+local dir = os.date("%Y-%m-%d", math.floor(id / 1000))  .. "-" .. id
+local thread = get_thread("data/forum/" .. dir)
 local author = sanitize(forum.request.post.author or get_cookie('author', 'Anonymous'))
 
 io.write('<div id="articles">')
-show_post("data/forum/" .. id .. ".json")
+show_post("data/forum/" .. dir .. "/" .. id .. ".json")
 
-if table.maxn(replies) > 0 or task == 'preview' then
+if table.maxn(thread) > 1 or task == 'preview' then
   io.write('<section id="replies">')
-  select_posts(replies, 0, 99999, false, function(file)
-    show_post("data/forum/replies/" .. id .. "/" .. file)
+  select_posts(thread, 1, 99999, false, function(file)
+    show_post(file)
   end)
   if (task == 'preview') then
     io.write('<h2 id="preview">reply preview</h2>')
