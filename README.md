@@ -71,7 +71,7 @@ behave as a kind of captive portal.
 
 ### Change the error page configuration
 
-  * Edit `/etc/config/uhttpd` and add the following configuration:
+  * Edit `/etc/config/uhttpd` and add the following configuration:  
     `option error_page    /`
   * Restart the webserver with `/etc/init.d/uhttpd restart`
 
