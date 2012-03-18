@@ -1,4 +1,4 @@
-# OCCUPY.HERE
+# occupy.here
 
 ## Peer-to-peer forum software for the Occupy movement
 
