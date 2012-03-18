@@ -17,29 +17,36 @@ location_latlng = '40.709328,-74.011245'
 forum_offline = true
 
 -- If this CGI file is located in a different directory than the rest of the
--- forum, use forum_base to guide it back to the forum base directory. For
+-- forum, use base_path to guide it back to the forum base directory. For
 -- example if forum.cgi has been moved to /www/cgi-bin and all the other files
--- are in /www then set forum_base to '/www/'. Relative file system paths are
+-- are in /www then set base_path to '/www/'. Relative file system paths are
 -- okay on some platforms, but OpenWRT expects an absolute path. You must
 -- include a trailing slash.
-forum_base = '/www/'
+base_path = '/www/'
 
 -- Set public_root to the path where the forum appears publicly, including a
 -- trailing slash. If you're serving all your files right off the server root
 -- you'll want to use '/'.
 public_root = '/'
 
+-- Set archive_base to the base directory path where the archive files are
+-- stored on disk. Include a trailing slash.
+archive_base = '/usb/'
+
 -- Set archive_root to indicate the base URL of the media archive files. Include
 -- a trailing slash.
-archive_root = 'http://192.168.1.1:8080/archive/'
+archive_root = 'http://occupy.here:8080/'
+
+-- Set archive_device to allow the router to mount USB stick on demand.
+archive_device = '/dev/sda1'
 
 -- End of configuration --
 --------------------------
 
 -- used for bootstrapping
-package.path = package.path .. ";" .. forum_base .. "app/?.lua"
+package.path = package.path .. ";" .. base_path .. "app/?.lua"
 
--- used after chdir to forum_base
+-- used after chdir to base_path
 package.path = package.path .. ";./app/?.lua"
 
 local forum = require "forum"
