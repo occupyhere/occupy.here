@@ -501,6 +501,10 @@ video {
   background: #000;
 }
 
+p.download {
+  margin-top: 1em;
+}
+
 
 @media screen and (max-width: 1023px) {
   
