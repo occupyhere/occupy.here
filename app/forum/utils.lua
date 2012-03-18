@@ -39,10 +39,11 @@ function show_post(filename)
   local f = assert(io.open(filename, "r"))
   local t = f:read("*all")
   local vars = json.decode(t)
-  if string.find(filename, "replies", 0, true) then
+  vars.date = os.date("%a %b %d, %Y", math.floor(vars.id / 1000))
+  vars.time = os.date("%I:%M %p", math.floor(vars.id / 1000))
+  if vars.topic_id then
     io.write(reply_html(vars))
   else
-    vars.comment_count = get_comment_count("data/forum/replies/" .. vars.id)
     io.write(topic_html(vars))
   end
 end
@@ -79,6 +80,8 @@ function select_posts(posts, offset, number, reverse, callback)
   for i,n in ipairs(filtered) do
     callback(n)
   end
+  
+  
 end
 
 function username_html()
@@ -92,17 +95,37 @@ function username_html()
   end
 end
 
-function get_posts(dir)
+function get_topics(archive)
   -- Grab all the JSON filenames in a given directory
   local posts = {}
   local n = 0
   local id
-  for file in lfs.dir(dir) do
-    if string.find(file, ".json", 0, true) then
-      table.insert(posts, file)
+  for dir in lfs.dir(archive) do
+    if string.find(dir, "%d%d%d%d-%d%d-%d%d-%d+") then
+      id = string.sub(dir, 12)
+      table.insert(posts, archive .. "/" .. dir .. "/" .. id .. ".json")
     end
   end
   return posts
+end
+
+function get_thread(topic)
+  local posts = {}
+  local n = 0
+  local id
+  for file in lfs.dir(topic) do
+    if string.find(file, ".json", 0, true) then
+      table.insert(posts, topic .. "/" .. file)
+    end
+  end
+  return posts
+end
+
+function get_data(filename)
+  local f = assert(io.open(filename, "r"))
+  local t = f:read("*all")
+  local vars = json.decode(t)
+  return vars
 end
 
 function get_media_archive(archive)
@@ -123,22 +146,19 @@ function get_media_archive(archive)
   return files
 end
 
-function get_media_detail(filename)
-  local f = assert(io.open(filename, "r"))
-  local t = f:read("*all")
-  local vars = json.decode(t)
-  return vars
-end
-
 function topic_html(post)
   post.id_attr = 'post-' .. post.id
   post = sanitize_post(post)
   if post.comment_count == nil then
-    post.comment_count = 0
+    post.comments = "0 comments"
+  elseif post.comment_count == 1 then
+    post.comments = post.comment_count .. " comment"
+  else
+    post.comments = post.comment_count .. " comments"
   end
   post.meta = '<span class="comments"> &middot; ' ..
               '<a href="?x=topic&id=' .. post.id .. '">' ..
-              post.comment_count .. '</a></span>'
+              post.comments .. '</a></span>'
   return template("html/post.html", post)
 end
 
@@ -151,16 +171,6 @@ end
 function archive_html(media)
   media.id_attr = 'media-' .. media.id
   return template("html/media.html", media)
-end
-
-function get_comment_count(target)
-  local replies = get_posts(target)
-  local num = table.maxn(replies)
-  local s = "s"
-  if (num == 1) then
-    s = ""
-  end
-  return num .. " comment" .. s
 end
 
 function sanitize_post(post)

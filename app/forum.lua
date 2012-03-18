@@ -58,7 +58,7 @@ function main()
     if get_cookie('author', '') == '' then
       require "forum/username"
     else
-      require "forum/show_index"
+      require "forum/show_forum"
     end
   else
     require "forum/show_about"

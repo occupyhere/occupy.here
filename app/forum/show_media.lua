@@ -4,7 +4,7 @@ end_headers()
 local id = forum.request.get.id
 local date = os.date('%Y-%m-%d', math.floor(id / 1000))
 local file = archive_base .. date .. '-' .. id .. '/' .. id .. '.json'
-local media = get_media_detail(file)
+local media = get_data(file)
 
 show_header({
   class = media.type .. ' archive'

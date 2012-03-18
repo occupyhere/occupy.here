@@ -3,10 +3,9 @@ local post = {
   id = validate_id(forum.request.post.id),
   content = forum.request.post.content or '',
   author = forum.request.post.author or get_cookie('author', 'Anonymous'),
-  date = forum.request.post.date or os.date("%a %b %d, %Y"),
-  time = forum.request.post.time or os.date("%I:%M %p"),
   location = forum.location_name,
-  latlng = forum.location_latlng
+  latlng = forum.location_latlng,
+  comment_count = 0
 }
 
 if task == "preview" or (post.content == '') then
@@ -25,9 +24,7 @@ if task == "preview" or (post.content == '') then
         id = 'preview',
         topic_id = 'reply',
         content = forum.request.post.first_comment or '',
-        author = forum.request.post.author or get_cookie('author', 'Anonymous'),
-        date = os.date("%a %b %d, %Y"),
-        time = os.date("%I:%M %p")
+        author = forum.request.post.author or get_cookie('author', 'Anonymous')
       }
       io.write('<section id="replies">' .. reply_html(reply) .. '</section>')
     end
@@ -40,26 +37,31 @@ if task == "preview" or (post.content == '') then
   })
   include("html/footer.html")
 else
-  local filename = "data/forum/" .. post.id .. ".json"
+  local dir = os.date('%Y-%m-%d', math.floor(post.id / 1000)) .. '-' .. post.id
+  local filename = "data/forum/" .. dir .. "/" .. post.id .. ".json"
+  lfs.mkdir("data/forum/" .. dir)
+  
+  local first_comment = forum.request.post.first_comment
+  if first_comment ~= nil and first_comment ~= "" then
+    post.comment_count = 1
+  end
+  
   if file_exists(filename) ~= true then
     local f = assert(io.open(filename, "w"))
     f:write(json.encode(post))
     f:close()
-    lfs.mkdir("data/forum/replies/" .. post.id)
     set_cookie('author', post.author)
   end
   
-  local first_comment = forum.request.post.first_comment
-  filename = "data/forum/replies/" .. post.id .. "/" .. post.id .. ".json"
+  local reply_id = post.id + 1
+  filename = "data/forum/" .. dir .. "/" .. reply_id .. ".json"
   if file_exists(filename) ~= true and first_comment ~= nil and first_comment ~= "" then
     f = assert(io.open(filename, "w"))
     local reply = {
-      id = post.id,
+      id = reply_id,
       topic_id = post.id,
       content = first_comment,
       author = post.author,
-      date = post.date,
-      time = post.time,
       location = forum.location_name,
       latlng = forum.location_latlng
     }

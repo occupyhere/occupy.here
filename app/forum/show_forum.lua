@@ -7,14 +7,14 @@ show_header({
 
 local offset = tonumber(forum.request.get.offset) or 0
 local count = 10
-local posts = get_posts("data/forum")
+local posts = get_topics("data/forum")
 local total = table.maxn(posts)
 local shown = 0
 
 io.write('<div id="articles">')
 select_posts(posts, offset, count, true, function(file)
   shown = shown + 1
-  show_post("data/forum/" .. file)
+  show_post(file)
 end)
 io.write('</div>')
 
