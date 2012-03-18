@@ -105,12 +105,15 @@ function get_posts(dir)
   return posts
 end
 
-function get_media(dir, ext)
+function get_media_archive(archive)
   local files = {}
   local n = 0
   local id
-  for file in lfs.dir(dir) do
-    if string.find(file, "." .. ext, 0, true) then
+  local file
+  for dir in lfs.dir(archive) do
+    id = string.sub(dir, 12)
+    file = archive .. dir .. "/" .. id .. ".json"
+    if file_exists(file) then
       table.insert(files, file)
     end
   end
@@ -118,6 +121,13 @@ function get_media(dir, ext)
     return (a > b)
   end)
   return files
+end
+
+function get_media_detail(filename)
+  local f = assert(io.open(filename, "r"))
+  local t = f:read("*all")
+  local vars = json.decode(t)
+  return vars
 end
 
 function topic_html(post)
@@ -136,6 +146,11 @@ function reply_html(post)
   post.id_attr = 'reply-' .. post.id
   post = sanitize_post(post)
   return template("html/post.html", post)
+end
+
+function archive_html(media)
+  media.id_attr = 'media-' .. media.id
+  return template("html/media.html", media)
 end
 
 function get_comment_count(target)

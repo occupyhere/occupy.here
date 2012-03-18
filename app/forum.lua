@@ -18,9 +18,9 @@ cgi = os.getenv("SCRIPT_NAME")
 
 if file_exists(archive_base) then
   archive_class = 'show-archive'
-  if not file_exists(archive_base .. "/videos") then
-    os.execute("mount " .. archive_device .. " " .. archive_base)
-  end
+  --if not file_exists(archive_base .. "/videos") then
+    --os.execute("mount " .. archive_device .. " " .. archive_base)
+  --end
 else
   archive_class = 'hide-archive'
 end
@@ -53,7 +53,7 @@ function main()
   elseif request.get.x == "archive" then
     require "forum/show_archive"
   elseif request.get.x == "video" then
-    require "forum/show_video"
+    require "forum/show_media"
   elseif request.get.x == "forum" then
     if get_cookie('author', '') == '' then
       require "forum/username"
