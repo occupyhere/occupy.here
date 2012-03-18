@@ -29,12 +29,14 @@ base_path = '/www/'
 -- you'll want to use '/'.
 public_root = '/'
 
--- Set archive_base to the base directory path where the archive files are
+-- Set archive_base to the directory path where the media archive files are
 -- stored on disk. Include a trailing slash.
-archive_base = '/usb/'
+archive_base = '/www/data/media/'
 
--- Set archive_root to indicate the base URL of the media archive files. Include
--- a trailing slash.
+-- Set archive_root to indicate the base URL of the media archive files.
+-- On OpenWRT, you will  need to set this to a lighttpd public root since
+-- uhttpd does not support HTTP Content-Range headers needed by the
+-- Mobile Safari browser. Include a trailing slash.
 archive_root = 'http://occupy.here:8080/'
 
 -- Set archive_device to allow the router to mount USB stick on demand.
