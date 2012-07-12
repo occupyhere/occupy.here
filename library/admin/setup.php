@@ -1,0 +1,5 @@
+<?php
+
+$admin = new Admin();
+
+?>
