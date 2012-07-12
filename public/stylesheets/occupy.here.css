@@ -1,0 +1,311 @@
+body {
+  font: 14px/22px verdana, sans-serif;
+  color: #fff;
+  background: #222;
+  margin: 0;
+}
+
+a {
+  color: #fff;
+}
+
+em {
+  font-style: italic;
+}
+
+h2, strong {
+  font-weight: bold;
+  color: #FDDD00;
+}
+
+h2 {
+  margin: 1.5em 0 1em 0;
+}
+
+h2.top {
+  margin-top: 0;
+}
+
+h1 {
+  width: 180px;
+  height: 27px;
+  text-indent: -1000000px;
+  overflow: hidden;
+  background: transparent url(../images/headings.gif) 0 0;
+  margin: 5px 0;
+}
+
+header {
+  font-weight: bold;
+  position: relative;
+  padding: 2em 1em 1em 1em;
+  background: #333 url(../images/stripes.png);
+}
+
+header a {
+  color: #FDDD00;
+  display: block;
+  /*padding-left: 37px;*/
+  text-decoration: none;
+  /*background: transparent url(../images/victory.gif) no-repeat;*/
+}
+
+#page {
+  width: 100%;
+  max-width: 500px;
+}
+
+.post, nav {
+  padding: 1em;
+  border-top: 2px dotted #444;
+}
+
+body.loading .slide {
+  visibility: hidden;
+}
+
+textarea {
+  font: 14px/22px verdana, sans-serif;
+  color: #fff;
+  background: #333;
+  width: 100%;
+  height: 110px;
+  border: 0;
+  border-radius: 0;
+  margin: 1em 0 0.5em 0;
+  padding: 4px 5px;
+  -webkit-appearance: none;
+}
+
+input[type=text] {
+  font: 14px verdana, sans-serif;
+  color: #fff;
+  background: #333;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 4px 5px;
+  -webkit-appearance: none;
+}
+
+input[type=submit] {
+  float: left;
+  font: bold 14px verdana, sans-serif;
+  color: #fff;
+  background: #666;
+  padding: 0 0.5em 0.25em 0.5em;
+  border: 2px outset #808080;
+  text-shadow: 1px 1px #333;
+  -webkit-appearance: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+input[type=submit]:active {
+  border: 2px inset #808080;
+}
+
+header .icon {
+  position: absolute;
+  left: 0;
+  font: 60px/40px menlo, monospace;
+}
+
+.hidden {
+  display: none;
+}
+
+#introduction.hidden {
+  display: block;
+}
+
+#introduction.hidden .details {
+  display: none;
+}
+
+#introduction .close {
+  float: right;
+}
+
+#introduction.hidden .close {
+  display: none;
+}
+
+#introduction .more {
+  display: none;
+}
+
+#introduction.hidden .more {
+  display: inline;
+}
+
+#introduction p {
+  margin: 0.5em 0;
+}
+
+#new_message_form {
+  position: relative;
+  width: 100%;
+}
+
+#new_message_form .cancel {
+  float: right;
+  line-height: 28px;
+}
+
+form .username {
+  padding-top: 1em;
+}
+
+form .username p {
+  font-size: 12px;
+  line-height: 18px;
+  color: #999;
+  margin-top: 0.5em;
+}
+
+nav {
+  position: relative;
+  margin: 2em 0 0 0;
+  background: #111;
+  padding-bottom: 2em;
+}
+
+nav ul li {
+  letter-spacing: 0.15em;
+  margin-bottom: 0.25em;
+}
+
+nav ul a {
+  color: #FDDD00;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+#user {
+  color: #999;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+.post h3 {
+  font-size: 12px;
+  color: #FDDD00;
+}
+
+.post h3 .when {
+  color: #999;
+  margin-left: 5px;
+}
+
+.post .reply {
+  margin-top: 5px;
+}
+
+.post .reply a {
+  color: #FDDD00;
+}
+
+#reply h2 {
+  margin: 0;
+}
+
+#replies .post {
+  padding-left: 2em;
+}
+
+#account h2 {
+  margin-bottom: 0;
+}
+
+#account .username {
+  margin-bottom: 1em;
+}
+
+#account .username input {
+  margin: 0.25em 0;
+}
+
+.new_message {
+  display: block;
+  padding-left: 25px;
+  background: transparent url(../images/icons/message.gif) no-repeat 0 3px;
+}
+
+.go {
+  display: inline-block;
+  padding-right: 25px;
+  background: transparent url(../images/icons/go.gif) no-repeat right 4px;
+}
+
+h2.heading {
+  width: 100%;
+  height: 27px;
+  text-indent: -1000000px;
+  overflow: hidden;
+  background: transparent url(../images/headings.gif) no-repeat;
+  margin: 0.5em 0;
+}
+
+h2.forum {
+  background-position: 0 -36px;
+}
+
+h2.about {
+  background-position: 0 -108px;
+}
+
+#announcements .post {
+  background: #000;
+}
+
+.alert {
+  display: block;
+  padding-left: 25px;
+  background: transparent url(../images/icons/alert.gif) no-repeat 0 2px;
+}
+
+body.wispr_intro nav {
+  display: none;
+}
+
+body.wispr_intro input {
+  margin-top: 1em;
+}
+
+body.wispr_intro #announcements {
+  display: none;
+}
+
+.posting_as {
+  float: left;
+  color: #999;
+  line-height: 28px;
+  margin-left: 10px;
+}
+
+.posting_as a {
+  color: #fff;
+}
+
+.prev {
+  float: right;
+}
+
+a.logout {
+  margin-left: 5px;
+  color: #FDDD00;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+a.logout:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.preview {
+  margin-left: 7px;
+}
