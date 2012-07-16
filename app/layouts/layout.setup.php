@@ -4,7 +4,7 @@
 $page_title = 'occupy.here - distributed wifi occupation';
 $body_class = '';
 $username = get_username($grid->user);
-$messages_per_page = 10;
+$items_per_page = 10;
 
 //$this->stylesheet('nokia/stylesheet.css');
 $this->javascript('mootools-core-1.4.5-full-compat-yc.js', 'header');
