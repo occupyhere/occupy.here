@@ -27,6 +27,9 @@ $(window).addEvent('domready', function() {
   $$('.message_form').each(function(el) {
     new MessageForm(el);
   });
+  if ($('upload_file')) {
+    new UploadForm($('upload_file'));
+  }
   $$('textarea, input[type=text]').each(function(el) {
     var w = el.getParent().getStyle('width').toInt();
     var pl = el.getStyle('padding-left').toInt();
@@ -59,15 +62,91 @@ var MessageForm = new Class({
   },
   
   setup: function() {
-    if ($('user').get('data-username') == '') {
-      $('new_message_form').getElement('.username').removeClass('hidden');
-    }
     this.el.addEvent('submit', function(e) {
       if (this.el.getElement('.content').value == '') {
         new Event(e).stop();
         alert('Your message is empty!');
       }
     }.bind(this));
+    this.el.getElement('input.preview').addEvent('click', this.preview.bind(this));
+  },
+  
+  preview: function() {
+    if (this.el.getElement('.content').value == '') {
+      alert('Your message is empty!');
+      return;
+    }
+    var message = {
+      content: this.el.getElement('textarea[name=content]').value
+    };
+    if (this.el.getElement('.username')) {
+      message.username = this.el.getElement('.username input').value;
+    }
+    new Request({
+      url: '/api/preview',
+      onComplete: function(response) {
+        var preview = this.el.getElement('.post.preview');
+        if (!preview) {
+          preview = new Element('div', {
+            'class': 'post preview'
+          });
+          preview.inject(this.el);
+        }
+        preview.set('html', response);
+        var parent = this.el.getParent();
+        parent.setStyle('height', 'auto');
+        parent.setStyle('height', parent.getSize().y);
+      }.bind(this)
+    }).post(message);
+  }
+  
+});
+
+var UploadForm = new Class({
+  
+  initialize: function(el) {
+    this.el = el;
+    el.store('object', this);
+    this.setup();
+  },
+  
+  setup: function() {
+    var trigger = $('upload_file').getElement('a.upload_file');
+    this.position = $('upload_file').getPosition();
+    this.size = trigger.getSize();
+    window.addEvent('mousemove', this.mouseMove.bind(this));
+    var fileInput = this.el.getElement('input[type=file]');
+    fileInput.setStyle('opacity', 0);
+    fileInput.addEvent('change', function() {
+      fileInput.getParent('form').submit();
+    });
+  },
+  
+  mouseMove: function(e) {
+    var fileInput = this.el.getElement('input[type=file]');
+    if (e.page.x > this.position.x &&
+        e.page.x < this.position.x + this.size.x &&
+        e.page.y > this.position.y &&
+        e.page.y < this.position.y + this.size.y) {
+      fileInput.setStyles({
+        left: e.page.x - this.position.x - 180,
+        top: e.page.y - this.position.y - 10
+      });
+    } else {
+      fileInput.setStyles({
+        left: -1000000,
+        top: -1000000
+      });
+    }
+  },
+  
+  showDetails: function(filename, original, type) {
+    this.el.getElement('input[name=filename]').value = filename;
+    this.el.getElement('input[name=original]').value = original;
+    this.el.getElement('input[name=type]').value = type;
+    this.el.getElement('input[name=name]').value = original;
+    var slide = $('upload_details').retrieve('slide');
+    slide.slideIn();
   }
   
 });

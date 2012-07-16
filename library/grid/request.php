@@ -24,11 +24,12 @@ class Grid_Request {
       }
       $path = $route['path'] == '/' ? $route['path'] : substr($route['path'], 1);
       $pattern = str_replace('/', '\/', $path);
+      $pattern = str_replace('.', '\.', $pattern);
       preg_match_all('/\$(\w+)/', $pattern, $matches);
       if (!empty($matches) && !empty($matches[1])) {
         $vars = $matches[1];
       }
-      $pattern = preg_replace('/\$(\w+)/', '([^\/]+)', $pattern);
+      $pattern = preg_replace('/\$(\w+)/', '([^\/]+?)', $pattern);
       $regex = "/^$pattern$/";
       
       if (preg_match($regex, $this->path, $values)) {

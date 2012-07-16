@@ -91,22 +91,24 @@ class Grid_Response {
     $this->include_view($partial, $vars);
   }
   
-  function include_view($file, $vars = null) {
-    if (file_exists($file)) {
+  function include_view($__file, $vars = null) {
+    global $grid;
+    if (file_exists($__file)) {
       $prev_cwd = getcwd();
-      chdir(dirname($file));
+      chdir(dirname($__file));
       extract($this->namespace);
       if (!empty($vars) && is_array($vars)) {
         extract($vars);
       }
-      $setup = preg_replace('/\.php$/', '.setup.php', $file);
+      $setup = preg_replace('/\.php$/', '.setup.php', $__file);
       if (file_exists($setup)) {
         require_once $setup;
       }
-      include "$prev_cwd/$file";
+      include "$prev_cwd/$__file";
       chdir($prev_cwd);
       return true;
     } else {
+      $grid->log("include_view '$__file' not found");
       return false;
     }
   }

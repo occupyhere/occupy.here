@@ -1,7 +1,7 @@
 <?php foreach ($topics as $topic) { ?>
   <div class="post">
     <?php $this->partial('message', array('message' => $topic)); ?>
-    <p class="reply"><a href="forum/<?php echo $topic->id; ?><?php
+    <p class="utilities"><a href="forum/<?php echo $topic->id; ?><?php
       if ($topic->reply_count == 0) {
         echo '#reply">post a reply';
       } else if ($topic->reply_count == 1) {

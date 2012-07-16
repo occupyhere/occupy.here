@@ -1,5 +1,4 @@
-forum.cgi
 data/
-!data/forum/2011-10-14-1318648663178/1318648663178.json
-!data/forum/2011-10-14-1318648663178/1318648663179.json
+config.php
+public/uploads
 .DS_Store

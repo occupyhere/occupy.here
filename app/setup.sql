@@ -21,6 +21,20 @@ CREATE TABLE message (
   updated INT
 );
 
+CREATE TABLE file (
+  id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255),
+  server_id VARCHAR(255),
+  name VARCHAR(255),
+  type VARCHAR(255),
+  path VARCHAR(255),
+  original VARCHAR(255),
+  location VARCHAR(255),
+  latlng VARCHAR(255),
+  created INT,
+  updated INT
+);
+
 CREATE TABLE meta (
   name VARCHAR(255) PRIMARY KEY,
   value TEXT

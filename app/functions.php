@@ -87,7 +87,8 @@ function get_user($target) {
     } else {
       $target = $grid->db->record('user', $target);
       if (!empty($target)) {
-        return $grid->users[$target->id];
+        $grid->users[$target->id] = $target;
+        return $target;
       }
     }
   }
@@ -95,6 +96,10 @@ function get_user($target) {
 }
 
 function get_username($target) {
+  global $grid;
+  if (!empty($grid->request->params['username'])) {
+    return $grid->request->params['username'];
+  }
   $user = get_user($target);
   if (empty($user->name)) {
     return 'Anonymous';
@@ -160,6 +165,18 @@ function wispr_pong() {
     return false;
   } else {
     return $record->status;
+  }
+}
+
+function parse_size($size) {
+  if (preg_match('/(\d+).*K/i', $size, $matches)) {
+    return 1024 * $matches[1];
+  } else if (preg_match('/(\d+).*M/i', $size, $matches)) {
+    return 1024 * 1024 * $matches[1];
+  } else if (preg_match('/(\d+).*G/i', $size, $matches)) {
+    return 1024 * 1024 * 1024 * $matches[1];
+  } else {
+    return $size;
   }
 }
 
