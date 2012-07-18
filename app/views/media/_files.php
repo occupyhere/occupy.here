@@ -1,11 +1,7 @@
 <?php foreach ($files as $file) { ?>
   <div class="post">
     <?php $this->partial('file', array('file' => $file)); ?>
-    <p class="utilities"><?php
-    
-    $this->partial('download_file', array('file' => $file));
-    
-    ?><a href="media/<?php echo $file->id; ?><?php
+    <p class="utilities"><a href="media/<?php echo $file->id; ?><?php
       if ($file->reply_count == 0) {
         echo '#reply">post a reply';
       } else if ($file->reply_count == 1) {

@@ -107,30 +107,62 @@ var UploadForm = new Class({
   initialize: function(el) {
     this.el = el;
     el.store('object', this);
+    this.disable();
     this.setup();
   },
   
   setup: function() {
-    var trigger = $('upload_file').getElement('a.upload_file');
-    this.position = $('upload_file').getPosition();
-    this.size = trigger.getSize();
-    window.addEvent('mousemove', this.mouseMove.bind(this));
     var fileInput = this.el.getElement('input[type=file]');
-    fileInput.setStyle('opacity', 0);
-    fileInput.addEvent('change', function() {
-      fileInput.getParent('form').submit();
-    });
+    if (fileInput.disabled) {
+      $('upload_file').destroy();
+    } else {
+      fileInput.addEvent('change', function() {
+        if (fileInput.files && fileInput.files[0].size &&
+            fileInput.files[0].size > this.el.getElement('input[name=max_file_size]').value.toInt()) {
+          alert('Sorry, that file is too big to upload.');
+          return;
+        }
+        fileInput.getParent('form').submit();
+        this.el.getElement('.file_label').set('html', 'Uploading...');
+      }.bind(this));
+      this.setupTouchControls();
+      window.addEvent('mousemove', this.mouseMove.bind(this));
+    }
+  },
+  
+  setupTouchControls: function() {
+    var trigger = $('upload_file').getElement('a.upload_file');
+    this.toggleHandler = function(e) {
+      new Event(e).stop();
+      var slide = $('upload_details').retrieve('slide');
+      slide.toggle();
+    }.bind(this);
+    trigger.addEvent('click', this.toggleHandler);
   },
   
   mouseMove: function(e) {
+    var trigger = $('upload_file').getElement('a.upload_file');
     var fileInput = this.el.getElement('input[type=file]');
-    if (e.page.x > this.position.x &&
-        e.page.x < this.position.x + this.size.x &&
-        e.page.y > this.position.y &&
-        e.page.y < this.position.y + this.size.y) {
+    if (!this.mouseMoveSetup) {
+      this.mouseMoveSetup = true;
       fileInput.setStyles({
-        left: e.page.x - this.position.x - 180,
-        top: e.page.y - this.position.y - 10
+        position: 'absolute',
+        opacity: 0
+      });
+      fileInput.inject(fileInput.getParent('form'));
+      trigger.removeEvent('click', this.toggleHandler);
+      this.el.getElement('.file_label').set('html', '');
+    }
+    var position = $('upload_file').getPosition();
+    var size = trigger.getSize();
+    var fileInput = this.el.getElement('input[type=file]');
+    if (e.page.x > position.x &&
+        e.page.x < position.x + size.x &&
+        e.page.y > position.y &&
+        e.page.y < position.y + size.y) {
+      fileInput.setStyles({
+        left: e.page.x - position.x - 180,
+        top: e.page.y - position.y - 10
       });
     } else {
       fileInput.setStyles({
@@ -147,6 +179,21 @@ var UploadForm = new Class({
     this.el.getElement('input[name=name]').value = original;
     var slide = $('upload_details').retrieve('slide');
     slide.slideIn();
+    this.enable();
+    this.el.getElement('.file_label').set('html', 'File upload complete');
+  },
+  
+  disable: function() {
+    this.el.addClass('disabled');
+    this.formHandler = function(e) {
+      new Event(e).stop();
+    };
+    this.el.getElement('form.details').addEvent('submit', this.formHandler);
+  },
+  
+  enable: function() {
+    this.el.removeClass('disabled');
+    this.el.getElement('form.details').removeEvent('submit', this.formHandler);
   }
   
 });

@@ -28,6 +28,8 @@ class Grid_Request {
       preg_match_all('/\$(\w+)/', $pattern, $matches);
       if (!empty($matches) && !empty($matches[1])) {
         $vars = $matches[1];
+      } else if (!empty($route['vars'])) {
+        $vars = $route['vars'];
       }
       $pattern = preg_replace('/\$(\w+)/', '([^\/]+?)', $pattern);
       $regex = "/^$pattern$/";
