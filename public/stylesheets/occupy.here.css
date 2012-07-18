@@ -27,11 +27,11 @@ h2.top {
 }
 
 h1 {
-  width: 180px;
-  height: 27px;
+  width: 284px;
+  height: 35px;
   text-indent: -1000000px;
   overflow: hidden;
-  background: transparent url(../images/headings.gif) 0 0;
+  background: transparent url(../images/occupyhere.gif);
   margin: 5px 0;
 }
 
@@ -73,7 +73,7 @@ textarea {
   color: #fff;
   background: #333;
   width: 100%;
-  height: 110px;
+  height: 88px;
   border: 0;
   border-radius: 0;
   margin: 1em 0;
@@ -106,7 +106,18 @@ input[type=button] {
   cursor: pointer;
 }
 
-input[type=submit]:active {
+.disabled input[type=submit],
+.disabled input[type=submit]:active,
+.disabled input[type=button],
+.disabled input[type=button]:active {
+  background: #444;
+  color: #808080;
+  border: 2px solid #666;
+  cursor: default;
+}
+
+input[type=submit]:active,
+input[type=button]:active {
   border: 2px inset #808080;
 }
 
@@ -246,7 +257,8 @@ nav ul a {
 
 #upload_file {
   position: relative;
-  margin-bottom: -12px;
+  margin-bottom: -15px;
+  margin-top: 12px;
 }
 
 .upload_file {
@@ -257,11 +269,16 @@ nav ul a {
 }
 
 input[type=file] {
-  position: absolute;
-  opacity: 0.3;
+  display: block;
   left: -1000000px;
   top: -1000000px;
   cursor: pointer;
+  font: 12px verdana, sans-serif;
+  color: #fff;
+  background: #333;
+  border-color: #333;
+  border-style: solid;
+  margin: 0.5em 0 0 0;
 }
 
 .go {
@@ -374,8 +391,10 @@ label.name {
 }
 
 .post img.upload {
-  max-width: 472px;
-  height: auto;
+  display: block;
   margin: 1em 0 0 0;
 }
 
+.file_label {
+  margin-top: 1em;
+}

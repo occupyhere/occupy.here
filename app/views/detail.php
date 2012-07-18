@@ -1,5 +1,12 @@
+<div id="<?php echo $item->id; ?>" class="post">
+  <?php $this->partial($params['type'], array($params['type'] => $item)); ?>
+</div>
 <?php
 
-echo "type = {$params['type']}, digits = {$params['digits']}";
+if (!empty($replies)) {
+  $this->partial('replies');
+}
+
+$this->partial('reply_form');
 
 ?>
