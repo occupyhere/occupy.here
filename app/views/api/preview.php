@@ -9,6 +9,6 @@ $vars = array(
   'message' => $message
 );
 
-$this->partial('forum/message', $vars);
+$this->partial('message', $vars);
 
 ?>

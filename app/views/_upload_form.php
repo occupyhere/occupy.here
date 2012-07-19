@@ -20,7 +20,7 @@
       <input type="hidden" name="original" value="" />
       <input type="hidden" name="type" value="" />
       <?php if (empty($grid->user->name)) { ?>
-        <?php $this->partial('../username_input'); ?>
+        <?php $this->partial('username_input'); ?>
       <?php } ?>
       <label class="name">
         Title
