@@ -9,6 +9,11 @@ if (wispr_pong() == 'show-intro' && !empty($params['intro'])) {
     <?php $this->partial('upload_form'); ?>
   </div>
   <div class="sequence">
+    <?php if (!empty($prev_page)) { ?>
+      <div class="post">
+        <a href="<?php echo $prev_page; ?>" class="prev">Previous page</a>
+      </div>
+    <?php } ?>
     <?php foreach ($items as $item) { ?>
       <div class="post">
         <?php
@@ -38,11 +43,7 @@ if (wispr_pong() == 'show-intro' && !empty($params['intro'])) {
       }
       
       if (!empty($next_page)) {
-        echo "<a href=\"$next_page\" class=\"go\">Next page</a>";
-      }
-      
-      if (!empty($prev_page)) {
-        echo "<a href=\"$prev_page\" class=\"prev\">Prev page</a><br class=\"clear\" />";
+        echo "<a href=\"$next_page\" class=\"next\">Next page</a>";
       }
       
       ?>

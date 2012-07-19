@@ -7,7 +7,7 @@
   <?php
   
   $href = ($params['view'] == 'detail') ? "uploads/$file->path" : $file->id;
-  list($orig_width, $orig_height) = getimagesize(GRID_DIR . "/data/media/$file->path");
+  list($orig_width, $orig_height) = getimagesize(GRID_DIR . "/public/uploads/$file->path");
   $width = $orig_width;
   $height = $orig_height;
   $alt = htmlentities($file->name);

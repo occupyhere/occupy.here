@@ -252,7 +252,7 @@ nav ul a {
 .new_message {
   display: block;
   padding-left: 25px;
-  background: transparent url(../images/icons/message.gif) no-repeat 0 3px;
+  background: transparent url(../images/message.gif) no-repeat 0 3px;
 }
 
 #upload_file {
@@ -265,7 +265,7 @@ nav ul a {
   float: left;
   font-weight: bold;
   padding-left: 25px;
-  background: transparent url(../images/icons/upload.gif) no-repeat 0 3px;
+  background: transparent url(../images/upload.gif) no-repeat 0 3px;
 }
 
 input[type=file] {
@@ -281,10 +281,16 @@ input[type=file] {
   margin: 0.5em 0 0 0;
 }
 
-.go {
+.go, .next {
   display: inline-block;
   padding-right: 25px;
-  background: transparent url(../images/icons/go.gif) no-repeat right 4px;
+  background: transparent url(../images/next.gif) no-repeat right 4px;
+}
+
+.prev {
+  display: inline-block;
+  padding-left: 25px;
+  background: transparent url(../images/prev.gif) no-repeat left 4px;
 }
 
 h2.heading {
@@ -292,7 +298,6 @@ h2.heading {
   height: 27px;
   text-indent: -1000000px;
   overflow: hidden;
-  background: transparent url(../images/headings.gif) no-repeat;
   margin: 0.5em 0;
 }
 
@@ -315,7 +320,7 @@ h2.about {
 .alert {
   display: block;
   padding-left: 25px;
-  background: transparent url(../images/icons/alert.gif) no-repeat 0 2px;
+  background: transparent url(../images/alert.gif) no-repeat 0 2px;
 }
 
 body.wispr_intro nav {
@@ -339,10 +344,6 @@ body.wispr_intro #announcements {
 
 .posting_as a {
   color: #fff;
-}
-
-.prev {
-  float: right;
 }
 
 a.logout {

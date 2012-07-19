@@ -9,29 +9,32 @@ if (defined('CANONICAL_HOST') && strtolower($_SERVER['HTTP_HOST']) != CANONICAL_
 $this->partial_for('announcements', 'introduction');
 
 if (!empty($params['posted_before'])) {
-  $topics = $grid->db->select('message', array(
+  $topics_query = array(
     'where' => "parent_id = 0 AND created < ?",
     'values' => array($params['posted_before']),
     'order' => 'created DESC',
     'limit' => $items_per_page
-  ));
-  $files = $grid->db->select('file', array(
+  );
+  $files_query = array(
     'where' => 'created < ?',
     'values' => array($params['posted_before']),
     'order' => 'created DESC',
     'limit' => $items_per_page
-  ));
+  );
 } else {
-  $topics = $grid->db->select('message', array(
+  $topics_query = array(
     'where' => "parent_id = 0",
     'order' => 'created DESC',
     'limit' => $items_per_page
-  ));
-  $files = $grid->db->select('file', array(
+  );
+  $files_query = array(
     'order' => 'created DESC',
     'limit' => $items_per_page
-  ));
+  );
 }
+
+$topics = $grid->db->select('message', $topics_query);
+$files = $grid->db->select('file', $files_query);
 
 function sort_by_created($a, $b) {
   if ($a->created == $b->created) {
@@ -66,27 +69,52 @@ if (!empty($items)) {
   }
 }
 
-$topic_count_query = $grid->db->query("
-  SELECT COUNT(id)
-  FROM message
-  WHERE parent_id = 0
-");
-$topic_count = $topic_count_query->fetchColumn();
-
-$file_count_query = $grid->db->query("
-  SELECT COUNT(id)
-  FROM file
-");
-$file_count = $file_count_query->fetchColumn();
-
-$item_count = $topic_count + $file_count;
-
-if (count($items) > $items_per_page) {
+if (count($items) == $items_per_page) {
   $last_index = count($items) - 1;
   $last_item = $items[$last_index];
   $next_page = $last_item->created;
+  $next_topics_query = $grid->db->query("
+    SELECT COUNT(id)
+    FROM message
+    WHERE parent_id = 0
+      AND created < ?
+  ", array($next_page));
+  $next_topics = $next_topics_query->fetchColumn();
+  $next_files_query = $grid->db->query("
+    SELECT COUNT(id)
+    FROM file
+    WHERE created < ?
+  ", array($next_page));
+  $next_files = $next_files_query->fetchColumn();
+  $next_items = $next_topics + $next_files;
+  if ($next_items == 0) {
+    $next_page = null;
+    $end_of_items = true;
+  }
 } else {
   $end_of_items = true;
+}
+
+if (!empty($params['posted_before'])) {
+  $prev_topics = $grid->db->select('message', array(
+    'where' => "parent_id = 0 AND created >= ?",
+    'values' => array($params['posted_before']),
+    'order' => 'created',
+    'limit' => $items_per_page
+  ));
+  $prev_files = $grid->db->select('file', array(
+    'where' => 'created >= ?',
+    'values' => array($params['posted_before']),
+    'order' => 'created',
+    'limit' => $items_per_page
+  ));
+  $prev_items = array_merge($prev_topics, $prev_files);
+  if (!empty($prev_items)) {
+    usort($prev_items, 'sort_by_created');
+    $prev_items = array_slice($prev_items, 0, $items_per_page);
+    $first_prev_item = $prev_items[0];
+    $prev_page = $first_prev_item->created + 1;
+  }
 }
 
 ?>

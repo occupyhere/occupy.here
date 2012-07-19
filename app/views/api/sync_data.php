@@ -34,6 +34,16 @@ if (!empty($params['last_updated'])) {
   foreach ($objects as $object) {
     if (preg_match('/^([a-z]+)\./', $object->id, $matches)) {
       $table = $matches[1];
+      if ($table == 'file') {
+        $path = GRID_DIR . "/public/uploads/$object->path";
+        $dir = dirname($path);
+        $data = base64_decode($object->data);
+        if (!file_exists($dir)) {
+          mkdir($dir);
+        }
+        file_put_contents($path, $data);
+        unset($object->data);
+      }
       $record = new Grid_Record($table, get_object_vars($object));
       $record->save(true);
     }
@@ -59,7 +69,8 @@ function get_updated_objects_by_server($servers) {
     $objects = array_merge(
       $objects,
       get_updated_objects_by_table('message', $server_id, $last_updated),
-      get_updated_objects_by_table('user', $server_id, $last_updated)
+      get_updated_objects_by_table('user', $server_id, $last_updated),
+      get_updated_objects_by_table('file', $server_id, $last_updated)
     );
   }
   return $objects;
@@ -67,10 +78,18 @@ function get_updated_objects_by_server($servers) {
 
 function get_updated_objects_by_table($table, $server_id, $last_modified) {
   global $grid;
-  return $grid->db->select($table, array(
+  $objects = $grid->db->select($table, array(
     'where' => 'server_id = ? AND updated > ?',
     'values' => array($server_id, $last_modified)
   ));
+  if ($table == 'file') {
+    foreach ($objects as $object) {
+      $path = GRID_DIR . "/public/uploads/$object->path";
+      $data = file_get_contents($path);
+      $object->data = base64_encode($data);
+    }
+  }
+  return $objects;
 }
 
 function filter_message_ids($id) {

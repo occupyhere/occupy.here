@@ -4,8 +4,8 @@ $id = uniqid('file.', true);
 $now = time();
 
 $ext = '';
-$dir = '000';
-if (preg_match('/file\..+\.(\d\d\d)/', $id, $matches)) {
+$dir = '00';
+if (preg_match('/file\..+\.(\d\d)/', $id, $matches)) {
   $dir = $matches[1];
 }
 if (preg_match('/\.(.+)$/', $params['original'], $matches)) {
@@ -15,11 +15,12 @@ if (preg_match('/\.(.+)$/', $params['original'], $matches)) {
   }
 }
 
-if (!file_exists(GRID_DIR . "/data/media/$dir")) {
-  mkdir(GRID_DIR . "/data/media/$dir");
+if (!file_exists(GRID_DIR . "/public/uploads/$dir")) {
+  mkdir(GRID_DIR . "/public/uploads/$dir");
 }
 $path = "$dir/$id$ext";
-rename(GRID_DIR . "/data/tmp/{$params['filename']}", GRID_DIR . "/data/media/$path");
+$filename = str_replace('..', '', $params['filename']);
+rename(GRID_DIR . "/public/uploads/tmp/$filename", GRID_DIR . "/public/uploads/$path");
 
 $grid->db->insert('file', array(
   'id' => $id,

@@ -2,13 +2,18 @@
 
 function setup_user() {
   global $grid;
+  $data_dir = GRID_DIR . '/data';
   $sessions_dir = GRID_DIR . '/data/sessions';
-  if (!is_writable($sessions_dir)) {
-    $grid->user = (object) array(
-      'id' => 0,
-      'name' => 'Anonymous'
-    );
-    return;
+  if (!file_exists($sessions_dir) || !is_writable($sessions_dir)) {
+    if (is_writable($data_dir)) {
+      mkdir($sessions_dir);
+    } else {
+      $grid->user = (object) array(
+        'id' => 0,
+        'name' => 'Anonymous'
+      );
+      return;
+    }
   }
   ini_set('session.name', 'SESSION');
   ini_set('session.save_handler', 'files');
@@ -31,6 +36,7 @@ function setup_user() {
     $user_id = $_SESSION['user_id'];
   }
   $grid->user = $grid->db->record('user', $user_id);
+  
   if (empty($grid->user)) {
     $grid->db->insert('user', array(
       'id' => $user_id,
@@ -58,6 +64,22 @@ function setup_meta() {
       'last_updated' => '{}'
     ));
   }
+}
+
+function setup_uploads() {
+  $public_dir = GRID_DIR . "/public";
+  $uploads_dir = GRID_DIR . "/public/uploads";
+  $tmp_dir = GRID_DIR . "/public/uploads/tmp";
+  if (!file_exists($uploads_dir)) {
+    if (!is_writable($public_dir)) {
+      return false;
+    }
+    mkdir($uploads_dir);
+  }
+  if (!file_exists($tmp_dir)) {
+    mkdir($tmp_dir);
+  }
+  return true;
 }
 
 function save_meta($meta) {

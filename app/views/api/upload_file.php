@@ -10,7 +10,9 @@
     
     extract($_FILES['file']);
     $filename = basename($tmp_name);
-    move_uploaded_file($tmp_name, GRID_DIR . "/data/tmp/$filename");
+    
+    setup_uploads();
+    move_uploaded_file($tmp_name, GRID_DIR . "/public/uploads/tmp/$filename");
     
     ?>
     <script>
