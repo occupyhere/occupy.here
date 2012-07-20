@@ -8,8 +8,8 @@ The project is still in an early phase of development and welcomes new contribut
 
 ### General installation guide
 
-1. Configure your web server to serve from the `public` directory
-2. Change file permissions on the `data` directory to allow the web server's user to write new files
+1. Configure your webserver to serve from the `public` directory
+2. Change file permissions on the `data` and `public/uploads` directories so the webserver user can write new files
 3. Create a new `config.php` based on `config-example.php`, update the settings to your needs
 
 *More documentation coming soon!*
