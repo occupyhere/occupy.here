@@ -1,5 +1,6 @@
+config.php
 data/*
 !data/.empty
-config.php
 public/uploads
+!public/uploads/.empty
 .DS_Store
