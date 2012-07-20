@@ -32,7 +32,7 @@
           Posting as <a href="/account"><?php echo get_username($grid->user); ?></a>
         </div>
       <?php } ?>
-      <a href="#upload_details" class="cancel toggle">Cancel</a>
+      <a href="#upload_details" class="cancel slide-toggle">Cancel</a>
       <br class="clear" />
     </form>
   </div>

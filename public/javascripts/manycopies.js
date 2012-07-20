@@ -17,13 +17,94 @@ var ManyCopies = new Class({
         // TODO: alert the user
       }
     }
-    if (this.readyToUpdate()) {
+    if (this.isEnabled() && this.readyToUpdate()) {
       this.syncWithServer();
+    }
+    if ($('many-copies')) {
+      this.setupControls();
+    }
+  },
+  
+  setupControls: function() {
+    var toggle = $('many-copies').getElement('input.toggle');
+    var clear = $('many-copies').getElement('input.clear');
+    toggle.checked = this.isEnabled();
+    toggle.addEvent('change', function() {
+      if (toggle.checked) {
+        this.enable();
+      } else {
+        this.disable();
+      }
+      this.updateStorageStatus();
+    }.bind(this));
+    clear.addEvent('click', function() {
+      if ($('many-copies').hasClass('disabled')) {
+        return false;
+      } else {
+        this.clearContents();
+        this.updateStorageStatus();
+      }
+    }.bind(this));
+    this.updateStorageStatus();
+  },
+  
+  enable: function() {
+    Cookie.write('manyCopies', 'enabled', {
+      path: '/',
+      duration: 365 * 10
+    });
+    if ($('many-copies') && $('many-copies').getElement('.clear')) {
+      var clear = $('many-copies').getElement('.clear');
+      clear.removeAttribute('disabled');
+    }
+    this.syncWithServer();
+  },
+  
+  disable: function() {
+    this.clearContents();
+    Cookie.write('manyCopies', 'disabled', {
+      path: '/',
+      duration: 365 * 10
+    });
+    if ($('many-copies')) {
+      var clear = $('many-copies').getElement('.clear');
+      clear.set('disabled', 'disabled');
+    }
+  },
+  
+  clearContents: function() {
+    localStorage.manyCopies = '';
+  },
+  
+  isEnabled: function() {
+    return (Cookie.read('manyCopies') != 'disabled');
+  },
+  
+  updateStorageStatus: function() {
+    if ($('many-copies')) {
+      var size = $('many-copies').getElement('.size');
+      if (this.isEnabled()) {
+        $('many-copies').removeClass('disabled');
+        size.set('html', 'You are storing: ' + this.getSize());
+      } else {
+        $('many-copies').addClass('disabled');
+        size.set('html', 'Your browser is not storing any data');
+      }
+    }
+  },
+  
+  getSize: function() {
+    var bytes = localStorage.manyCopies.length;
+    if (bytes > 1024 * 1024) {
+      return (bytes / (1024 * 1024)).round(1) + ' MB';
+    } else if (bytes > 1024) {
+      return (bytes / (1024)).round(1) + ' KB';
+    } else {
+      return bytes + ' bytes';
     }
   },
   
   readyToUpdate: function() {
-    return true;
     var timestamp = new Date().getTime();
     return (!this.lastUpdated ||
             timestamp - this.lastUpdated > this.updateFrequency);
@@ -56,6 +137,9 @@ var ManyCopies = new Class({
     var staleServers = this.findStaleServers(response.server_id, response.last_updated);
     if (staleServers.length > 0) {
       this.syncObjectsToServer(staleServers, response.last_updated);
+    }
+    if ($('many-copies')) {
+      this.updateStorageStatus();
     }
   },
   

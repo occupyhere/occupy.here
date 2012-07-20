@@ -1,7 +1,7 @@
 var data;
 
 $(window).addEvent('domready', function() {
-  $$('.toggle').each(function(el) {
+  $$('.slide-toggle').each(function(el) {
     el.addEvent('click', function(e) {
       new Event(e).stop();
       var id = el.get('href').match(/#(.+)/)[1];
