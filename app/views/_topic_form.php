@@ -1,5 +1,5 @@
 <div id="new_message">
-  <strong><a href="#new_message_form" class="toggle new_message">Post a message</a></strong>
+  <strong><a href="#new_message_form" class="slide-toggle new_message">Post a message</a></strong>
   <form action="api/post_topic" method="post" id="new_message_form" class="message_form">
     <?php if (empty($grid->user->name)) { ?>
       <?php $this->partial('username_input'); ?>
@@ -12,7 +12,7 @@
         Posting as <a href="/account"><?php echo get_username($grid->user); ?></a>
       </div>
     <?php } ?>
-    <a href="#new_message_form" class="cancel toggle">Cancel</a>
+    <a href="#new_message_form" class="cancel slide-toggle">Cancel</a>
     <br class="clear" />
   </form>
   <script>

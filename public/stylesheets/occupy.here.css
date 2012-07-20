@@ -106,10 +106,8 @@ input[type=button] {
   cursor: pointer;
 }
 
-.disabled input[type=submit],
-.disabled input[type=submit]:active,
-.disabled input[type=button],
-.disabled input[type=button]:active {
+.disabled input,
+.disabled input:active {
   background: #444;
   color: #808080;
   border: 2px solid #666;
@@ -173,7 +171,7 @@ form .username {
   padding-top: 1em;
 }
 
-form .username p {
+.help {
   font-size: 12px;
   line-height: 18px;
   color: #999;
@@ -398,4 +396,8 @@ label.name {
 
 .file_label {
   margin-top: 1em;
+}
+
+#many-copies .size {
+  margin: 0.5em 0;
 }
