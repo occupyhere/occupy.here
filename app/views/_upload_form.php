@@ -1,5 +1,5 @@
 <div id="upload_file">
-  <a href="#upload_form" class="upload_file">Upload a file</a>
+  <a href="#upload_form" class="upload_file"><span class="upload icon"></span>Upload a file</a>
   <br class="clear" />
   <div id="upload_details">
     <form action="api/upload_file" method="post" enctype="multipart/form-data" target="upload">

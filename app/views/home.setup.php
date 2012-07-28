@@ -36,13 +36,6 @@ if (!empty($params['posted_before'])) {
 $topics = $grid->db->select('message', $topics_query);
 $files = $grid->db->select('file', $files_query);
 
-function sort_by_created($a, $b) {
-  if ($a->created == $b->created) {
-    return 0;
-  }
-  return ($a->created < $b->created) ? 1 : -1;
-}
-
 $items = array_merge($topics, $files);
 usort($items, 'sort_by_created');
 $items = array_slice($items, 0, $items_per_page);

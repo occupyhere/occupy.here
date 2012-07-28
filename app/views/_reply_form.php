@@ -1,5 +1,5 @@
 <div id="reply" class="post">
-  <h2 class="new_message">Post a reply</h2>
+  <h2 class="new_message"><span class="message icon"></span>Post a reply</h2>
   <form action="api/post_reply" method="post" id="new_message_form" class="message_form">
     <input type="hidden" name="parent_id" value="<?php echo $item->id; ?>" />
     <?php if (empty($grid->user->name)) { ?>
