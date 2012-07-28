@@ -1,6 +1,6 @@
 <?php
 
-if ($grid->user && $grid->user->name != $_POST['username']) {
+if ($grid->user) {
   $now = time();
   $update = array(
     'name' => $_POST['username'],

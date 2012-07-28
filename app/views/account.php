@@ -1,5 +1,5 @@
 <form action="api/update_account" method="post" class="post" id="account">
-  <h2 class="top">Edit your account</h2>
+  <h2 class="top"><span class="user icon"></span>Edit your account</h2>
   <?php $this->partial('username_input'); ?>
   <label class="bio">
     Write something about yourself
@@ -9,7 +9,7 @@
   <br class="clear" />
 </form>
 <div id="many-copies" class="post">
-  <h2 class="top">Many Copies</h2>
+  <h2 class="top"><span class="many-copies icon"></span>Many Copies</h2>
   <label>
     <input type="checkbox" checked="checked" class="toggle" />
     Enable browser storage

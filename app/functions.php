@@ -202,4 +202,11 @@ function parse_size($size) {
   }
 }
 
+function sort_by_created($a, $b) {
+  if ($a->created == $b->created) {
+    return 0;
+  }
+  return ($a->created < $b->created) ? 1 : -1;
+}
+
 ?>
