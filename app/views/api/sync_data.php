@@ -69,8 +69,8 @@ function get_updated_objects_by_server($servers) {
     $objects = array_merge(
       $objects,
       get_updated_objects_by_table('message', $server_id, $last_updated),
-      get_updated_objects_by_table('user', $server_id, $last_updated),
-      get_updated_objects_by_table('file', $server_id, $last_updated)
+      get_updated_objects_by_table('user', $server_id, $last_updated)
+      //get_updated_objects_by_table('file', $server_id, $last_updated)
     );
   }
   return $objects;
