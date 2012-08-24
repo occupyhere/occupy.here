@@ -18,20 +18,22 @@ class Grid_Database {
   
   function setup($filename) {
     global $grid;
-    if (!defined('GRID_SQLITE')) {
-      define('GRID_SQLITE', '/usr/bin/sqlite3');
+    if (!defined('SQLITE_CLI')) {
+      define('SQLITE_CLI', '/usr/bin/sqlite3');
     }
     $dir = dirname($filename);
     if (!is_writable($dir)) {
-      $grid->log("Database: could not write to $dir");
+      die("Database: could not write to $dir");
     }
     $setup_sql = GRID_DIR . '/app/setup.sql';
     if (!file_exists($setup_sql)) {
-      $grid->log("Database: no setup SQL file found");
-      return;
+      die("Database: no setup SQL file found");
+    }
+    if (!file_exists(SQLITE_CLI)) {
+      die("Database: can't setup because SQLITE_CLI (" . SQLITE_CLI . ") does not exist.");
     }
     $grid->log("Database: setting up $filename with $setup_sql");
-    exec(GRID_SQLITE . " $filename < $setup_sql", $output);
+    exec(SQLITE_CLI . " $filename < $setup_sql", $output);
     foreach ($output as $line) {
       $grid->log("  $line");
     }
