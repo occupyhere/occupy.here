@@ -247,6 +247,11 @@ nav ul a {
   margin-left: 5px;
 }
 
+.post p.missing-image {
+  font-size: 12px;
+  color: #999;
+}
+
 .post .utilities {
   margin-top: 5px;
 }

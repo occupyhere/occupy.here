@@ -1,27 +1,53 @@
 var ManyCopies = new Class({
   
+  revision: 0,
+  updated: 0,
   servers: {},
   objects: {},
-  updateFrequency: 2 * 60 * 1000, // update every two minutes
+  files: {},
+  updateFrequency: 2 * 60 * 1000, // update every two minutes,
+  
+  downloadQueue: [],
+  uploadQueue: [],
   
   initialize: function() {
-    if (!localStorage) {
-      return;
-    }
-    if (localStorage.manyCopies) {
-      try {
-        var stored = JSON.decode(localStorage.manyCopies);
-        this.objects = stored.objects || {};
-        this.servers = stored.servers || {};
-      } catch (e) {
-        // TODO: alert the user
-      }
-    }
+    this.parseLocalStorage();
+    this.checkForIncompleteDownloads();
     if (this.isEnabled() && this.readyToUpdate()) {
       this.syncWithServer();
     }
     if ($('many-copies')) {
       this.setupControls();
+    }
+  },
+
+  parseLocalStorage: function() {
+    if (!localStorage) {
+      return;
+    }
+    if (localStorage.manycopies) {
+      try {
+        var stored = JSON.decode(localStorage.manycopies);
+        if (stored.revision) {
+          var data = stored['data' + stored.revision];
+          this.revision = stored.revision;
+          this.updated = stored.updated;
+          this.servers = data.servers || {};
+          this.objects = data.objects || {};
+          this.files = data.files || {};
+        }
+      } catch (e) {
+        // TODO: alert the user
+      }
+    }
+  },
+  
+  checkForIncompleteDownloads: function() {
+    for (var id in this.files) {
+      var file = this.files[id];
+      if (!file.complete) {
+        this.enqueueFileDownload(id);
+      }
     }
   },
   
@@ -49,7 +75,7 @@ var ManyCopies = new Class({
   },
   
   enable: function() {
-    Cookie.write('manyCopies', 'enabled', {
+    Cookie.write('manycopies', 'enabled', {
       path: '/',
       duration: 365 * 10
     });
@@ -62,7 +88,7 @@ var ManyCopies = new Class({
   
   disable: function() {
     this.clearContents();
-    Cookie.write('manyCopies', 'disabled', {
+    Cookie.write('manycopies', 'disabled', {
       path: '/',
       duration: 365 * 10
     });
@@ -73,11 +99,11 @@ var ManyCopies = new Class({
   },
   
   clearContents: function() {
-    localStorage.manyCopies = '';
+    localStorage.manycopies = '';
   },
   
   isEnabled: function() {
-    return (Cookie.read('manyCopies') != 'disabled');
+    return (Cookie.read('manycopies') != 'disabled');
   },
   
   updateStorageStatus: function() {
@@ -94,7 +120,7 @@ var ManyCopies = new Class({
   },
   
   getSize: function() {
-    var bytes = localStorage.manyCopies.length;
+    var bytes = localStorage.manycopies.length;
     if (bytes > 1024 * 1024) {
       return (bytes / (1024 * 1024)).round(1) + ' MB';
     } else if (bytes > 1024) {
@@ -105,9 +131,9 @@ var ManyCopies = new Class({
   },
   
   readyToUpdate: function() {
-    var timestamp = new Date().getTime();
-    return (!this.lastUpdated ||
-            timestamp - this.lastUpdated > this.updateFrequency);
+    var timestamp = Math.round(new Date().getTime() / 1000);
+    return (!this.updated ||
+            timestamp - this.updated > this.updateFrequency);
   },
   
   syncWithServer: function() {
@@ -115,6 +141,7 @@ var ManyCopies = new Class({
       url: 'api/sync_data',
       onComplete: this.handleSyncResponse.bind(this)
     }).post({
+      revision: this.revision,
       last_updated: JSON.encode(this.servers)
     });
   },
@@ -122,33 +149,56 @@ var ManyCopies = new Class({
   handleSyncResponse: function(json) {
     var response = JSON.decode(json);
     var now = Math.round(new Date().getTime() / 1000);
+    this.revision = response.revision;
     response.objects.each(function(obj) {
       var existing = this.objects[obj.id];
       if (!existing) {
+        // New object
         this.objects[obj.id] = obj;
+        if (obj.id.substr(0, 4) == 'file') {
+          this.enqueueFileDownload(obj.id);
+        }
       } else if (existing.created == obj.created) {
+        // Update an existing object
         this.objects[obj.id] = obj;
       } else if (existing.created < obj.created) {
+        // ID conflict? Ours was created first!
+        // TODO: handle id collisions...
         this.objects[obj.id].updated = now;
       }
     }.bind(this));
     this.servers[response.server_id] = now;
-    this.updateLocalStorage();
+    this.updated = now;
     var staleServers = this.findStaleServers(response.server_id, response.last_updated);
     if (staleServers.length > 0) {
       this.syncObjectsToServer(staleServers, response.last_updated);
+    } else {
+      this.syncFiles();
     }
+    for (var server_id in response.last_updated) {
+      if (!this.servers[server_id] ||
+        response.last_updated[server_id] > this.servers[server_id]) {
+        this.servers[server_id] = response.last_updated[server_id];
+      }
+    }
+    this.updateLocalStorage();
     if ($('many-copies')) {
       this.updateStorageStatus();
     }
   },
   
   updateLocalStorage: function() {
-    var json = JSON.encode({
+    var data = {
+      revision: this.revision,
+      updated: this.updated
+    };
+    data['data' + this.revision] = {
       objects: this.objects,
-      servers: this.servers
-    });
-    localStorage.manyCopies = json;
+      servers: this.servers,
+      files: this.files
+    };
+    var json = JSON.encode(data);
+    localStorage.manycopies = json;
   },
   
   findStaleServers: function(serverId, servers) {
@@ -182,14 +232,112 @@ var ManyCopies = new Class({
       if (this.objects[obj.user_id]) {
         objects.push(this.objects[obj.user_id]);
       }
+      if (obj.id.substr(0, 4) == 'file') {
+        this.enqueueFileUpload(obj.id);
+      }
     }.bind(this));
     
     new Request({
-      url: 'api/sync_data'
+      url: 'api/sync_data',
+      onComplete: this.syncFiles.bind(this)
     }).post({
+      revision: this.revision,
       servers: JSON.encode(staleServers),
       objects: JSON.encode(objects)
     });
+  },
+  
+  enqueueFileDownload: function(id) {
+    this.downloadQueue.push(id);
+    if (!this.files[id]) {
+      this.files[id] = {
+        data: '',
+        complete: false
+      };
+    }
+  },
+  
+  enqueueFileUpload: function(id) {
+    this.uploadQueue.push(id);
+  },
+  
+  syncFiles: function() {
+    if (this.downloadQueue.length > 0) {
+      this.downloadChunk(this.downloadQueue[0]);
+    } else {
+      this.checkServerForUploads();
+    }
+  },
+  
+  downloadChunk: function(id) {
+    new Request({
+      url: 'api/sync_data',
+      onComplete: this.handleFileChunk.bind(this)
+    }).post({
+      revision: this.revision,
+      download: id,
+      offset: this.files[id].data.length
+    });
+  },
+  
+  checkServerForUploads: function() {
+    var files = [];
+    for (var id in this.files) {
+      if (this.files[id].complete) {
+        files.push(id);
+      }
+    }
+    new Request({
+      url: 'api/sync_data',
+      onComplete: this.handleUploadRequest.bind(this)
+    }).post({
+      revision: this.revision,
+      files: JSON.encode(files)
+    });
+  },
+  
+  handleFileChunk: function(json) {
+    var response = JSON.decode(json);
+    var file = this.files[response.id];
+    if (file) {
+      file.data += response.data;
+      file.complete = response.complete;
+    }
+    if (!file || response.complete) {
+      this.downloadQueue.erase(response.id);
+    }
+    this.updateLocalStorage();
+    this.syncFiles();
+  },
+  
+  handleUploadRequest: function(json) {
+    var response = JSON.decode(json);
+    if (response.id) {
+      this.uploadChunk(response.id, response.offset, response.size);
+    }
+  },
+  
+  uploadChunk: function(id, offset, size) {
+    var file = this.files[id];
+    if (file) {
+      var data = file.data;
+      var chunk = data.substr(offset, size);
+      var complete = (offset + size >= data.length) ? 1 : 0;
+      var uploadNextChunk = function() {
+        this.uploadChunk(id, offset + size, size);
+      }.bind(this);
+      var callback = complete ? this.checkServerForUploads.bind(this) : uploadNextChunk;
+      new Request({
+        url: 'api/sync_data',
+        onComplete: callback
+      }).post({
+        revision: this.revision,
+        upload: id,
+        offset: offset,
+        data: chunk,
+        complete: complete
+      });
+    }
   },
   
   getUpdatedObjects: function(serverId, lastUpdated) {
