@@ -1,10 +1,11 @@
 <h3>
   <a href="<?php echo $file->user_id; ?>" class="user"><?php echo get_username($file->user_id); ?></a>
-  <span class="when"><?php echo elapsed_time($file->created); ?></span>
+  <span class="meta"><?php echo elapsed_time($file->created); ?></span>
 </h3>
 <?php if (preg_match('/^image/', $file->type)) { ?>
   <?php $href = ($params['view'] == 'detail') ? "uploads/$file->path" : $file->id; ?>
   <a href="<?php echo $href ?>"><?php echo htmlentities($file->name); ?></a>
+  <span class="meta"><?php echo substr($file->path, -3, 3); ?></span>
   <?php
   
   $filename = GRID_DIR . "/public/uploads/$file->path";
@@ -39,4 +40,5 @@
   ?>
 <?php } else { ?>
   <a href="uploads/<?php echo $file->path ?>"><?php echo htmlentities($file->name); ?></a>
+  <span class="meta"><?php echo substr($file->path, -3, 3); ?></span>
 <?php } ?>

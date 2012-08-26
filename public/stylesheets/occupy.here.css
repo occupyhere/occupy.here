@@ -256,7 +256,7 @@ nav ul a {
   color: #FDDD00;
 }
 
-.post h3 .when {
+.post .meta {
   font-size: 12px;
   color: #999;
   margin-left: 5px;
