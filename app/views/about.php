@@ -1,5 +1,5 @@
 <div class="post">
-  <h2 class="top about heading">about</h2>
+  <h2 class="top">About</h2>
   <p>Occupy.here is a free, anonymous, and uncensored resource for you and your neighbors. You can post messages, share media files, and occupy the virtual space here as you wish.</p>
   <h2>You are not connected to the internet</h2>
   <p>You are connected to a wifi router running OpenWRT Linux and the server-side software needed for the website you see now. This one website is the only thing you can access from here. You are “offline” in relation to the rest of the Internet, but “online” in a way that connects you to other people within range of the wifi signal.</p>
