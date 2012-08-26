@@ -5,7 +5,6 @@ var ManyCopies = new Class({
   servers: {},
   objects: {},
   files: {},
-  updateFrequency: 2 * 60 * 1000, // update every two minutes,
   
   downloadQueue: [],
   uploadQueue: [],
@@ -13,7 +12,7 @@ var ManyCopies = new Class({
   initialize: function() {
     this.parseLocalStorage();
     this.checkForIncompleteDownloads();
-    if (this.isEnabled() && this.readyToUpdate()) {
+    if (this.isEnabled()) {
       this.syncWithServer();
     }
     if ($('many-copies')) {
@@ -128,12 +127,6 @@ var ManyCopies = new Class({
     } else {
       return bytes + ' bytes';
     }
-  },
-  
-  readyToUpdate: function() {
-    var timestamp = Math.round(new Date().getTime() / 1000);
-    return (!this.updated ||
-            timestamp - this.updated > this.updateFrequency);
   },
   
   syncWithServer: function() {
