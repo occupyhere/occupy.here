@@ -30,6 +30,9 @@ $(window).addEvent('domready', function() {
   if ($('upload_file')) {
     new UploadForm($('upload_file'));
   }
+  if ($('backup_form')) {
+    new BackupForm($('backup_form'));
+  }
   $$('textarea, input[type=text]').each(function(el) {
     var w = el.getParent().getStyle('width').toInt();
     var pl = el.getStyle('padding-left').toInt();
@@ -194,6 +197,47 @@ var UploadForm = new Class({
   enable: function() {
     this.el.removeClass('disabled');
     this.el.getElement('form.details').removeEvent('submit', this.formHandler);
+  }
+  
+});
+
+
+var BackupForm = new Class({
+  
+  initialize: function(el) {
+    this.el = el;
+    var button = el.getElement('input[type=button]');
+    button.addEvent('click', function(e) {
+      new Event(e).stop();
+      var buttonOrigValue = button.get('value');
+      button.addClass('disabled');
+      button.set('value', 'archiving...');
+      button.set('disabled', 'disabled');
+      new Request({
+        url: '/api/backup',
+        onComplete: function(json) {
+          var response = JSON.decode(json);
+          if (response.status == 'ok') {
+            el.getElement('input[name=file]').value = response.file;
+            el.set('action', '/' + response.file);
+            el.submit();
+          } else if (response.output) {
+            var output = '<span class="icon alert"></span>' + response.output;
+            if (!$('zip-output')) {
+              new Element('p', {
+                id: 'zip-output',
+                html: output
+              }).inject(el);
+            } else {
+              $('zip-output').set('html', output);
+            }
+          }
+          button.set('value', buttonOrigValue);
+          button.removeClass('disabled');
+          button.removeAttribute('disabled');
+        }
+      }).post();
+    });
   }
   
 });

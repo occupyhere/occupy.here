@@ -29,7 +29,7 @@
         <ul>
           <li><a href=".">Home</a></li>
           <li><a href="about">About</a></li>
-          <li><a href="forum">Forum</a></li>
+          <li><a href="backup">Backup</a></li>
         </ul>
       </nav>
     </div>

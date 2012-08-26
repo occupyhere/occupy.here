@@ -36,7 +36,7 @@
       <br class="clear" />
     </form>
   </div>
-  <iframe name="upload" class="upload" border="0"></iframe>
+  <iframe name="upload" class="hidden" border="0"></iframe>
   <script>
   slide($('upload_details'));
   </script>

@@ -1,6 +1,10 @@
 body {
   font: 14px/22px verdana, sans-serif;
   color: #fff;
+  /*
+  Thanks to Sam Feyaerts
+  http://subtlepatterns.com/cartographer/
+  */
   background: #000 url(/images/cartographer.png);
   margin: 0;
 }
