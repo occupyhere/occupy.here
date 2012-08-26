@@ -106,10 +106,9 @@ class Grid_Database {
       $limit
     ", $values);
     if (!empty($query) && $query->columnCount() > 0) {
-      $info = $query->getColumnMeta(0);
       $results = $query->fetchAll(PDO::FETCH_CLASS, "Grid_Record");
       foreach ($results as $result) {
-        $result->set_table($info['table']);
+        $result->set_table($table);
       }
     }
     return $results;
