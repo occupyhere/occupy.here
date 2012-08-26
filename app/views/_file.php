@@ -6,27 +6,35 @@
 <?php if (preg_match('/^image/', $file->type)) { ?>
   <?php
   
-  $href = ($params['view'] == 'detail') ? "uploads/$file->path" : $file->id;
-  list($orig_width, $orig_height) = getimagesize(GRID_DIR . "/public/uploads/$file->path");
-  $width = $orig_width;
-  $height = $orig_height;
-  $alt = htmlentities($file->name);
-  if ($params['view'] == 'detail') {
-    if ($width > 472) {
-      $width = 472;
+  $filename = GRID_DIR . "/public/uploads/$file->path";
+  if (file_exists($filename)) {
+    $href = ($params['view'] == 'detail') ? "uploads/$file->path" : $file->id;
+    list($orig_width, $orig_height) = getimagesize($filename);
+    $width = $orig_width;
+    $height = $orig_height;
+    $alt = htmlentities($file->name);
+    if ($params['view'] == 'detail') {
+      if ($width > 472) {
+        $width = 472;
+        $height = round($width / ($orig_width / $orig_height));
+      }
+    } else if ($width > 150) {
+      $width = 150;
       $height = round($width / ($orig_width / $orig_height));
+      if ($height > 150) {
+        $height = 150;
+        $width = round($height / ($orig_height / $orig_width));
+      }
     }
-  } else if ($width > 150) {
-    $width = 150;
-    $height = round($width / ($orig_width / $orig_height));
-    if ($height > 150) {
-      $height = 150;
-      $width = round($height / ($orig_height / $orig_width));
-    }
+    ?>
+    <a href="<?php echo $href; ?>">
+      <?php echo "<img src=\"uploads/$file->path\" alt=\"$alt\" width=\"$width\" height=\"$height\" class=\"upload\" />\n"; ?>
+    </a>
+  <?php
+  
+  } else {
+    echo '<p class="missing-image">(no image)</p>';
   }
   
   ?>
-  <a href="<?php echo $href; ?>">
-    <?php echo "<img src=\"uploads/$file->path\" alt=\"$alt\" width=\"$width\" height=\"$height\" class=\"upload\" />\n"; ?>
-  </a>
 <?php } ?>

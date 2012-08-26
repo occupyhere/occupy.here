@@ -1,5 +1,6 @@
 <?php
 
+define('API_REVISION', 1);
 require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
