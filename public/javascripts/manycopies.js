@@ -299,8 +299,12 @@ var ManyCopies = new Class({
     if (!file || response.complete) {
       this.downloadQueue.erase(response.id);
     }
-    this.updateLocalStorage();
-    this.syncFiles();
+    try {
+      this.updateLocalStorage();
+      this.syncFiles();
+    } catch (e) {
+      // TODO: add feedback
+    }
   },
   
   handleUploadRequest: function(json) {

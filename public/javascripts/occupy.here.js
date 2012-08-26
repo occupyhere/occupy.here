@@ -120,13 +120,19 @@ var UploadForm = new Class({
       $('upload_file').destroy();
     } else {
       fileInput.addEvent('change', function() {
+        var maxSize = this.el.getElement('input[name=max_file_size]').value.toInt();
         if (fileInput.files && fileInput.files[0].size &&
-            fileInput.files[0].size > this.el.getElement('input[name=max_file_size]').value.toInt()) {
-          alert('Sorry, that file is too big to upload.');
+            fileInput.files[0].size > maxSize) {
+            alert('Sorry, that file is too big to upload. Your file size: ' + getSize(fileInput.files[0].size) + '. Maximum accepted size: ' + getSize(maxSize));
           return;
         }
+        if (fileInput.files && fileInput.files[0].size) {
+          var size = getSize(fileInput.files[0].size);
+          this.el.getElement('.file_label').set('html', 'Uploading ' + size);
+        } else {
+          this.el.getElement('.file_label').set('html', 'Uploading...');
+        }
         fileInput.getParent('form').submit();
-        this.el.getElement('.file_label').set('html', 'Uploading...');
       }.bind(this));
       this.setupTouchControls();
       window.addEvent('mousemove', this.mouseMove.bind(this));
@@ -138,7 +144,9 @@ var UploadForm = new Class({
     this.toggleHandler = function(e) {
       new Event(e).stop();
       var slide = $('upload_details').retrieve('slide');
-      slide.toggle();
+      if (!slide.open) {
+        slide.slideIn();
+      }
     }.bind(this);
     trigger.addEvent('click', this.toggleHandler);
   },
@@ -209,6 +217,9 @@ var BackupForm = new Class({
     var button = el.getElement('input[type=button]');
     button.addEvent('click', function(e) {
       new Event(e).stop();
+      if (button.hasClass('disabled')) {
+        return;
+      }
       var buttonOrigValue = button.get('value');
       button.addClass('disabled');
       button.set('value', 'archiving...');
@@ -241,3 +252,13 @@ var BackupForm = new Class({
   }
   
 });
+
+function getSize(bytes) {
+  if (bytes > 1024 * 1024) {
+    return (bytes / (1024 * 1024)).round(1) + ' MB';
+  } else if (bytes > 1024) {
+    return (bytes / (1024)).round(1) + ' KB';
+  } else {
+    return bytes + ' bytes';
+  }
+}
