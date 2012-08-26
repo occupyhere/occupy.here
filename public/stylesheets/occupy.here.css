@@ -1,7 +1,7 @@
 body {
   font: 14px/22px verdana, sans-serif;
   color: #fff;
-  background: #222;
+  background: #000 url(/images/cartographer.png);
   margin: 0;
 }
 
@@ -11,6 +11,19 @@ a {
 
 em {
   font-style: italic;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+h1 {
+  width: 284px;
+  height: 35px;
+  text-indent: -1000000px;
+  overflow: hidden;
+  background: transparent url(../images/sprites.png);
+  margin: 5px 0;
 }
 
 h2, strong {
@@ -26,20 +39,11 @@ h2.top {
   margin-top: 0;
 }
 
-h1 {
-  width: 284px;
-  height: 35px;
-  text-indent: -1000000px;
-  overflow: hidden;
-  background: transparent url(../images/sprites.png);
-  margin: 5px 0;
-}
-
 header {
   font-weight: bold;
   position: relative;
-  padding: 2em 1em 1em 1em;
-  background: #333 url(../images/stripes.png);
+  padding: 1em;
+  background: #000;
 }
 
 header a {
@@ -91,11 +95,16 @@ header a {
 #page {
   width: 100%;
   max-width: 500px;
+  background: #181818;
 }
 
-.post, nav {
+.post {
   padding: 1em;
-  border-top: 2px dotted #444;
+  border-bottom: 2px solid #222;
+}
+
+nav {
+  padding: 1em;
 }
 
 body.loading .slide {
@@ -141,7 +150,9 @@ input[type=button] {
 }
 
 .disabled input,
-.disabled input:active {
+.disabled input:active,
+input.disabled,
+input.disabled:active {
   background: #444;
   color: #808080;
   border: 2px solid #666;
@@ -215,7 +226,7 @@ form .username {
 nav {
   position: relative;
   margin: 2em 0 0 0;
-  background: #111;
+  background: #000;
   padding-bottom: 2em;
 }
 
@@ -322,29 +333,14 @@ input[type=file] {
   display: inline-block;
 }
 
-h2.heading {
-  width: 100%;
-  height: 27px;
-  text-indent: -1000000px;
-  overflow: hidden;
-  margin: 0.5em 0;
-}
-
-h2.forum {
-  background-position: 0 -36px;
-}
-
-h2.media {
-  background-position: 0 -72px;
-}
-
-h2.about {
-  background-position: 0 -108px;
-}
-
 #announcements .post,
 .subhead .post {
   background: #000;
+}
+
+#announcements .post {
+  border-top: 2px solid #181818;
+  border-bottom: none;
 }
 
 body.wispr_intro nav {
@@ -397,7 +393,7 @@ input.preview {
   margin: 0.5em 0 1em 0;
 }
 
-iframe.upload {
+iframe.hidden {
   width: 1px;
   height: 1px;
   visibility: hidden;
@@ -440,4 +436,37 @@ a.user:hover {
 
 .subhead h2 {
   margin: 0.5em 0;
+}
+
+#zip-output {
+  margin: 1em 0 0 0;
+}
+
+@media screen and (min-width: 481px) {
+  
+  body {
+    text-align: center;
+  }
+  
+  #page {
+    margin: 0 auto;
+    text-align: left;
+    border-left: 15px solid #181818;
+    border-right: 15px solid #181818;
+    border-bottom: 15px solid #181818;
+  }
+  
+}
+
+@media (min--moz-device-pixel-ratio: 1.5),
+       (-o-min-device-pixel-ratio: 3/2),
+       (-webkit-min-device-pixel-ratio: 1.5),
+       (min-device-pixel-ratio: 1.5),
+       (min-resolution: 1.5dppx) {
+  
+  body {
+    background-image: url(/images/cartographer_@2X.png);
+    background-size: 500px 499px;
+  }
+  
 }
