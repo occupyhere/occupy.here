@@ -1,53 +1,55 @@
 <?php
 
+function generate_id() {
+  if (function_exists('openssl_random_pseudo_bytes')) {
+    $id_bin = openssl_random_pseudo_bytes(8);
+    return bin2hex($id_bin);
+  } else {
+    return uniqid();
+  }
+}
+
+function create_user() {
+  global $grid;
+  $now = time();
+  $user_id = generate_id();
+  $color1 = rand(0, 359);
+  $color2 = rand(0, 359);
+  $grid->db->insert('user', array(
+    'id' => $user_id,
+    'server_id' => $grid->meta['server_id'],
+    'color1' => $color1,
+    'color2' => $color2,
+    'created' => $now,
+    'updated' => $now
+  ));
+  $_SESSION['user_id'] = $user_id;
+  return $grid->db->record('user', $user_id);
+}
+
 function setup_user() {
   global $grid;
-  $data_dir = GRID_DIR . '/data';
-  $sessions_dir = GRID_DIR . '/data/sessions';
-  if (!file_exists($sessions_dir) || !is_writable($sessions_dir)) {
-    if (is_writable($data_dir)) {
-      mkdir($sessions_dir);
-    } else {
-      $grid->user = (object) array(
-        'id' => 0,
-        'name' => 'Anonymous'
-      );
-      return;
-    }
+  $view = $grid->request->params['view'];
+  if (strpos($view, 'wispr') !== false ||
+      strpos($view, '404') !== false) {
+    return;
   }
   ini_set('session.name', 'SESSION');
-  ini_set('session.save_handler', 'files');
-  ini_set('session.save_path', $sessions_dir);
   ini_set('session.use_cookies', true);
-  ini_set('session.cookie_lifetime', time() + 60 * 60 * 24 * 3);
-  ini_set('session.gc_maxlifetime', time() + 60 * 60 * 24 * 3);
+  ini_set('session.cookie_lifetime', time() + 60 * 60 * 24 * 365);
+  ini_set('session.gc_maxlifetime', time() + 60 * 60 * 24 * 365);
+  session_set_save_handler('session_open', 'session_close', 'session_read', 'session_write', 'session_delete', 'session_gc');
+  register_shutdown_function('session_write_close');
   session_start();
-  $now = time();
-  if (empty($_SESSION['user_id'])) {
-    $user_id = uniqid('user.', true);
-    $grid->db->insert('user', array(
-      'id' => $user_id,
-      'server_id' => $grid->meta['server_id'],
-      'created' => $now,
-      'updated' => $now
-    ));
-    $_SESSION['user_id'] = $user_id;
-  } else {
-    $user_id = $_SESSION['user_id'];
+  if (!empty($_SESSION['user_id'])) {
+    $user = $grid->db->record('user', $_SESSION['user_id']);
   }
-  $grid->user = $grid->db->record('user', $user_id);
-  
-  if (empty($grid->user)) {
-    $grid->db->insert('user', array(
-      'id' => $user_id,
-      'server_id' => $grid->meta['server_id'],
-      'created' => $now,
-      'updated' => $now
-    ));
-    $grid->user = $grid->db->record('user', $user_id);
+  if (empty($user)) {
+    $user = create_user();
   }
+  $grid->user = $user;
   $grid->users = array(
-    $user_id => $grid->user
+    $user->id => $user
   );
 }
 
@@ -60,7 +62,7 @@ function setup_meta() {
   }
   if (empty($grid->meta['server_id'])) {
     save_meta(array(
-      'server_id' => uniqid('server.', true),
+      'server_id' => generate_id(),
       'last_updated' => '{}'
     ));
   }
@@ -130,6 +132,57 @@ function get_username($target) {
   }
 }
 
+function get_colors($target = null) {
+  global $grid;
+  if (empty($target)) {
+    $user = $grid->user;
+  } else {
+    $user = get_user($target);
+  }
+  return "$user->color1,$user->color2";
+}
+
+function get_posts($query) {
+  global $grid;
+  $posts = $grid->db->select('message', $query);
+  $lookup = array();
+  $attachment_ids = array();
+  foreach ($posts as $post) {
+    $post->reply_count = 0;
+    $lookup[$post->id] = $post;
+    if (!empty($post->file_id)) {
+      $attachment_ids[] = $post->file_id;
+    }
+  }
+  if (!empty($posts)) {
+    $ids = array_keys($lookup);
+    $ids = "'" . implode("','", $ids) . "'";
+    $reply_query = $grid->db->query("
+      SELECT parent_id, COUNT(id) AS reply_count
+      FROM message
+      WHERE parent_id IN ($ids)
+      GROUP BY parent_id
+    ");
+    $replies = $reply_query->fetchAll(PDO::FETCH_OBJ);
+    foreach ($replies as $messages) {
+      $post = $lookup[$messages->parent_id];
+      $post->reply_count = $messages->reply_count;
+    }
+  }
+  
+  find_attachments($lookup, $attachment_ids);
+  
+  return $posts;
+}
+
+function get_filename($filename) {
+  preg_match('/(.+)(\.\w+)$/', $filename, $matches);
+  if (strlen($matches[1]) > 24) {
+    $filename = substr($matches[1], 0, 16) . '...' . substr($matches[1], -10, 8) . $matches[2];
+  }
+  return $filename;
+}
+
 function get_bio($target) {
   $user = get_user($target);
   if (empty($user->bio)) {
@@ -137,6 +190,90 @@ function get_bio($target) {
   } else {
     return $user->bio;
   }
+}
+
+function update_user() {
+  global $grid;
+  if ($grid->user->name != $_POST['username'] ||
+      $grid->user->color1 != $_POST['color1'] ||
+      $grid->user->color2 != $_POST['color2']) {
+    $update = array(
+      'name' => $_POST['username'],
+      'color1' => $_POST['color1'],
+      'color2' => $_POST['color2'],
+      'updated' => $now
+    );
+    $grid->db->update('user', $update, $grid->user->id);
+  }
+}
+
+function attach_file($id, $attachment) {
+  global $grid;
+  $file = $grid->db->record('file', $attachment);
+  $dir = GRID_DIR . "/public/";
+  $subdir = 'uploads/' . substr($id, 0, 1);
+  if (!file_exists("$dir/$subdir")) {
+    mkdir("$dir/$subdir");
+  }
+  $subdir = "$subdir/" . substr($id, 1, 1);
+  if (!file_exists("$dir/$subdir")) {
+    mkdir("$dir/$subdir");
+  }
+  $subdir = "$subdir/$id";
+  mkdir("$dir/$subdir");
+  rename(GRID_DIR . "/public/$file->path", "$dir/$subdir/$file->name");
+  $grid->db->update('file', array(
+    'message_id' => $id,
+    'path' => "$subdir/$file->name"
+  ), $attachment);
+}
+
+function find_attachments($lookup, $attachment_ids) {
+  global $grid;
+  if (!empty($attachment_ids)) {
+    $attachment_ids = "'" . implode("','", $attachment_ids) . "'";
+    $attachment_query = $grid->db->query("
+      SELECT *
+      FROM file
+      WHERE id IN ($attachment_ids)
+    ");
+    $attachments = $attachment_query->fetchAll(PDO::FETCH_OBJ);
+    foreach ($attachments as $attachment) {
+      $message = $lookup[$attachment->message_id];
+      $message->attachment = $attachment;
+    }
+  }
+}
+
+function show_attachment($attachment) {
+  if (preg_match('/\.(jpe?g|gif|png|bmp|tiff?)$/i', $attachment->path)) {
+    echo '<div id="inline-attachment">';
+    show_attachment_link($attachment);
+    echo '<div class="frame">';
+    echo "<img src=\"$attachment->path\" alt=\"\">\n";
+    echo '</div></div>';
+    return true;
+  } else if (preg_match('/\.pdf$/i', $attachment->path)) {
+    $path = str_replace("'", "\'", htmlentities($attachment->path));
+    echo '<div id="inline-attachment">';
+    show_attachment_link($attachment);
+    echo '<div class="frame">';
+    echo '<div id="pdf-loading">Loading...</div>';
+    echo "<canvas id=\"pdf\"></canvas>\n";
+    echo '</div></div>';
+    echo '<script src="js/pdfjs.js"></script>';
+    echo '<script src="js/pdf-compatibility.js"></script>';
+    echo "<script>PDFJS.workerSrc = 'js/pdfjs.js';</script>";
+    return true;
+  }
+  return false;
+}
+
+function show_attachment_link($attachment) {
+  $name = get_filename($attachment->name);
+  $name = htmlentities($name);
+  $path = htmlentities($attachment->path);
+  echo "<a href=\"$path\" target=\"_blank\" class=\"attachment\">$name</a>\n";
 }
 
 function elapsed_time($time) {
@@ -207,6 +344,69 @@ function sort_by_created($a, $b) {
     return 0;
   }
   return ($a->created < $b->created) ? 1 : -1;
+}
+
+function check_for_ssl() {
+  $ssl_request = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ||
+                  $_SERVER['SERVER_PORT'] == 443);
+  if (!empty($_SESSION['always_use_ssl']) && !$ssl_request) {
+    $url = 'https://' . HOSTNAME . $_SERVER['REQUEST_URI'];
+    header("Location: $url");
+    exit;
+  }
+}
+
+function session_open() {
+}
+
+function session_close() {
+}
+
+function session_read($id) {
+  global $grid;
+  $record = $grid->db->record('session', $id);
+  $now = time();
+  if (!empty($record)) {
+    $grid->db->update('session', array(
+      'accessed' => $now
+    ), $id);
+    return $record->data;
+  } else {
+    $grid->db->insert('session', array(
+      'id' => $id,
+      'accessed' => $now,
+      'created' => $now
+    ));
+  }
+  return '';
+}
+
+function session_write($id, $data) {
+  global $grid;
+  if (empty($id) || empty($data)) {
+    return false;
+  }
+  $now = time();
+  $query = $grid->db->update('session', array(
+    'data' => $data,
+    'accessed' => $now
+  ), $id);
+  return ($query->rowCount() == 1);
+}
+
+function session_delete($id) {
+  global $grid;
+  $query = $grid->db->delete('session', $id);
+  return ($query->rowCount() == 1);
+}
+
+function session_gc($max_lifetime = 600) {
+  global $grid;
+  $now = time();
+  $where = 'accessed < ?';
+  $values = array($now - $max_lifetime);
+  $grid->db->delete('session', $where, $values);
+  return true;
 }
 
 ?>

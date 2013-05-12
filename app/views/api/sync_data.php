@@ -25,7 +25,7 @@ if (!empty($params['last_updated'])) {
   unset($all_servers->$server_id);
   
   $response = (object) array(
-    'revision' => API_REVISION,
+    'revision' => REVISION,
     'server_id' => $server_id,
     'last_updated' => $all_servers,
     'objects' => $objects
@@ -69,7 +69,7 @@ if (!empty($params['last_updated'])) {
   $data_chunk = substr($base64_data, $offset, $file_chunk_size);
   $complete = ($offset + $file_chunk_size >= strlen($base64_data));
   $response = (object) array(
-    'revision' => API_REVISION,
+    'revision' => REVISION,
     'id' => $id,
     'data' => $data_chunk,
     'complete' => $complete
@@ -104,7 +104,7 @@ if (!empty($params['last_updated'])) {
     }
   }
   $response = (object) array(
-    'revision' => API_REVISION,
+    'revision' => REVISION,
     'id' => $id,
     'offset' => $offset,
     'size' => $file_chunk_size

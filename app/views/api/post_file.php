@@ -1,6 +1,6 @@
 <?php
 
-$id = uniqid('file.', true);
+$id = generate_id('file');
 $now = time();
 
 $ext = '';

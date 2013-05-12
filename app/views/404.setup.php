@@ -1,7 +1,9 @@
 <?php
 
-if (defined('CANONICAL_HOST') && strtolower($_SERVER['HTTP_HOST']) != CANONICAL_HOST) {
-  header('Location: http://' . CANONICAL_HOST . '/');
+$body_class = 'not-found';
+if (defined('HOSTNAME') && strtolower($_SERVER['HTTP_HOST']) != HOSTNAME) {
+  $hostname = HOSTNAME;
+  header("Location: http://$hostname/");
   exit;
 }
 

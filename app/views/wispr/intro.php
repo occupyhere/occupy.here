@@ -1,9 +1,7 @@
-<form action="wispr_done" class="post" method="post">
-  <div class="alert">
-    <strong>You are not on the internet.</strong>
-  </div>
+<form action="wispr_done" id="wispr_intro" method="post">
+  <h2 class="top"><span class="icon alert"></span>You are not on the internet.</h2>
   <div id="introduction">
-    <p>This wifi router isn’t online. You can visit <strong>http://occupy.here</strong> in your browser, a site that will let you communicate with other people who are (or were) physically within range of the wifi network. That’s the only site available here, visiting any other address should redirect you to occupy.here.</p>
+    <input type="submit" value="continue" /><br class="clear" />
+    <p>This wifi router isn’t online. You are on a tiny LAN island called Occupy.here, a site that’s especially for you and others physically within range of the wifi network. Just load <strong>occupy.here</strong> in your browser.</p>
   </div>
-  <p><input type="submit" value="okay I got it" /></p>
 </form>

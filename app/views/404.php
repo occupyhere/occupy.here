@@ -1,4 +1,4 @@
-<div class="post">
-  <h2 class="top">Not found</h2>
-  <p>Sorry, you have came upon a 404 error page.</p>
-</div>
+<h2>Page not found</h2>
+<p class="pagination">
+  <em>What you’re looking for is not here</em>
+</p>

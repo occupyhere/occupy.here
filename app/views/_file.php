@@ -9,6 +9,14 @@
   <?php
   
   $filename = GRID_DIR . "/public/uploads/$file->path";
+  $backup_filename = str_replace('uploads', 'uploads.bak', $filename);
+  if (!file_exists($filename) && file_exists($backup_filename)) {
+    $uploads_dir = dirname($filename);
+    if (!file_exists($uploads_dir)) {
+      mkdir($uploads_dir);
+    }
+    copy($backup_filename, $filename);
+  }
   if (file_exists($filename)) {
     list($orig_width, $orig_height) = getimagesize($filename);
     $width = $orig_width;

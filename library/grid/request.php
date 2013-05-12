@@ -37,6 +37,7 @@ class Grid_Request {
       if (preg_match($regex, $this->path, $values)) {
         $this->route_index = $index;
         array_shift($values);
+        //print_r($vars);
         foreach ($values as $index => $value) {
           $key = $vars[$index];
           $params[$key] = $value;

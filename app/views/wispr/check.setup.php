@@ -1,7 +1,8 @@
 <?php
 
 if (wispr_pong() != 'done') {
-  header('Location: http://' . CANONICAL_HOST . '/');
+  $hostname = HOSTNAME;
+  header("Location: http://$hostname/");
   wispr_ping();
   exit;
 }

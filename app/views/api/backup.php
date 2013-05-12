@@ -4,7 +4,7 @@ if (empty($params['file'])) {
   $grid->log('Generating backup');
   $now = time();
   $filename = GRID_DIR . "/public/uploads/occupy.here-$now.zip";
-  exec('cd ' . GRID_DIR . ' && ' . ZIP . " -r $filename data/content.db data/grid.log public/uploads", $output);
+  exec('cd ' . GRID_DIR . ' && ' . ZIP_BIN . " -r $filename data/app.db data/app.log public/uploads", $output);
   
   if (file_exists($filename)) {
     $response = (object) array(

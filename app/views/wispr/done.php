@@ -1,10 +1,16 @@
-<?php
-
-$vars = array(
-  'status' => 'done'
-);
-$grid->db->update('wispr', $vars, $_SERVER['REMOTE_ADDR']);
-
-header('Location: ' . GRID_URL);
-
-?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OCCUPY.HERE</title>
+    <style>
+    
+    body {
+      background: #000 url("/images/cartographer.png");
+    }
+    
+    </style>
+  </head>
+  <body>
+  </body>
+</html>

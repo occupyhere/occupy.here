@@ -1,20 +1,24 @@
 <?php
 
-define('API_REVISION', 1);
+global $grid;
+define('REVISION', 1);
 require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
 setup_meta();
-setup_user();
+
+$grid->add_event('setup_response', 'setup_user');
+$grid->add_event('page_load', 'check_for_ssl');
 
 $no_layout = array(
   'layout' => false
 );
 
 // WISPR is Apple's wifi detection mechanism
-$this->get('/intro', 'wispr/intro');
-$this->get('/library/test/success.html', 'wispr/check', $no_layout);
-$this->post('/wispr_done', 'wispr/done', $no_layout);
+//$this->get('/intro', 'wispr/intro');
+//$this->get('/library/test/success.html', 'wispr/check', $no_layout);
+//$this->post('/wispr_done', 'wispr/done', $no_layout);
+$this->get('/library/test/success.html', 'wispr/success', $no_layout);
 
 $this->get('/', 'home');
 $this->get('/(\d+)', 'home', array(
@@ -22,11 +26,14 @@ $this->get('/(\d+)', 'home', array(
 ));
 
 $this->get('/about', 'about');
+$this->get('/files', 'files');
 $this->get('/account', 'account');
 $this->get('/logout', 'logout');
 $this->get('/backup', 'backup');
 $this->post('/occupy.here-$timestamp.zip', 'api/backup', $no_layout);
-$this->get('/$type.$digits', 'detail');
+$this->get('/p/$id', 'topic');
+$this->get('/u/$id', 'user');
+$this->get('/u/$id/$posted_before', 'user');
 
 $this->post('/api/post_topic', 'api/post_topic', $no_layout);
 $this->post('/api/post_reply', 'api/post_reply', $no_layout);
@@ -37,5 +44,7 @@ $this->post('/api/preview', 'api/preview', $no_layout);
 $this->post('/api/upload_file', 'api/upload_file', $no_layout);
 $this->post('/api/post_file', 'api/post_file', $no_layout);
 $this->post('/api/backup', 'api/backup', $no_layout);
+$this->post('/api/hide_announcement', 'api/hide_announcement', $no_layout);
+$this->get('/api/enable_ssl', 'api/enable_ssl', $no_layout);
 
 ?>
