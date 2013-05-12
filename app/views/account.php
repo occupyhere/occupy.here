@@ -16,6 +16,6 @@
   </label>
   <p class="help">Your browser can store a backup of this site's contents. When you connect to another occupy.here router, your copy will be merged into that node’s database. This helps content move between locations without requiring direct network infrastructure.</p>
   <div class="size"></div>
-  <input type="button" class="clear" value="clear stored content" />
+  <input type="button" class="clear" value="clear stored data" />
   <br class="clear" />
 </div>

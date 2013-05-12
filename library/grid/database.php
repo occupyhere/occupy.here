@@ -2,7 +2,7 @@
 
 class Grid_Database {
   
-  function __construct($filename = 'content.db') {
+  function __construct($filename = 'app.db') {
     global $grid;
     $filename = GRID_DIR . "/data/$filename";
     if (!file_exists($filename)) {
@@ -18,8 +18,8 @@ class Grid_Database {
   
   function setup($filename) {
     global $grid;
-    if (!defined('SQLITE_CLI')) {
-      define('SQLITE_CLI', '/usr/bin/sqlite3');
+    if (!defined('SQLITE_BIN')) {
+      define('SQLITE_BIN', '/usr/bin/sqlite3');
     }
     $dir = dirname($filename);
     if (!is_writable($dir)) {
@@ -29,11 +29,11 @@ class Grid_Database {
     if (!file_exists($setup_sql)) {
       die("Database: no setup SQL file found");
     }
-    if (!file_exists(SQLITE_CLI)) {
-      die("Database: can't setup because SQLITE_CLI (" . SQLITE_CLI . ") does not exist.");
+    if (!file_exists(SQLITE_BIN)) {
+      die("Database: can't setup because SQLITE_BIN (" . SQLITE_BIN . ") does not exist.");
     }
     $grid->log("Database: setting up $filename with $setup_sql");
-    exec(SQLITE_CLI . " $filename < $setup_sql", $output);
+    exec(SQLITE_BIN . " $filename < $setup_sql", $output);
     foreach ($output as $line) {
       $grid->log("  $line");
     }

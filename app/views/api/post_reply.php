@@ -1,7 +1,9 @@
 <?php
 
-$id = uniqid('message.', true);
+$id = generate_id();
 $now = time();
+
+$attachment = (empty($_POST['attachment'])) ? null : $_POST['attachment'];
 
 $grid->db->insert('message', array(
   'id' => $id,
@@ -9,18 +11,16 @@ $grid->db->insert('message', array(
   'content' => $params['content'],
   'parent_id' => $params['parent_id'],
   'server_id' => $grid->meta['server_id'],
+  'file_id' => $attachment,
   'created' => $now,
   'updated' => $now
 ));
 
-if (isset($_POST['username']) && $grid->user->name != $_POST['username']) {
-  $update = array(
-    'name' => $_POST['username'],
-    'updated' => $now
-  );
-  $grid->db->update('user', $update, $grid->user->id);
+update_user();
+if (!empty($attachment)) {
+  attach_file($id, $attachment);
 }
 
-$this->redirect(GRID_PATH . "{$params['parent_id']}#replies");
+$this->redirect(GRID_PATH . "p/{$params['parent_id']}#post_$id");
 
 ?>

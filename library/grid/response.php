@@ -8,6 +8,7 @@ class Grid_Response {
   
   function setup($request) {
     global $grid;
+    $grid->fire_event('setup_response');
     $this->namespace = array(
       'grid' => $grid,
       'params' => $grid->request->params
@@ -147,7 +148,7 @@ class Grid_Response {
         substr($name, 0, 6) == 'https:') {
       $path = $name;
     } else {
-      $path = "stylesheets/$name";
+      $path = "css/$name";
     }
     $content = "<link rel=\"stylesheet\" href=\"$path\" media=\"$media\" />\n";
     $this->content_for('header', $content, 'append');
@@ -162,7 +163,7 @@ class Grid_Response {
         substr($name, 0, 6) == 'https:') {
       $path = $name;
     } else {
-      $path = "javascripts/$name";
+      $path = "js/$name";
     }
     $content = "<script src=\"$path\"></script>\n";
     $this->content_for($where, $content, 'append');

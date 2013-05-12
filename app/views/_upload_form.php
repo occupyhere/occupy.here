@@ -1,43 +1,25 @@
-<div id="upload_file">
-  <a href="#upload_form" class="upload_file"><span class="upload icon"></span>Upload a file</a>
-  <br class="clear" />
-  <div id="upload_details">
-    <form action="api/upload_file" method="post" enctype="multipart/form-data" target="upload">
-      <input type="hidden" name="max_file_size" value="<?php
-      
-      $upload_max_filesize = parse_size(ini_get('upload_max_filesize'));
-      $post_max_size = parse_size(ini_get('post_max_size'));
-      echo min($upload_max_filesize, $post_max_size);
-      
-      ?>" />
-      <label class="file_label">
-        Choose a file to upload
-        <input type="file" name="file" />
-      </label>
-    </form>
-    <form action="api/post_file" method="post" class="details">
-      <input type="hidden" name="filename" value="" />
-      <input type="hidden" name="original" value="" />
-      <input type="hidden" name="type" value="" />
-      <?php if (empty($grid->user->name)) { ?>
-        <?php $this->partial('username_input'); ?>
-      <?php } ?>
-      <label class="name">
-        Title
-        <input type="text" id="upload_title" name="name" />
-      </label>
-      <input type="submit" name="task" value="post" />
-      <?php if (!empty($grid->user->name)) { ?>
-        <div class="posting_as">
-          Posting as <a href="/account"><?php echo get_username($grid->user); ?></a>
-        </div>
-      <?php } ?>
-      <a href="#upload_details" class="cancel slide-toggle">Cancel</a>
-      <br class="clear" />
-    </form>
-  </div>
+<form action="api/upload_file" method="post" enctype="multipart/form-data" target="upload" id="upload-form">
+  <input type="hidden" name="max_file_size" value="<?php
+  
+  $upload_max_filesize = parse_size(ini_get('upload_max_filesize'));
+  $post_max_size = parse_size(ini_get('post_max_size'));
+  echo min($upload_max_filesize, $post_max_size);
+  
+  ?>">
+  <input type="file" name="file" id="attach_input" />
   <iframe name="upload" class="hidden" border="0"></iframe>
-  <script>
-  slide($('upload_details'));
-  </script>
-</div>
+</form>
+<ul id="incoming_files">
+  <?php
+  
+  $dh = opendir(GRID_DIR . '/data/incoming');
+  while ($file = readdir($dh)) {
+    if (substr($file, 0, 1) == '.') {
+      continue;
+    }
+    $file = get_filename($file);
+    echo "<li><a href=\"#\">$file</a></li>\n";
+  }
+  
+  ?>
+</ul>

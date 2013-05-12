@@ -82,12 +82,6 @@ class Grid extends Grid_Events {
     $this->routes[] = $route;
   }
   
-  function setup_params($request) {
-    $params = $this->process_routes($request);
-    $this->orig_request = clone $request;
-    $request->set_params($params);
-  }
-  
   function reroute() {
     $offset = $this->request->route_index + 1;
     $this->request->setup($this->routes, $offset);
@@ -101,7 +95,7 @@ class Grid extends Grid_Events {
         echo "Grid: directory '$dir' is not writable";
         exit;
       }
-      $this->log_file = fopen("$dir/grid.log", 'a');
+      $this->log_file = fopen("$dir/app.log", 'a');
     }
     $message = trim($message);
     $timestamp = date('Y-m-d H:i:s');

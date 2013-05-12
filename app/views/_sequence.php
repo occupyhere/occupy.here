@@ -1,41 +1,29 @@
 <div class="sequence">
   <?php if (!empty($prev_page)) { ?>
-    <div class="post">
-      <a href="<?php echo $prev_page; ?>" class="prev"><span class="prev icon"></span>Previous page</a>
-    </div>
+    <p class="pagination">
+      <a href="<?php echo $prev_page; ?>" class="button">Go to previous page</a>
+    </p>
   <?php } ?>
-  <?php foreach ($items as $item) { ?>
-    <div class="post">
-      <?php
-      
-      $type = $item->get_table();
-      $this->partial($type, array($type => $item));
-      
-      ?>
-      <p class="utilities"><a href="<?php echo $item->id; ?><?php
-        if ($item->reply_count == 0) {
-          echo '#reply">post a reply';
-        } else if ($item->reply_count == 1) {
-          echo '">1 reply';
-        } else {
-          echo "\">$item->reply_count replies";
-        }
-      ?></a></p>
-    </div>
-  <?php } ?>
-  <div class="post">
+  <?php foreach ($posts as $item) {
+    $type = $item->get_table();
+    $this->partial('post', array(
+      'post' => $item,
+      'class' => "summary user_{$item->user_id}"
+    ));
+  } ?>
+  <p class="pagination">
     <?php
     
-    if (empty($items)) {
-      echo 'There is nothing here yet';
+    if (empty($posts)) {
+      echo '<em>There is nothing here yet</em>';
     } else if (!empty($end_of_items)) {
-      echo 'You have reached the end';
+      echo '<em>You have reached the end</em>';
     }
     
     if (!empty($next_page)) {
-      echo "<a href=\"$next_page\" class=\"next\"><span class=\"next icon\"></span>Next page</a>";
+      echo "<a href=\"$next_page\" class=\"button\">Go to next page</a>";
     }
     
     ?>
-  </div>
+  </p>
 </div>
