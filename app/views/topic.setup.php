@@ -16,8 +16,14 @@ $replies = get_posts(array(
 $post->reply_count = count($replies);
 
 if (!empty($post->parent_id)) {
-  $back_title = 'In reply to';
-  $back_url = "p/$post->parent_id";
+  if (substr($post->parent_id, 0, 2) == 'c/') {
+    $container = $grid->db->record('container', substr($post->parent_id, 2));
+    $back_title = esc($container->name);
+    $back_url = $post->parent_id;
+  } else {
+    $back_title = 'In reply to';
+    $back_url = "p/$post->parent_id";
+  }
 } else {
   $back_title = 'Home';
   $back_url = GRID_URL;

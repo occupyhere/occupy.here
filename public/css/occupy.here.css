@@ -78,12 +78,14 @@ nav {
 }
 
 nav li {
-  padding: 4px 0;
   border-bottom: 1px solid #444;
 }
 
 nav a {
+  display: block;
+  padding: 4px 0;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .announcement {
@@ -377,6 +379,10 @@ article .when a:hover {
   overflow: hidden;
 }
 
+#post-form .author {
+  float: left;
+}
+
 #post-form .buttons {
   margin-top: 20px;
   padding-bottom: 15px;
@@ -426,11 +432,23 @@ article .when a:hover {
   opacity: 0;
 }
 
-#edit-username {
+#edit-username,
+#edit-options {
   color: #999;
   margin-left: 10px;
   font-size: 11px;
   text-transform: uppercase;
+}
+
+#edit-options {
+  float: right;
+  text-decoration: none;
+  margin: 6px 15px 0 0;
+}
+
+#edit-options:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 #edit-colors {
@@ -449,6 +467,7 @@ article .when a:hover {
 }
 
 #username-form {
+  float: left;
   padding-bottom: 5px;
 }
 
@@ -484,6 +503,27 @@ article .when a:hover {
   bottom: 0;
   left: 0;
   cursor: move;
+}
+
+#options-form {
+  border-top: 1px dotted #666;
+  margin-top: 10px;
+  padding: 5px 10px 0 10px;
+}
+
+#options-form label {
+  margin-top: 10px;
+  display: block;
+}
+
+label .text {
+  display: inline-block;
+  margin-right: 5px;
+  width: 75px;
+  text-align: right;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #999;
 }
 
 .replies-posts {
@@ -679,6 +719,14 @@ body.files #content ul .meta {
   color: #999;
 }
 
+#container-info {
+  padding-top: 20px;
+}
+
+#container-info h2 {
+  margin-bottom: 0;
+}
+
 @media
   only screen and (min-width: 590px) {
   
@@ -711,6 +759,10 @@ body.files #content ul .meta {
   
   body.about #content {
     padding-top: 30px;
+  }
+  
+  #edit-options {
+    margin-right: 0;
   }
   
 }

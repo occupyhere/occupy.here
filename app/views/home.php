@@ -8,5 +8,5 @@ if (wispr_pong() == 'show-intro' && !empty($params['intro'])) {
     <?php $this->partial('post_form'); ?>
   </form>
   <?php $this->partial('sequence'); ?>
+  <?php $this->partial('upload_form'); ?>
 <?php } ?>
-<?php $this->partial('upload_form'); ?>

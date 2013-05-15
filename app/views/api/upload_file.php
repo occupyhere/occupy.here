@@ -2,12 +2,6 @@
   <body>
     <?php
     
-    function esc($value) {
-      $value = str_replace("'", "\\'", $value);
-      $value = htmlentities($value);
-      echo $value;
-    }
-    
     extract($_FILES['file']);
     $id = generate_id();
     $now = time();
