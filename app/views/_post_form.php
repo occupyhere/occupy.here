@@ -34,7 +34,7 @@
       <label>
         <span class="text">File under:</span>
         <select name="container">
-          <option value="">[Everything]</option>
+          <option value="">[Top level]</option>
           <?php
           
           foreach ($containers as $container) {

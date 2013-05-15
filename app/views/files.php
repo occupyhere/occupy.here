@@ -1,4 +1,8 @@
 <div id="content">
+  <h2>All Files</h2>
+  <?php if (empty($files)) { ?>
+     <p class="pagination"><em>There is nothing here yet</em></p>
+  <?php } ?>
   <ul>
     <?php foreach ($files as $file) { ?>
       <?php $topic = $topics[$file->message_id]; ?>
