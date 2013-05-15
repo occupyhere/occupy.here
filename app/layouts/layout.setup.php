@@ -33,6 +33,10 @@ if (!in_array('offline', $hidden_announcements)) {
   $this->partial_for('announcements', 'announcements/offline');
 }
 
+$containers = $grid->db->select('container', array(
+  'order' => 'created DESC'
+));
+
 /*if (preg_match('/public$/', GRID_PATH)) {
   $this->partial_for('announcements', 'server_config');
 }

@@ -6,6 +6,7 @@ require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
 setup_meta();
+check_for_expired_content();
 
 $grid->add_event('setup_response', 'setup_user');
 $grid->add_event('page_load', 'check_for_ssl');
@@ -34,6 +35,7 @@ $this->post('/occupy.here-$timestamp.zip', 'api/backup', $no_layout);
 $this->get('/p/$id', 'topic');
 $this->get('/u/$id', 'user');
 $this->get('/u/$id/$posted_before', 'user');
+$this->get('/c/$id', 'container');
 
 $this->post('/api/post_topic', 'api/post_topic', $no_layout);
 $this->post('/api/post_reply', 'api/post_reply', $no_layout);

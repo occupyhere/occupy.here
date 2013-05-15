@@ -209,6 +209,7 @@ function update_user() {
 
 function attach_file($id, $attachment) {
   global $grid;
+  $message = $grid->db->record('message', $id);
   $file = $grid->db->record('file', $attachment);
   $dir = GRID_DIR . "/public/";
   $subdir = 'uploads/' . substr($id, 0, 1);
@@ -224,8 +225,34 @@ function attach_file($id, $attachment) {
   rename(GRID_DIR . "/public/$file->path", "$dir/$subdir/$file->name");
   $grid->db->update('file', array(
     'message_id' => $id,
-    'path' => "$subdir/$file->name"
+    'path' => "$subdir/$file->name",
+    'expires' => $message->expires
   ), $attachment);
+}
+
+function get_container() {
+  global $grid;
+  if (empty($_POST['container'])) {
+    return null;
+  }
+  $id = $_POST['container'];
+  $container = $grid->db->record('container', $id);
+  if (!empty($container)) {
+    return $container;
+  } else {
+    $name = $id;
+    $id = generate_id();
+    $now = time();
+    $grid->db->insert('container', array(
+      'id' => $id,
+      'user_id' => $grid->user->id,
+      'name' => $name,
+      'server_id' => $grid->meta['server_id'],
+      'created' => $now,
+      'updated' => $now
+    ));
+    return $grid->db->record('container', $id);
+  }
 }
 
 function find_attachments($lookup, $attachment_ids) {
@@ -407,6 +434,23 @@ function session_gc($max_lifetime = 600) {
   $values = array($now - $max_lifetime);
   $grid->db->delete('session', $where, $values);
   return true;
+}
+
+function check_for_expired_content() {
+  global $grid;
+  $now = time();
+  if (empty($grid->meta['last_expired_check']) ||
+      $now - $grid->meta['last_expired_check'] > 60) {
+    $grid->db->delete('message', 'expires < ?', array($now));
+    $grid->db->delete('file', 'expires < ?', array($now));
+    save_meta(array(
+      'last_expired_check' => $now
+    ));
+  }
+}
+
+function esc($text) {
+  return htmlentities($text, ENT_COMPAT, 'UTF-8');
 }
 
 ?>

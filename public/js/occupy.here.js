@@ -65,6 +65,31 @@ function setupColorEditors(el) {
   });
 }
 
+function updateAttachForm(e) {
+  var position = $('attach-button').getPosition();
+  var size = $('attach-button').getSize();
+  var isVisible = $('post-form').getParent('form').getSize().y > 0;
+  var isDisabled = $('attach-button').hasClass('disabled');
+  if (e && e.page &&
+      e.page.x > position.x &&
+      e.page.x < position.x + size.x &&
+      e.page.y > position.y &&
+      e.page.y < position.y + size.y &&
+      isVisible && !isDisabled) {
+    $('upload-form').setStyles({
+      left: e.page.x - 180,
+      top: e.page.y - 10
+    });
+    $('attach-button').addClass('hover');
+  } else {
+    $('upload-form').setStyles({
+      left: -1000000,
+      top: -1000000
+    });
+    $('attach-button').removeClass('hover');
+  }
+}
+
 function setupAttachmentInput() {
   var input = $('upload-form').getElement('input[type=file]');
   if (!input) {
@@ -79,29 +104,7 @@ function setupAttachmentInput() {
     return;
   }
   $('attach-button').addClass('setup');
-  var position = $('attach-button').getPosition();
-  var size = $('attach-button').getSize();
-  document.addEvent('mousemove', function(e) {
-    var isVisible = $('post-form').getParent('form').getSize().y > 0;
-    var isDisabled = $('attach-button').hasClass('disabled');
-    if (e.page.x > position.x &&
-        e.page.x < position.x + size.x &&
-        e.page.y > position.y &&
-        e.page.y < position.y + size.y &&
-        isVisible && !isDisabled) {
-      $('upload-form').setStyles({
-        left: e.page.x - 180,
-        top: e.page.y - 10
-      });
-      $('attach-button').addClass('hover');
-    } else {
-      $('upload-form').setStyles({
-        left: -1000000,
-        top: -1000000
-      });
-      $('attach-button').removeClass('hover');
-    }
-  });
+  document.addEvent('mousemove', updateAttachForm);
   input.addEvent('change', function() {
     var maxSize = $('upload-form').getElement('input[name=max_file_size]').value.toInt();
     if (input.files && input.files[0].size &&
@@ -126,6 +129,9 @@ function upload_complete(json) {
   }).inject($('post-form').getElement('.container'));
   $('attachment').value = file.id;
   $('attach-button').set('html', 'Attached');
+  if ($('post-form').getElement('textarea').value == '') {
+    $('post-form').getElement('textarea').value = file.name;
+  }
 }
 
 function summarizeArticleText(el) {
@@ -244,6 +250,10 @@ function showTopicForm() {
     setupAttachmentInput();
   });
   $('post-button').set('html', '<span class="icon"></span> CANCEL');
+  new Fx.Scroll(window, {
+    duration: 500,
+    transition: Fx.Transitions.Quart.easeOut,
+  }).toElement($('top'));
 }
 
 function hideTopicForm() {
@@ -301,10 +311,6 @@ window.addEvent('domready', function() {
         $('post-button').style.display = 'block';
       }
     });
-    if ($('username-form').getElement('input').value == '') {
-      $('post-form').getElement('.author').addClass('hidden');
-      $('username-form').removeClass('hidden');
-    }
     if (location.hash.indexOf('post') != -1) {
       showTopicForm();
     }
@@ -315,6 +321,12 @@ window.addEvent('domready', function() {
       } else {
         hideTopicForm();
       }
+    });
+    $('edit-options').addEvent('click', function(e) {
+      e.stop();
+      $('options-form').removeClass('hidden');
+      $('edit-options').addClass('hidden');
+      updateAttachForm();
     });
   }
   
@@ -330,6 +342,22 @@ window.addEvent('domready', function() {
         e.stop();
       }
     });
+    var container = $('post-form').getElement('select[name=container]');
+    if (container) {
+      var length = container.options.length;
+      container.addEvent('change', function() {
+        if (container.selectedIndex == container.options.length - 1) {
+          var name = prompt('Contaner name?');
+          if (!name) {
+            container.selectedIndex = 0;
+          } else {
+            container.options[length - 1] = new Option(name, name);
+            container.options[length] = new Option('[New container...]', 'new');
+            container.selectedIndex = length - 1;
+          }
+        }
+      });
+    }
   }
   
   if ($('edit-username')) {
@@ -337,6 +365,7 @@ window.addEvent('domready', function() {
       e.stop();
       $('post-form').getElement('.author').addClass('hidden');
       $('username-form').removeClass('hidden');
+      updateAttachForm();
     });
   }
   
@@ -345,6 +374,7 @@ window.addEvent('domready', function() {
       e.stop();
       $('edit-colors').addClass('hidden');
       $('color-form').removeClass('hidden');
+      updateAttachForm();
     });
   }
   
