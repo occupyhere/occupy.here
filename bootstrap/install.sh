@@ -74,6 +74,7 @@ ln -s /opt/etc/init.d/lighttpd /etc/rc.d/S90lighttpd
 ln -s /opt/etc/init.d/php5-fastcgi /etc/init.d/php5-fastcgi
 
 echo "Copying config files..."
+cp /usb/occupy.here/bootstrap/step6/config.php /usb/occupy.here/config.php
 cp /usb/occupy.here/bootstrap/step6/php.ini /etc/php.ini
 cp /usb/occupy.here/bootstrap/step6/lighttpd.conf /etc/lighttpd/lighttpd.conf
 cp /usb/occupy.here/bootstrap/step6/dnsmasq.conf /etc/dnsmasq.conf
