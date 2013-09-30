@@ -25,7 +25,7 @@ if (!empty($attachment)) {
 }
 
 $container = get_container();
-$url = (empty($container)) ? GRID_URL : GRID_URL . "c/$container->id";
+$url = (empty($container)) ? GRID_URL . 'forum' : GRID_URL . "c/$container->id";
 
 if (!empty($container)) {
   $grid->db->update('message', array(

@@ -1,10 +1,7 @@
 <div id="menu" class="hidden">
   <div class="container">
-    <h1>occupy.here</h1>
     <nav>
       <ul>
-        <li><a href="./">Home</a></li>
-        <li><a href="about">About</a></li>
         <?php
         
         foreach ($containers as $container) {
@@ -13,7 +10,8 @@
         }
         
         ?>
-        <li><a href="files">All Files</a></li>
+        <li><a href="forum">Forum</a></li>
+        <li><a href="about">About</a></li>
       </ul>
     </nav>
   </div>

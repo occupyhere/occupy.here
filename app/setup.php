@@ -8,6 +8,10 @@ $this->db = new Grid_Database();
 setup_meta();
 check_for_expired_content();
 
+if (!empty($_GET['import'])) {
+  check_for_import_content();
+}
+
 $grid->add_event('setup_response', 'setup_user');
 $grid->add_event('page_load', 'check_for_ssl');
 
@@ -22,7 +26,8 @@ $no_layout = array(
 $this->get('/library/test/success.html', 'wispr/success', $no_layout);
 
 $this->get('/', 'home');
-$this->get('/(\d+)', 'home', array(
+$this->get('/forum', 'forum');
+$this->get('/forum/(\d+)', 'forum', array(
   'vars' => array('posted_before')
 ));
 
@@ -30,13 +35,15 @@ $this->get('/about', 'about');
 $this->get('/files', 'files');
 $this->get('/account', 'account');
 $this->get('/logout', 'logout');
-$this->get('/backup', 'backup');
-$this->post('/occupy.here-$timestamp.zip', 'api/backup', $no_layout);
+//$this->get('/backup', 'backup');
+//$this->post('/occupy.here-$timestamp.zip', 'api/backup', $no_layout);
 $this->get('/p/$id', 'topic');
+$this->get('/p/$id/edit', 'edit_post');
 $this->get('/u/$id', 'user');
 $this->get('/u/$id/$posted_before', 'user');
 $this->get('/c/$id', 'container');
 
+$this->post('/api/questionnaire', 'api/questionnaire', $no_layout);
 $this->post('/api/post_topic', 'api/post_topic', $no_layout);
 $this->post('/api/post_reply', 'api/post_reply', $no_layout);
 $this->post('/api/update_account', 'api/update_account', $no_layout);

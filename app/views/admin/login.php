@@ -10,7 +10,7 @@ if (!empty($_POST['admin_username']) && !empty($_POST['admin_password'])) {
   $auth = new Admin_Auth(PASSWD_PATH);
   if ($auth->check_login($username, $password)) {
     $_SESSION['is_admin'] = true;
-    header('Location: /admin');
+    header('Location: ' . GRID_URL);
     exit;
   } else {
     $_SESSION['is_admin'] = false;
