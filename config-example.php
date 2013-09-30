@@ -2,7 +2,7 @@
 
 // URL
 define('HOSTNAME', 'occupy.here');
-define('USE_SSL', 1);
+define('USE_SSL', 0);
 
 // Your current timezone
 date_default_timezone_set('America/New_York');

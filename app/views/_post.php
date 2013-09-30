@@ -2,20 +2,22 @@
   <?php
   
   if (!empty($post->attachment) && strpos($class, 'topic') !== false) {
-    $hide_attachment_link = show_attachment($post->attachment);
+    $hide_attachment_link = show_attachment($post);
   }
   
   ?>
   <div class="container" ontouchstart="">
     <div class="text-only hidden">
-      <?php echo htmlentities($post->content); ?>
+      <?php echo htmlentities($post->content, ENT_COMPAT, 'UTF-8'); ?>
     </div>
     <div class="content">
       <?php echo nl2br(htmlentities($post->content)); ?>
     </div>
     <?php
     
-    if (!empty($post->attachment) && empty($hide_attachment_link)) {
+    if (!empty($post->attachment) &&
+        empty($hide_attachment_link) &&
+        substr($post->attachment->name, -5, 5) != '.json') {
       show_attachment_link($post->attachment);
     }
     

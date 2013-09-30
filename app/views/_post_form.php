@@ -1,8 +1,19 @@
-<article id="post-form" class="<?php echo "user_{$grid->user->id}"; ?>" data-colors="<?php echo get_colors(); ?>">
+<?php
+
+if (empty($content)) {
+  $content = '';
+}
+$placeholder = "Type your message here";
+if (empty($form_class)) {
+  $form_class = "user_{$grid->user->id}";
+}
+
+?>
+<article id="post-form" class="<?php echo $form_class; ?>" data-colors="<?php echo get_colors(); ?>">
   <input type="hidden" id="attachment" name="attachment">
   <div class="container">
     <div id="post-preview"></div>
-    <textarea name="content" rows="1" cols="40" class="content" placeholder="Type your message here"></textarea>
+    <textarea name="content" rows="1" cols="40" class="content" placeholder="<?php echo $placeholder; ?>"><?php echo esc($content); ?></textarea>
   </div>
   <div class="author">
     <a href="<?php echo "u/{$_SESSION['user_id']}"; ?>" class="id"><span class="color"></span><?php echo get_username($_SESSION['user_id']); ?></a>
@@ -39,7 +50,8 @@
           
           foreach ($containers as $container) {
             $name = esc($container->name);
-            $selected = ($params['view'] == 'container' && $params['id'] == $container->id) ? ' selected="selected"' : '';
+            $selected = ($params['view'] == 'container' && $params['id'] == $container->id ||
+                         $params['view'] == $container->id) ? ' selected="selected"' : '';
             echo "<option value=\"$container->id\"$selected>$name</option>\n";
           }
           
@@ -59,6 +71,10 @@
         </select>
       </label>
     </div>
+  <?php } ?>
+  <?php if (!empty($parent_id) && $parent_id === 'c/questionnaire') { ?>
+    <input type="hidden" name="container" value="questionnaire">
+    <input type="hidden" name="ttl" value="31536000">
   <?php } ?>
   <div class="buttons">
     <button id="submit-button" type="submit" name="task" value="post" class="post button" ontouchstart=""><span class="icon"></span> SUBMIT</button>

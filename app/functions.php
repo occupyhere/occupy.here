@@ -29,10 +29,15 @@ function create_user() {
 
 function setup_user() {
   global $grid;
-  $view = $grid->request->params['view'];
-  if (strpos($view, 'wispr') !== false ||
-      strpos($view, '404') !== false) {
+  if (!empty($grid->user)) {
     return;
+  }
+  if (!empty($grid->request)) {
+    $view = $grid->request->params['view'];
+    if (strpos($view, 'wispr') !== false ||
+        strpos($view, '404') !== false) {
+      return;
+    }
   }
   ini_set('session.name', 'SESSION');
   ini_set('session.use_cookies', true);
@@ -211,7 +216,7 @@ function attach_file($id, $attachment) {
   global $grid;
   $message = $grid->db->record('message', $id);
   $file = $grid->db->record('file', $attachment);
-  $dir = GRID_DIR . "/public/";
+  $dir = GRID_DIR . "/public";
   $subdir = 'uploads/' . substr($id, 0, 1);
   if (!file_exists("$dir/$subdir")) {
     mkdir("$dir/$subdir");
@@ -272,7 +277,9 @@ function find_attachments($lookup, $attachment_ids) {
   }
 }
 
-function show_attachment($attachment) {
+function show_attachment($post) {
+  global $grid;
+  $attachment = $post->attachment;
   if (preg_match('/\.(jpe?g|gif|png|bmp|tiff?)$/i', $attachment->path)) {
     echo '<div id="inline-attachment">';
     show_attachment_link($attachment);
@@ -291,6 +298,40 @@ function show_attachment($attachment) {
     echo '<script src="js/pdfjs.js"></script>';
     echo '<script src="js/pdf-compatibility.js"></script>';
     echo "<script>PDFJS.workerSrc = 'js/pdfjs.js';</script>";
+    return true;
+  } else if (preg_match('/\.json$/i', $attachment->path)) {
+    $json = file_get_contents(GRID_DIR . "/public/$attachment->path");
+    $article = json_decode($json);
+    if (!empty($article->url)) {
+      $url = parse_url($article->url);
+      $domain = $url['host'];
+      $domain = str_replace('www.', '', $domain);
+    }
+    $meta = '';
+    $author = empty($article->author) ? '' : "By $article->author / ";
+    if (!empty($author) || !empty($domain)) {
+      $meta = "<div class=\"meta\">
+        $author<a href=\"$article->url\">$domain</a>
+      </div>";
+    }
+    $title = (!empty($article->title)) ? "<h2>$article->title</h2>" : '';
+    if (!empty($article->title) && $article->title != $post->content) {
+      $grid->db->update('message', array(
+        'content' => $article->title
+      ), $post->id);
+    }
+    $content = $article->content;
+    if (!empty($article->images)) {
+      $dir = dirname($attachment->path);
+      foreach ($article->images as $image) {
+        $content = str_replace($image->url, "$dir/$image->filename", $content);
+      }
+    }
+    echo "<div id=\"article\">
+      $title
+      $meta
+      $content
+    </div>";
     return true;
   }
   return false;
@@ -446,6 +487,57 @@ function check_for_expired_content() {
     save_meta(array(
       'last_expired_check' => $now
     ));
+  }
+}
+
+function check_for_import_content() {
+  global $grid;
+  if (!file_exists(GRID_DIR . '/import')) {
+    return;
+  }
+  setup_user();
+  $dh = opendir(GRID_DIR . '/import');
+  $now = time();
+  $expires = $now + 31536000;
+  while ($filename = readdir($dh)) {
+    if (substr($filename, 0, 1) == '.') {
+      continue;
+    }
+    
+    $message_id = generate_id();
+    $file_id = generate_id();
+    
+    if (substr($filename, -5, 5) == '.json') {
+      $json = file_get_contents(GRID_DIR . "/import/$filename");
+      $article = json_decode($json);
+      $content = $article->title;
+    } else {
+      $content = preg_replace('#\.\w+$#', '', $filename);
+    }
+    
+    $grid->db->insert('message', array(
+      'id' => $message_id,
+      'user_id' => $grid->user->id,
+      'content' => $content,
+      'parent_id' => 'c/library',
+      'server_id' => $grid->meta['server_id'],
+      'file_id' => $file_id,
+      'expires' => $expires,
+      'created' => $now,
+      'updated' => $now
+    ));
+    
+    $path = "../import/$filename";
+    $grid->db->insert('file', array(
+      'id' => $file_id,
+      'user_id' => $grid->user->id,
+      'server_id' => $grid->meta['server_id'],
+      'name' => $filename,
+      'path' => $path,
+      'created' => $now,
+      'updated' => $now
+    ));
+    attach_file($message_id, $file_id);
   }
 }
 

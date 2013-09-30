@@ -145,7 +145,9 @@ header {
   padding: 0 10px;
 }
 
-.button {
+.button,
+button,
+input[type="submit"] {
   color: #999;
   background: #181818;
   text-decoration: none;
@@ -157,7 +159,9 @@ header {
   font: 14px/24px open_sans_semibold, verdana, sans-serif;
 }
 
-.button:hover {
+.button:hover,
+button:hover,
+input[type="submit"]:hover {
   color: #fff;
   background: #666;
 }
@@ -235,7 +239,8 @@ textarea {
   width: 100%;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password] {
   font: 14px open_sans_regular, verdana, sans-serif;
   color: #fff;
   background: #444;
@@ -389,11 +394,10 @@ article .when a:hover {
   background: #666 url('../img/stripes.gif');
 }
 
-#post-form .button {
-  color: #fff;
+#post-form .buttons .button {
+  color: #fff !important;
   background: #181818;
   margin-top: 15px;
-  display: block;
   cursor: pointer;
 }
 
@@ -425,6 +429,15 @@ article .when a:hover {
   color: #999;
   background: #333;
   cursor: default;
+}
+
+#post-form #continue-button {
+  float: left;
+  margin-left: 15px;
+}
+
+#post-form {
+  position: relative;
 }
 
 #upload-form input {
@@ -699,8 +712,29 @@ body.files #content ul {
 }
 
 body.files #content li {
+  position: relative;
   padding: 5px 0;
   border-top: 1px solid #333;
+}
+
+body.files #content li .edit {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  text-indent: -1000000px;
+  background: #181818 url('../img/icons/edit.png');
+  opacity: 0.4;
+}
+
+body.is-admin #content li:hover .edit {
+  display: block;
+}
+
+body.files #content li .edit:hover {
+  opacity: 1;
 }
 
 body.files #content a {
@@ -726,6 +760,109 @@ body.files #content ul .meta {
 #container-info h2 {
   margin-bottom: 0;
 }
+
+#article {
+  margin-bottom: 20px;
+  padding: 0 15px;
+}
+
+#article h2 {
+  margin-bottom: 0;
+}
+
+#article article {
+  padding-top: 0;
+}
+
+#article .meta {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+#article .meta a {
+  color: #999 !important;
+}
+
+#article .parasectionhed {
+  font: 14px/24px open_sans_semibold, sans-serif;
+  margin-top: 20px;
+}
+
+#article .pullquote {
+  display: none;
+}
+
+#article blockquote {
+  margin-left: 20px;
+}
+
+#alert {
+  background: #181818;
+  bottom: 22px;
+  left: 133px;
+  padding: 2px 8px;
+  position: absolute;
+}
+
+#questions .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+#questions .question {
+  border-top: 1px dotted #666;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+#questions .question0 {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+#questions .container {
+  margin-top: 15px;
+  padding: 20px;
+}
+
+#article .questionnaire-intro {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#article .questionnaire-question {
+  font: 14px/24px open_sans_semibold, sans-serif;
+  margin-top: 40px;
+}
+
+body.questionnaire-response .topic .container,
+body.questionnaire-response .topic .author,
+body.questionnaire-response .topic .when {
+  display: none;
+}
+
+a.contribute {
+  color: #fff !important;
+}
+
+#auth-login label {
+  display: block;
+  margin: 10px 0;
+}
+
+#auth-login input {
+  display: block;
+  margin-top: 5px;
+}
+
+#auth-login input[type="submit"] {
+  margin-top: 20px;
+}
+
+
 
 @media
   only screen and (min-width: 590px) {
@@ -763,6 +900,10 @@ body.files #content ul .meta {
   
   #edit-options {
     margin-right: 0;
+  }
+  
+  #article {
+    padding: 0;
   }
   
 }

@@ -1,7 +1,7 @@
 <?php
 
 // Defaults
-$page_title = 'occupy.here / distributed wifi occupation';
+$page_title = 'occupy.here';
 $body_class = '';
 
 if (!empty($grid->user)) {
@@ -12,8 +12,10 @@ if (!empty($grid->user)) {
 }
 
 $items_per_page = 10;
-$back_url = GRID_URL;
-$back_title = 'Home';
+$back_url = '/forum';
+$back_title = 'Forum';
+$post_url = 'forum#post';
+$post_title = 'POST';
 
 $this->stylesheet('reset.css');
 $this->stylesheet('open_sans/open_sans.css');
@@ -34,7 +36,7 @@ if (!in_array('offline', $hidden_announcements)) {
 }
 
 $containers = $grid->db->select('container', array(
-  'order' => 'created DESC'
+  'order' => 'created'
 ));
 
 /*if (preg_match('/public$/', GRID_PATH)) {
@@ -48,6 +50,10 @@ if (!is_writable(GRID_DIR . '/data') || !is_writable(GRID_DIR . '/data/sessions'
 if (!empty($_SESSION['hidden_announcements'])) {
   $this->partial_for('header', 'hidden_announcements');
 }*/
+
+if (!empty($_SESSION['is_admin'])) {
+  $body_class .= " is-admin";
+}
 
 $base_path = GRID_URL;
 if (GRID_PATH == '/') {
