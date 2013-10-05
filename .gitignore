@@ -4,3 +4,5 @@ data/*
 public/uploads
 !public/uploads/.empty
 .DS_Store
+/import
+/logs
