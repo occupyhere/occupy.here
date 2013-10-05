@@ -98,6 +98,9 @@ EOF
 echo "Starting lighttpd..."
 /etc/init.d/lighttpd start
 
+echo "Restarting dnsmasq..."
+/etc/init.d/dnsmasq restart
+
 echo "Starting wifi..."
 /usr/bin/php -f /usb/occupy.here/bootstrap/step7/wireless.php
 
@@ -106,16 +109,10 @@ echo "+-------------------------------------------------------------------------
 echo "|                                                                            |"
 echo "|  1. Join the wifi network 'OCCUPY.HERE / $MAC_ADDRESS'                     |"
 echo "|  2. Open a browser and go to the URL: http://occupy.here/                  |"
-echo "|  3. To connect via ssh, use the IP address 10.0.47.1                       |"
 echo "|                                                                            |"
 echo "|  Note: in order to login to ssh using public key encryption, copy your     |"
 echo "|        public key to /etc/config/dropbear/authorized_keys                  |"
 echo "|                                                                            |"
-echo "|  This connection will close down in a moment. To reconnect use wifi.       |"
-echo "|                                                                            |"
 echo "+----------------------------------------------------------------------------+"
 echo
 
-/bin/cp /usb/occupy.here/bootstrap/step7/network /etc/config/network
-/etc/init.d/network restart
-/etc/init.d/dnsmasq restart
