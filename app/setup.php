@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
 setup_meta();
-setup_library();
+//setup_library();
 check_for_expired_content();
 
 if (!empty($_GET['import'])) {

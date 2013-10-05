@@ -1,6 +1,5 @@
 /config.php
-data/app.db
-data/app.log
+data/*
 !data/.empty
 public/uploads
 !public/uploads/.empty

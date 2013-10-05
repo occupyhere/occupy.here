@@ -97,10 +97,8 @@ EOF
 
 echo "Starting lighttpd..."
 /etc/init.d/lighttpd start
-
 echo "Restarting dnsmasq..."
 /etc/init.d/dnsmasq restart
-
 echo "Starting wifi..."
 /usr/bin/php -f /usb/occupy.here/bootstrap/step7/wireless.php
 
@@ -115,4 +113,3 @@ echo "|        public key to /etc/config/dropbear/authorized_keys               
 echo "|                                                                            |"
 echo "+----------------------------------------------------------------------------+"
 echo
-
