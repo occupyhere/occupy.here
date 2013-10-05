@@ -750,6 +750,8 @@ body.files #content ul a.filename {
 }
 
 body.files #content ul .meta {
+  font-size: 11px;
+  text-transform: uppercase;
   color: #999;
 }
 

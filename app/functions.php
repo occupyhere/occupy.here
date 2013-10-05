@@ -73,6 +73,20 @@ function setup_meta() {
   }
 }
 
+function setup_library() {
+  global $grid;
+  $now = time();
+  $library = $grid->db->record('container', 'library');
+  if (empty($library)) {
+    $grid->db->insert('container', array(
+      'id' => 'library',
+      'name' => 'Library',
+      'created' => $now,
+      'updated' => $now
+    ));
+  }
+}
+
 function setup_uploads() {
   $public_dir = GRID_DIR . "/public";
   $uploads_dir = GRID_DIR . "/public/uploads";
@@ -506,11 +520,18 @@ function check_for_import_content() {
     
     $message_id = generate_id();
     $file_id = generate_id();
+    $created = $now;
     
     if (substr($filename, -5, 5) == '.json') {
       $json = file_get_contents(GRID_DIR . "/import/$filename");
       $article = json_decode($json);
       $content = $article->title;
+      if (!empty($article->date_published)) {
+        $date_published = strtotime($article->date_published);
+        if (!empty($date_published)) {
+          $created = $date_published;
+        }
+      }
     } else {
       $content = preg_replace('#\.\w+$#', '', $filename);
     }
@@ -523,7 +544,7 @@ function check_for_import_content() {
       'server_id' => $grid->meta['server_id'],
       'file_id' => $file_id,
       'expires' => $expires,
-      'created' => $now,
+      'created' => $created,
       'updated' => $now
     ));
     

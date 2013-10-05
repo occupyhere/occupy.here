@@ -6,6 +6,7 @@ require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
 setup_meta();
+setup_library();
 check_for_expired_content();
 
 if (!empty($_GET['import'])) {
@@ -41,9 +42,9 @@ $this->get('/p/$id', 'topic');
 $this->get('/p/$id/edit', 'edit_post');
 $this->get('/u/$id', 'user');
 $this->get('/u/$id/$posted_before', 'user');
+$this->get('/c/library', 'library');
 $this->get('/c/$id', 'container');
 
-$this->post('/api/questionnaire', 'api/questionnaire', $no_layout);
 $this->post('/api/post_topic', 'api/post_topic', $no_layout);
 $this->post('/api/post_reply', 'api/post_reply', $no_layout);
 $this->post('/api/update_account', 'api/update_account', $no_layout);
