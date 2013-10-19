@@ -31,6 +31,8 @@ if (count($posts) == $items_per_page) {
   if ($next_topics == 0) {
     $next_page = null;
     $end_of_items = true;
+  } else {
+    $next_page = "/forum/$next_page";
   }
 } else {
   $end_of_items = true;
@@ -45,7 +47,7 @@ if (!empty($params['posted_before'])) {
   ));
   if (!empty($prev_topics)) {
     $first_prev_item = $prev_topics[0];
-    $prev_page = intval($first_prev_item->created) + 1;
+    $prev_page = "/forum/" . intval($first_prev_item->created) + 1;
   }
 }
 
