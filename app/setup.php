@@ -1,7 +1,7 @@
 <?php
 
 global $grid;
-define('REVISION', 3);
+define('REVISION', 4);
 require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
