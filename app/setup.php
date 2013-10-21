@@ -55,9 +55,4 @@ $this->post('/api/backup', 'api/backup', $no_layout);
 $this->post('/api/hide_announcement', 'api/hide_announcement', $no_layout);
 $this->get('/api/enable_ssl', 'api/enable_ssl', $no_layout);
 
-$this->post('/admin/backup_download', 'admin/backup_download', $no_layout);
-$this->post('/admin/update_ssid', 'admin/update_ssid', $no_layout);
-$this->post('/admin/update_hostname', 'admin/update_hostname', $no_layout);
-$this->post('/admin/delete_post', 'admin/delete_post', $no_layout);
-
 ?>

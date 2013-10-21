@@ -1,6 +1,6 @@
-<form action="admin" method="post" id="auth-login" class="post">
-  <?php if (!empty($feedback)) { ?>
-    <p><strong><?php echo $feedback; ?></strong></p>
+<form action="admin/login" method="post" id="auth-login" class="post">
+  <?php if (!empty($_GET['error'])) { ?>
+    <p><strong>Sorry that login didn’t match any known account.</strong></p>
   <?php } ?>
   <label>
     Username

@@ -11,20 +11,18 @@ if (!empty($_POST['admin_username']) && !empty($_POST['admin_password'])) {
   if ($auth->check_login($username, $password)) {
     $_SESSION['is_admin'] = true;
     $grid->log("Admin login by {$_SERVER['REMOTE_ADDR']}");
-    header('Location: ' . GRID_URL . '/admin');
+    header('Location: ' . GRID_URL . 'admin');
     exit;
   } else {
     $_SESSION['is_admin'] = false;
-    $this->partial('login_form', array(
-      'feedback' => 'Sorry that login didn’t match any known account.'
-    ));
+    header('Location: ' . GRID_URL . 'admin?error=1');
+    $grid->log("Failed admin login attempt by {$_SERVER['REMOTE_ADDR']}");
+    exit;
   }
 } else {
   $_SESSION['is_admin'] = false;
-  $this->partial('login_form', array(
-    'feedback' => 'You need to provide a username and password.'
-  ));
-  $grid->log('Failed admin login attempt');
+  header('Location: ' . GRID_URL . '/admin?error=1');
+  $grid->log("Failed admin login attempt by {$_SERVER['REMOTE_ADDR']}");
 }
 
 ?>
