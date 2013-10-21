@@ -8,7 +8,11 @@ if (empty($params['file'])) {
   $now = time();
   $filename = GRID_DIR . "/public/occupy.here-$now.zip";
   $grid->log("Generating backup occupy.here-$now.zip");
-  exec('cd ' . GRID_DIR . ' && ' . ZIP_BIN . " -r $filename data/app.db data/app.log public/uploads", $output);
+  $zip = ZIP_BIN;
+  if (!file_exists($zip) && file_exists('/opt/usr/bin/zip')) {
+    $zip = '/opt/usr/bin/zip';
+  }
+  exec('cd ' . GRID_DIR . " && $zip -r $filename data/app.db data/app.log public/uploads", $output);
   if (file_exists($filename)) {
     $response = (object) array(
       'status' => 'ok',
