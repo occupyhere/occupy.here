@@ -12,6 +12,7 @@
         ?>
         <li><a href="forum">Forum</a></li>
         <li><a href="about">About</a></li>
+        <li><a href="admin">Admin</a></li>
       </ul>
     </nav>
   </div>

@@ -1,7 +1,7 @@
 <?php
 
 global $grid;
-define('REVISION', 1);
+define('REVISION', 3);
 require_once dirname(__FILE__) . '/functions.php';
 
 $this->db = new Grid_Database();
@@ -36,8 +36,6 @@ $this->get('/about', 'about');
 $this->get('/files', 'files');
 $this->get('/account', 'account');
 $this->get('/logout', 'logout');
-//$this->get('/backup', 'backup');
-//$this->post('/occupy.here-$timestamp.zip', 'api/backup', $no_layout);
 $this->get('/p/$id', 'topic');
 $this->get('/p/$id/edit', 'edit_post');
 $this->get('/u/$id', 'user');
@@ -56,5 +54,10 @@ $this->post('/api/post_file', 'api/post_file', $no_layout);
 $this->post('/api/backup', 'api/backup', $no_layout);
 $this->post('/api/hide_announcement', 'api/hide_announcement', $no_layout);
 $this->get('/api/enable_ssl', 'api/enable_ssl', $no_layout);
+
+$this->post('/admin/backup_download', 'admin/backup_download', $no_layout);
+$this->post('/admin/update_ssid', 'admin/update_ssid', $no_layout);
+$this->post('/admin/update_hostname', 'admin/update_hostname', $no_layout);
+$this->post('/admin/delete_post', 'admin/delete_post', $no_layout);
 
 ?>

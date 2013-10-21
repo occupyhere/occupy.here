@@ -49,6 +49,9 @@ if (empty($form_class)) {
           <?php
           
           foreach ($containers as $container) {
+            if ($container->id == 'library') {
+              continue;
+            }
             $name = esc($container->name);
             $selected = ($params['view'] == 'container' && $params['id'] == $container->id ||
                          $params['view'] == $container->id) ? ' selected="selected"' : '';

@@ -37,6 +37,9 @@
       }
       
       ?></a>
+      <?php if (!empty($_SESSION['is_admin'])) { ?>
+      <a href="#" class="delete" data-id="<?php echo $post->id; ?>">delete</a>
+    <?php } ?>
   </div>
   <div class="when">
     <?php echo "<a href=\"$url\" class=\"permalink\">" . elapsed_time($post->created) . "</a>"; ?>

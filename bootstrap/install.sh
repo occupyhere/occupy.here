@@ -113,7 +113,7 @@ cp /usb/occupy.here/bootstrap/step6/config.php /usb/occupy.here/config.php
 cp /usb/occupy.here/bootstrap/step6/php.ini /etc/php.ini
 cp /usb/occupy.here/bootstrap/step6/lighttpd.conf /etc/lighttpd/lighttpd.conf
 cp /usb/occupy.here/bootstrap/step6/dnsmasq.conf /etc/dnsmasq.conf
-cp /usb/occupy.here/bootstrap/step6/banner /etc/config/banner
+cp /usb/occupy.here/bootstrap/step6/banner /etc/banner
 
 echo
 echo "Generating GnuPG keys"

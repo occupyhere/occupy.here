@@ -126,6 +126,29 @@ nav a {
   margin-right: 10px;
 }
 
+.announcement.minimized p,
+.announcement.minimized .buttons {
+  display: none;
+}
+
+.announcement.minimized h2 {
+  display: inline;
+  margin-bottom: 0;
+}
+
+.announcement.minimized {
+  cursor: pointer;
+}
+
+.announcement .more {
+  display: none;
+}
+
+.announcement.minimized .more {
+  display: inline;
+  margin-left: 10px;
+}
+
 #top {
   padding-top: 20px;
 }
@@ -296,7 +319,8 @@ article .author a {
   text-decoration: none;
 }
 
-article .author a.replies-link {
+article .author a.replies-link,
+article .author a.delete {
   float: right;
   margin-right: 20px;
   margin-top: 5px;
@@ -424,8 +448,8 @@ article .when a:hover {
   opacity: 1;
 }
 
-#attach-button.disabled,
-#attach-button.disabled:hover {
+.button.disabled,
+.button.disabled:hover {
   color: #999;
   background: #333;
   cursor: default;
@@ -864,7 +888,32 @@ a.contribute {
   margin-top: 20px;
 }
 
+#admin-config .button {
+  margin-top: 10px;
+}
 
+#admin-config header {
+  padding: 20px 0;
+}
+
+#admin-config section {
+  padding-top: 20px;
+}
+
+#admin-config section {
+  border-top: 1px solid #666;
+  padding-bottom: 25px;
+}
+
+#restore label {
+  display: block;
+  margin-top: 10px;
+}
+
+#restore input {
+  display: block;
+  margin-top: 5px;
+}
 
 @media
   only screen and (min-width: 590px) {

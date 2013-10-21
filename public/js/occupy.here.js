@@ -428,12 +428,10 @@ window.addEvent('domready', function() {
       link.addEvent('click', function(e) {
         e.stop();
         var id = el.get('id').match(/(.+)_announcement/)[1];
-        var hidden = Cookie.read('hidden_announcements')
-        if (hidden == '' || !hidden) {
-          hidden = id;
-        } else {
-          hidden = ',' + id;
-        }
+        var hidden = Cookie.read('hidden_announcements') || '';
+        hidden = hidden.split(',');
+        hidden.push(id);
+        hidden = hidden.join(',');
         Cookie.write('hidden_announcements', hidden, {
           duration: 365
         });
@@ -442,6 +440,91 @@ window.addEvent('domready', function() {
           $('announcements').destroy();
         }
       });
+    });
+    el.getElements('.more').addEvent('click', function(e) {
+      e.stop();
+      el.removeClass('minimized');
+    });
+  });
+  
+  function resize() {
+    if (window.getSize().x < 590) {
+      $$('#article img').each(function(img) {
+        if (img.get('width') == '520') {
+          var ratio = parseInt(img.get('width')) / parseInt(img.get('height'));
+          img.setStyle('width', window.getSize().x);
+          img.setStyle('height', Math.round(window.getSize().x / ratio));
+          img.setStyle('margin-left', -15);
+        }
+      });
+    } else {
+      $$('#article img').each(function(img) {
+        if (img.get('width') == '520') {
+          var ratio = parseInt(img.get('width')) / parseInt(img.get('height'));
+          img.setStyle('width', 520);
+          img.setStyle('height', Math.round(520 / ratio));
+          img.setStyle('margin-left', 0);
+        }
+      });
+    }
+  }
+  window.addEvent('resize', resize);
+  resize();
+  
+  if ($('backup_form')) {
+    $('backup_form').addEvent('submit', function(e) {
+      var file = $('backup_form').getElement('input[name=file]');
+      if (file.value == '') {
+        e.stop();
+        var button = $('backup_form').getElement('.button');
+        button.disabled = true;
+        button.addClass('disabled');
+        button.value = 'Loading...';
+        new Request({
+          url: '/admin/backup_download',
+          onComplete: function(response) {
+            var response = JSON.parse(response);
+            if (response.status == 'ok' && response.file) {
+              file.value = response.file;
+              $('backup_form').submit();
+            } else if (response.status == 'error' && response.output) {
+              alert('Error: ' + response.output);
+            } else {
+              alert('Oops, something went wrong.');
+            }
+          }
+        }).post();
+      }
+    });
+  }
+  
+  if ($('update_ssid')) {
+    var form = $('update_ssid').getElement('form');
+    form.addEvent('submit', function(e) {
+      e.stop();
+      var ssid = $('ssid').value;
+      new Request({
+        url: '/admin/update_ssid'
+      }).post({
+        ssid: ssid
+      });
+      alert('Your wifi network name has been updated. You need to reconnect to the new network.');
+    });
+  }
+  
+  $$('.delete').each(function(link) {
+    link.addEvent('click', function(e) {
+      e.stop();
+      if (confirm('Are sure you want to delete that?')) {
+        new Request({
+          url: '/admin/delete_post',
+          onComplete: function() {
+            link.getParent('.post').destroy();
+          }
+        }).post({
+          id: link.get('data-id')
+        });
+      }
     });
   });
   
@@ -459,6 +542,15 @@ window.addEvent('domready', function() {
   }
   
 });
+
+function backup_complete() {
+  var file = $('backup_form').getElement('input[name=file]');
+  var button = $('backup_form').getElement('.button');
+  file.value = '';
+  button.disabled = null;
+  button.removeClass('disabled');
+  button.value = 'Download backup';
+}
 
 window.addEvent('load', function() {
   summarizeArticleText($('page'));

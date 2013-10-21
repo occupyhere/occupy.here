@@ -31,10 +31,6 @@ if (!empty($_COOKIE['hidden_announcements'])) {
   $hidden_announcements = explode(',', $_COOKIE['hidden_announcements']);
 }
 
-if (!in_array('offline', $hidden_announcements)) {
-  $this->partial_for('announcements', 'announcements/offline');
-}
-
 $containers = $grid->db->select('container', array(
   'order' => 'created'
 ));
