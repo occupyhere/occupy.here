@@ -13,10 +13,28 @@ class Grid extends Grid_Events {
   }
   
   function setup($path = null, $method = null) {
+    $this->setup_locale();
     $this->setup_library();
     $this->setup_app();
     $this->setup_request($path, $method);
     $this->setup_response();
+  }
+  
+  function setup_locale() {
+    $locale = 'en';
+    if (!empty($_GET['locale'])) {
+      setcookie('locale', $_GET['locale'], time() + 60 * 60 * 24 * 365);
+      $locale = $_GET['locale'];
+    } else if (!empty($_COOKIE['locale'])) {
+      $locale = $_COOKIE['locale'];
+    } else if (preg_match('/[a-z]+/', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches)) {
+      $locale = $matches[0];
+    }
+    putenv("LC_ALL=$locale");
+    setlocale(LC_ALL, $locale);
+    bindtextdomain('app', GRID_DIR . '/locale');
+    bind_textdomain_codeset('app', 'UTF-8');
+    textdomain('app');
   }
   
   function setup_library() {

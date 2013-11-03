@@ -5,3 +5,5 @@ if (!empty($_SESSION['hidden_announcements'])) {
 }
 
 echo "<style>$selector { display: none; }</style>";
+
+?>

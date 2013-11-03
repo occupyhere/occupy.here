@@ -1,6 +1,6 @@
 <?php
 
-global $grid;
+/*global $grid;
 $storage_path = '/';
 if (!empty($grid->meta['storage_path'])) {
   $storage_path = $grid->meta['storage_path'];
@@ -57,6 +57,6 @@ if (!$found_usb) {
     'filesystem' => '',
     'disabled' => true
   );
-}
+}*/
 
 ?>

@@ -11,7 +11,7 @@ if (!empty($replies)) {
 
 ?>
 <form action="/api/post_reply" method="post" id="reply">
-  <h2>Post a reply</h2>
+  <h2><?php echo _('Post a reply'); ?></h2>
   <input type="hidden" name="parent_id" value="<?php echo $post->id; ?>" />
   <?php $this->partial('post_form'); ?>
 </form>

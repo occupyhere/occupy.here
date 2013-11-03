@@ -1,7 +1,7 @@
 <?php
 
 if (empty($_SESSION['is_admin'])) {
-  die('Sorry, backups are restricted to admin users');
+  die(_('Sorry, backups are restricted to admin users'));
 }
 
 if (empty($params['file'])) {

@@ -180,6 +180,7 @@ input[type="submit"] {
   border: 3px solid #666;
   padding: 5px 10px;
   font: 14px/24px open_sans_semibold, verdana, sans-serif;
+  text-transform: uppercase;
 }
 
 .button:hover,
@@ -913,6 +914,46 @@ a.contribute {
 #restore input {
   display: block;
   margin-top: 5px;
+}
+
+.help {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+#network_mode label {
+  display: block;
+}
+
+#network_mode .help {
+  margin-left: 25px;
+}
+
+#network_mode dl {
+  margin: 10px 0;
+}
+
+#network_mode dt {
+  float: left;
+  width: 75px;
+}
+
+#network_mode dd {
+  float: left;
+}
+
+#mp3 {
+  margin-bottom: 15px;
+}
+
+#mp3 audio {
+  float: left;
+}
+
+#mp3 a {
+  float: right;
+  margin-top: -10px;
 }
 
 @media

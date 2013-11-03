@@ -22,7 +22,6 @@ if (!in_array('offline', $hidden_announcements)) {
   $this->partial_for('announcements', 'announcements/library');
 }*/
 
-$parent_id = 0;
 $back_url = '';
 
 ?>

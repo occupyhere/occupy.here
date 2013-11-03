@@ -10,9 +10,9 @@
         }
         
         ?>
-        <li><a href="forum">Forum</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="admin">Admin</a></li>
+        <li><a href="forum"><?php echo _('Forum'); ?></a></li>
+        <li><a href="about"><?php echo _('About'); ?></a></li>
+        <li><a href="admin"><?php echo _('Admin'); ?></a></li>
       </ul>
     </nav>
   </div>

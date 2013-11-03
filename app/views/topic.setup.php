@@ -20,17 +20,12 @@ if (!empty($post->parent_id)) {
     $container = $grid->db->record('container', substr($post->parent_id, 2));
     $back_title = esc($container->name);
     $back_url = GRID_URL . $post->parent_id;
-    if ($container->id == 'questionnaire') {
-      $body_class .= ' questionnaire-response';
-      $post_url = 'c/questionnaire/contribute';
-      $post_title = 'CONTRIBUTE';
-    }
   } else {
-    $back_title = 'In reply to';
+    $back_title = _('In reply to');
     $back_url = GRID_URL . "p/$post->parent_id";
   }
 } else {
-  $back_title = 'Forum';
+  $back_title = _('Forum');
   $back_url = GRID_URL . 'forum';
 }
 

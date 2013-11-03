@@ -8,14 +8,16 @@ if (!empty($grid->user)) {
   $username = get_username($grid->user);
   $body_class .= "user_{$grid->user->id}";
 } else {
-  $username = 'Anonymous';
+  $username = _('Anonymous');
 }
 
 $items_per_page = 10;
-$back_url = '/forum';
-$back_title = 'Forum';
+
+$back_url = 'forum';
+$back_title = _('Forum');
+
 $post_url = 'forum#post';
-$post_title = 'POST';
+$post_title = _('Post');
 
 $this->stylesheet('reset.css');
 $this->stylesheet('open_sans/open_sans.css');

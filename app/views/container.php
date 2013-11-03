@@ -4,5 +4,8 @@
 <div id="container-info">
   <h2><?php echo esc($container->name); ?></h2>
 </div>
-<?php $this->partial('sequence'); ?>
+<?php $this->partial('sequence', array(
+  'where' => 'parent_id = ?',
+  'value' => $container->id
+)); ?>
 <?php $this->partial('upload_form'); ?>

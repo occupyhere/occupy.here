@@ -29,20 +29,25 @@
       
       $url = "p/$post->id";
       if ($post->reply_count == 0) {
-        echo "$url#reply\">post a reply";
-      } else if ($post->reply_count == 1) {
-        echo "$url\">1 reply";
+        echo "$url#reply\">" . _('post a reply');
       } else {
-        echo "$url\">$post->reply_count replies";
+        echo "$url\">" . sprintf(ngettext('%d reply', '%d replies', $post->reply_count), $post->reply_count);
       }
       
       ?></a>
       <?php if (!empty($_SESSION['is_admin'])) { ?>
-      <a href="#" class="delete" data-id="<?php echo $post->id; ?>">delete</a>
-    <?php } ?>
+        <a href="#" class="delete" data-id="<?php echo $post->id; ?>"><?php echo _('delete'); ?></a>
+      <?php } ?>
   </div>
   <div class="when">
-    <?php echo "<a href=\"$url\" class=\"permalink\">" . elapsed_time($post->created) . "</a>"; ?>
+    <?php
+    
+    echo "<a href=\"$url\" class=\"permalink\">" . elapsed_time($post->created) . "</a>";
+    if ($this->view == 'user.php' && $post->parent_id != '0') {
+      echo " / <a href=\"p/$post->parent_id\">" . _('In reply to') . '</a>';
+    }
+    
+    ?>
   </div>
   <div class="clear"></div>
 </article>

@@ -145,7 +145,7 @@ function get_username($target) {
   }
   $user = get_user($target);
   if (empty($user->name)) {
-    return 'Anonymous';
+    return _('Anonymous');
   } else {
     return $user->name;
   }
@@ -305,8 +305,9 @@ function show_attachment($post) {
     $path = str_replace("'", "\'", htmlentities($attachment->path));
     echo '<div id="inline-attachment">';
     show_attachment_link($attachment);
+    $loading = _('Loading')  . '...';
     echo '<div class="frame">';
-    echo '<div id="pdf-loading">Loading...</div>';
+    echo "<div id=\"pdf-loading\">$loading</div>";
     echo "<canvas id=\"pdf\"></canvas>\n";
     echo '</div></div>';
     echo '<script src="js/pdfjs.js"></script>';
@@ -322,7 +323,8 @@ function show_attachment($post) {
       $domain = str_replace('www.', '', $domain);
     }
     $meta = '';
-    $author = empty($article->author) ? '' : "By $article->author / ";
+    $by = _('By');
+    $author = empty($article->author) ? '' : "$by $article->author / ";
     if (!empty($author) || !empty($domain)) {
       $meta = "<div class=\"meta\">
         $author<a href=\"$article->url\">$domain</a>
@@ -347,6 +349,15 @@ function show_attachment($post) {
       $content
     </div>";
     return true;
+  } else if (preg_match('/\.mp3$/i', $attachment->path)) {
+    echo "<div id=\"mp3\">
+      <audio controls>
+        <source src=\"$attachment->path\" type=\"audio/mpeg\">
+      </audio>
+      <a href=\"$attachment->path\" class=\"button\">Download</a>
+      <div class=\"clear\"></div>
+    </div>";
+    return true;
   }
   return false;
 }
@@ -369,15 +380,24 @@ function elapsed_time($time) {
     60 => 'minute',
     1 => 'second'
   );
-  foreach ($tokens as $unit => $text) {
-    if ($time < $unit) {
+  foreach ($tokens as $seconds => $unit) {
+    if ($time < $seconds) {
       continue;
     }
-    $number = floor($time / $unit);
-    $s = ($number == 1) ? '' : 's';
-    return "$number $text$s ago";
+    $number = floor($time / $seconds);
+    $labels = array(
+      'year' =>   ngettext('year', 'years', $number),
+      'month' =>  ngettext('month', 'months', $number),
+      'week' =>   ngettext('week', 'weeks', $number),
+      'day' =>    ngettext('day', 'days', $number),
+      'hour' =>   ngettext('hour', 'hours', $number),
+      'minute' => ngettext('minute', 'minutes', $number),
+      'second' => ngettext('second', 'seconds', $number)
+    );
+    $label = $labels[$unit];
+    return sprintf(_('%s ago'), "$number $label");
   }
-  return "moments ago";
+  return _('moments ago');
 }
 
 function admin_password_set() {

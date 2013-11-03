@@ -1,4 +1,4 @@
-<h2>Page not found</h2>
+<h2><?php echo _('Page not found'); ?></h2>
 <p class="pagination">
-  <em>What you’re looking for is not here</em>
+  <em><?php echo _('What you’re looking for is not here'); ?></em>
 </p>

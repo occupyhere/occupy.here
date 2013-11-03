@@ -1,15 +1,15 @@
 <div id="admin-config">
   <header>
-    <h2>Occupy.here administration</h2>
-    You are logged in as an administrator. <a href="logout">Logout</a>
+    <h2><?php echo _('Occupy.here administration'); ?></h2>
+    <?php echo _('You are logged in as an administrator.'); ?> <a href="logout"><?php echo _('Logout'); ?></a>
   </header>
   <section id="backup">
-    <h2 class="top">Backup</h2>
-    <p>Download an archive of the database, uploaded files, and diagnostic logs.</p>
+    <h2 class="top"><?php echo _('Backup'); ?></h2>
+    <p><?php echo _('Download an archive of the database, uploaded files, and diagnostic logs.'); ?></p>
     <iframe name="backup_iframe" border="0" class="hidden" id="backup_iframe"></iframe>
     <form action="admin/backup_download" id="backup_form" method="post" target="backup_iframe">
       <input type="hidden" name="file" value="" />
-      <input type="submit" class="button" value="Download backup" ontouchstart="" />
+      <input type="submit" class="button" value="<?php echo _('Download backup'); ?>" ontouchstart="" />
       <br class="clear" />
     </form>
   </section>
@@ -26,16 +26,38 @@
   </section>-->
   <section id="update_ssid">
     <form action="admin/update_ssid">
-      <h2 class="top">Wifi network name</h2>
+      <h2 class="top"><?php echo _('Wifi network name'); ?></h2>
       <input type="text" value="<?php echo get_current_ssid(); ?>" name="ssid" id="ssid">
-      <input type="submit" class="button" value="Update">
+      <input type="submit" class="button" value="<?php echo _('Update'); ?>">
     </form>
   </section>
   <section id="update_hostname">
     <form action="admin/update_hostname" method="post">
-      <h2 class="top">Base URL</h2>
+      <h2 class="top"><?php echo _('Base URL'); ?></h2>
       <input type="text" value="<?php echo get_current_hostname(); ?>" name="hostname" id="hostname">
-      <input type="submit" class="button" value="Update">
+      <input type="submit" class="button" value="<?php echo _('Update'); ?>">
+    </form>
+  </section>
+  <section id="network_mode">
+    <form action="admin/update_network" method="post">
+      <h2 class="top"><?php echo _('Network configuration'); ?></h2>
+      <label>
+        <input type="radio" name="network_mode" value="lan"> <?php echo _('LAN mode (captive portal)'); ?><br>
+        <span class="help"><?php echo _('Ethernet is bridged to wifi'); ?></span>
+      </label>
+      <label>
+        <input type="radio" name="network_mode" value="wan"> <?php echo _('WAN mode (internet ready)'); ?><br>
+        <span class="help"><?php echo ('Ethernet connects to upstream internet'); ?></span>
+      </label>
+      <dl>
+        <dt><?php echo _('Ethernet'); ?>:</dt>
+        <dd>192.168.1.1</dd>
+        <br class="clear">
+        <dt><?php echo _('Wifi'); ?>:</dt>
+        <dd>192.168.1.1</dd>
+        <br class="clear">
+      </dl>
+      <input type="submit" class="button" value="<?php echo _('Update'); ?>">
     </form>
   </section>
 </div>
