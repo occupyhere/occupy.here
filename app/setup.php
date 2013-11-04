@@ -28,13 +28,10 @@ $this->get('/library/test/success.html', 'wispr/success', $no_layout);
 
 $this->get('/', 'home');
 $this->get('/forum', 'forum');
-$this->get('/forum/(\d+)', 'forum', array(
-  'vars' => array('posted_before')
-));
-
+$this->get('/forum/$posted_before', 'forum');
 $this->get('/about', 'about');
-$this->get('/files', 'files');
-$this->get('/account', 'account');
+//$this->get('/files', 'files');
+//$this->get('/account', 'account');
 $this->get('/logout', 'logout');
 $this->get('/p/$id', 'topic');
 $this->get('/p/$id/edit', 'edit_post');
@@ -42,6 +39,7 @@ $this->get('/u/$id', 'user');
 $this->get('/u/$id/$posted_before', 'user');
 $this->get('/c/library', 'library');
 $this->get('/c/$id', 'container');
+$this->get('/c/$id/$posted_before', 'container');
 
 $this->post('/api/post_topic', 'api/post_topic', $no_layout);
 $this->post('/api/post_reply', 'api/post_reply', $no_layout);
