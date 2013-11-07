@@ -42,19 +42,19 @@
     <form action="admin/update_network" method="post">
       <h2 class="top"><?php echo _('Network configuration'); ?></h2>
       <label>
-        <input type="radio" name="network_mode" value="lan"> <?php echo _('LAN mode (captive portal)'); ?><br>
+        <input type="radio" name="network_mode" value="lan"<?php checked($network_mode, 'lan'); ?>> <?php echo _('LAN mode (captive portal)'); ?><br>
         <span class="help"><?php echo _('Ethernet is bridged to wifi'); ?></span>
       </label>
       <label>
-        <input type="radio" name="network_mode" value="wan"> <?php echo _('WAN mode (internet ready)'); ?><br>
+        <input type="radio" name="network_mode" value="wan"<?php checked($network_mode, 'wan'); ?>> <?php echo _('WAN mode (internet ready)'); ?><br>
         <span class="help"><?php echo ('Ethernet connects to upstream internet'); ?></span>
       </label>
       <dl>
         <dt><?php echo _('Ethernet'); ?>:</dt>
-        <dd>192.168.1.1</dd>
+        <dd><?php echo $ethernet_ip_address; ?></dd>
         <br class="clear">
         <dt><?php echo _('Wifi'); ?>:</dt>
-        <dd>192.168.1.1</dd>
+        <dd><?php echo $wifi_ip_address; ?></dd>
         <br class="clear">
       </dl>
       <input type="submit" class="button" value="<?php echo _('Update'); ?>">

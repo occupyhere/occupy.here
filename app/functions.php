@@ -604,4 +604,10 @@ function esc($text) {
   return htmlentities($text, ENT_COMPAT, 'UTF-8');
 }
 
+function checked($a, $b) {
+  if ($a == $b) {
+    echo ' checked="checked"';
+  }
+}
+
 ?>
