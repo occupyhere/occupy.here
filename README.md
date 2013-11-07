@@ -13,5 +13,5 @@ If you'd like to try out the software without using the full OpenWrt stack, you 
 3. Create a new `config.php` based on `config-example.php`, update the settings to your needs
 
 ### Full wifi router installation
-
+ 
 If you would like to build an occupy.here router, follow the [installation guide](https://github.com/occupyhere/occupy.here/wiki/How-to-build-Occupy.here), also available in the included files as INSTALL.md.
