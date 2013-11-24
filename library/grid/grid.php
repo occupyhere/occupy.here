@@ -32,9 +32,30 @@ class Grid extends Grid_Events {
     }
     putenv("LC_ALL=$locale");
     setlocale(LC_ALL, $locale);
-    bindtextdomain('app', GRID_DIR . '/locale');
-    bind_textdomain_codeset('app', 'UTF-8');
-    textdomain('app');
+    if (function_exists('bindtextdomain')) {
+      bindtextdomain('app', GRID_DIR . '/locale');
+    }
+    if (function_exists('bind_textdomain_codeset')) {
+      bind_textdomain_codeset('app', 'UTF-8');
+    }
+    if (function_exists('textdomain')) {
+      textdomain('app');
+    }
+    if (!function_exists('_')) {
+      function _($str) {
+        return $str;
+      }
+    }
+    if (!function_exists('gettext')) {
+      function gettext($str) {
+        return $str;
+      }
+    }
+    if (!function_exists('ngettext')) {
+      function ngettext($str) {
+        return $str;
+      }
+    }
   }
   
   function setup_library() {
