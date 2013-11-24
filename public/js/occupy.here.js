@@ -508,7 +508,7 @@ window.addEvent('domready', function() {
       }).post({
         ssid: ssid
       });
-      alert('Your wifi network name has been updated. You need to reconnect to the new network.');
+      alert('Your wifi network name has been updated. You need to reconnect to the new wifi network called “' + $('ssid').value + '”.');
     });
   }
   
