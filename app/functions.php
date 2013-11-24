@@ -584,13 +584,9 @@ function check_for_import_content() {
 
 function get_current_ssid() {
   if (file_exists('/etc/config/wireless')) {
-    $wireless = file_get_contents('/etc/config/wireless');
-    if (preg_match('/option ssid\s*(.+)$/m', $wireless, $matches)) {
-      $ssid = trim($matches[1]);
-      if (substr($ssid, 0, 1) == "'" && substr($ssid, -1, 1) == "'") {
-        $ssid = substr($ssid, 1, -1);
-      }
-      return $ssid;
+    exec('uci get wireless.@wifi-iface[0].ssid', $output);
+    if (!empty($output) && is_array($output)) {
+      return $output[0];
     }
   }
   return 'OCCUPY.HERE';
