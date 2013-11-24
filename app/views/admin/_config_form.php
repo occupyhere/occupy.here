@@ -38,7 +38,7 @@
       <input type="submit" class="button" value="<?php echo _('Update'); ?>">
     </form>
   </section>
-  <section id="network_mode">
+  <!--<section id="network_mode">
     <form action="admin/update_network" method="post">
       <h2 class="top"><?php echo _('Network configuration'); ?></h2>
       <label>
@@ -59,5 +59,5 @@
       </dl>
       <input type="submit" class="button" value="<?php echo _('Update'); ?>">
     </form>
-  </section>
+  </section>-->
 </div>
