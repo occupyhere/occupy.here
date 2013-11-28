@@ -1004,6 +1004,14 @@ body.files #topic-form article .container {
   color: #999;
 }
 
+body.files #post-button {
+  display: none;
+}
+
+body.is-admin #post-button {
+  display: block;
+}
+
 @media
   only screen and (min-width: 590px) {
   
