@@ -21,16 +21,18 @@ class Grid extends Grid_Events {
   }
   
   function setup_locale() {
-    $locale = 'en';
-    if (!empty($_GET['locale'])) {
-      setcookie('locale', $_GET['locale'], time() + 60 * 60 * 24 * 365);
-      $locale = $_GET['locale'];
-    } else if (!empty($_COOKIE['locale'])) {
-      $locale = $_COOKIE['locale'];
-    } else if (preg_match('/[a-z]+/', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches)) {
-      $locale = $matches[0];
+    $lang = 'en';
+    if (!empty($_GET['lang'])) {
+      setcookie('lang', $_GET['lang'], time() + 60 * 60 * 24 * 365, '/');
+      $lang = $_GET['lang'];
+    } else if (!empty($_COOKIE['lang'])) {
+      $lang = $_COOKIE['lang'];
+    } else if (preg_match('/^[a-zA-Z]+/', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches)) {
+      $lang = strtolower($matches[0]);
     }
+    $locale = "{$lang}_" . strtoupper($lang) . ".UTF-8";
     $this->locale = $locale;
+    $this->lang = $lang;
     putenv("LC_ALL=$locale");
     setlocale(LC_ALL, $locale);
     if (function_exists('bindtextdomain')) {

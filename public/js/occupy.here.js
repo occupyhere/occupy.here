@@ -553,8 +553,8 @@ window.addEvent('domready', function() {
     }
   }
   
-  if ($('locale')) {
-    $('locale').addEvent('change', function() {
+  if ($('lang')) {
+    $('lang').addEvent('change', function() {
       $('language').submit();
     });
   }
