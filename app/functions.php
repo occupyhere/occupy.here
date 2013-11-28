@@ -349,6 +349,16 @@ function show_attachment($post) {
       $content
     </div>";
     return true;
+  } else if (preg_match('/\.html$/i', $attachment->path)) {
+    $html = file_get_contents(GRID_DIR . "/public/$attachment->path");
+    $start = mb_strpos($html, '<body>');
+    $end = mb_strpos($html, '</body>');
+    $content = mb_substr($html, $start, $end - $start, 'UTF-8');
+    echo "<div id=\"article\">
+    <a href=\"$attachment->path\" class=\"download-article\" target=\"_blank\">download</a>
+    $content
+    </div>";
+    return true;
   } else if (preg_match('/\.mp3$/i', $attachment->path)) {
     echo "<div id=\"mp3\">
       <audio controls>
@@ -542,14 +552,21 @@ function check_for_import_content() {
     $file_id = generate_id();
     $created = $now;
     
-    if (substr($filename, -5, 5) == '.json') {
-      $json = file_get_contents(GRID_DIR . "/import/$filename");
-      $article = json_decode($json);
-      $content = $article->title;
-      if (!empty($article->date_published)) {
-        $date_published = strtotime($article->date_published);
-        if (!empty($date_published)) {
-          $created = $date_published;
+    if (substr($filename, -5, 5) == '.html') {
+      $html = file_get_contents(GRID_DIR . "/import/$filename");
+      if (preg_match('#<title>(.+)</title>#', $html, $matches)) {
+        list(, $content) = $matches;
+      } else {
+        $content = preg_replace('#\.\w+$#', '', $filename);
+      }
+      if (preg_match('#var meta = (.+?);#', $html, $matches)) {
+        list(, $meta) = $matches;
+        $meta = json_decode($meta);
+        if (!empty($meta->date_published)) {
+          $date_published = strtotime($meta->date_published);
+          if (!empty($date_published)) {
+            $created = $date_published;
+          }
         }
       }
     } else {

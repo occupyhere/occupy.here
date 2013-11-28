@@ -6,12 +6,11 @@ require_once dirname(__FILE__) . '/functions.php';
   
 $this->db = new Grid_Database();
 setup_meta();
-//setup_library();
-check_for_expired_content();
-
-if (!empty($_GET['import'])) {
-  check_for_import_content();
+if (defined('READABILITY_API_KEY')) {
+  setup_library();
 }
+check_for_expired_content();
+check_for_import_content();
 
 $grid->add_event('setup_response', 'setup_user');
 $grid->add_event('page_load', 'check_for_ssl');
@@ -43,6 +42,7 @@ $this->get('/c/$id/$posted_before', 'container');
 
 $this->post('/api/post_topic', 'api/post_topic', $no_layout);
 $this->post('/api/post_reply', 'api/post_reply', $no_layout);
+$this->post('/api/import_library', 'api/import_library', $no_layout);
 $this->post('/api/update_account', 'api/update_account', $no_layout);
 $this->post('/api/set_time', 'api/set_time', $no_layout);
 $this->post('/api/sync_data', 'api/sync_data', $no_layout);

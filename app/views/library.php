@@ -1,6 +1,8 @@
-<form action="/api/post_topic" method="post" id="topic-form">
-  <?php $this->partial('post_form'); ?>
-</form>
+<?php if (!empty($_SESSION['is_admin']) && defined('READABILITY_API_KEY')) { ?>
+  <form action="/api/import_library" method="post" id="topic-form">
+    <?php $this->partial('import_form'); ?>
+  </form>
+<?php } ?>
 <div id="content">
   <h2>Library</h2>
   <?php if (empty($posts)) { ?>

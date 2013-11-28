@@ -92,7 +92,7 @@ function updateAttachForm(e) {
 
 function setupAttachmentInput() {
   var input = $('upload-form').getElement('input[type=file]');
-  if (!input) {
+  if (!input || !$('attach-button')) {
     return;
   }
   if (input.disabled) {
@@ -322,12 +322,14 @@ window.addEvent('domready', function() {
         hideTopicForm();
       }
     });
-    $('edit-options').addEvent('click', function(e) {
-      e.stop();
-      $('options-form').removeClass('hidden');
-      $('edit-options').addClass('hidden');
-      updateAttachForm();
-    });
+    if ($('edit-options')) {
+      $('edit-options').addEvent('click', function(e) {
+        e.stop();
+        $('options-form').removeClass('hidden');
+        $('edit-options').addClass('hidden');
+        updateAttachForm();
+      });
+    }
   }
   
   if ($('post-form')) {
@@ -379,7 +381,10 @@ window.addEvent('domready', function() {
   }
   
   $$('article, .file, body').each(function(article) {
-    var user = article.get('class').match(/user_\w+/);
+    var user = null;
+    if (article.get('class')) {
+      user = article.get('class').match(/user_\w+/);
+    }
     if (user) {
       userCssId = user[0];
       if (!$(userCssId)) {

@@ -231,6 +231,10 @@ header .menu {
   background-image: url('../img/ikonic/PNG/Comment-1.png');
 }
 
+body.files .post .icon {
+  background-image: url('../img/ikonic/PNG/Save.png');
+}
+
 #submit-button .icon {
   margin-right: 5px;
 }
@@ -793,18 +797,34 @@ body.files #content ul .meta {
   padding: 0 15px;
 }
 
-#article h2 {
+#article h2,
+#article h1 {
   margin-bottom: 0;
+  font: 16px/24px open_sans_semibold,sans-serif;
+}
+
+#article img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
 }
 
 #article article {
   padding-top: 0;
 }
 
-#article .meta {
+#article .meta,
+#article .download-article {
   font-size: 11px;
   text-transform: uppercase;
   color: #999;
+}
+
+#article .download-article {
+  position: absolute;
+  top: -20px;
+  right: 10px;
 }
 
 #article .meta a {
@@ -956,6 +976,12 @@ a.contribute {
   margin-top: -10px;
 }
 
+body.files #topic-form article .container {
+  background-image: none;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
 @media
   only screen and (min-width: 590px) {
   
@@ -998,6 +1024,10 @@ a.contribute {
     padding: 0;
   }
   
+  #article .download-article {
+    right: 0px;
+  }
+  
 }
 
 @media
@@ -1018,6 +1048,10 @@ a.contribute {
   
   .post .icon {
     background-image: url('../img/ikonic/PNG/Comment-1@2x.png');
+  }
+  
+  body.files .post .icon {
+    background-image: url('../img/ikonic/PNG/Save@2x.png');
   }
   
   .attach .icon {

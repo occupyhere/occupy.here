@@ -20,4 +20,7 @@ define('DF_BIN', '/bin/df');
 //define('ADMIN_USERNAME', 'root');
 //define('ADMIN_PASSWORD', 'password');
 
+// Library imports from Readability API
+define('READABILITY_API_KEY', 'ddfad4ba206232bcafad80fd5e91faece6a0c10e');
+
 ?>
