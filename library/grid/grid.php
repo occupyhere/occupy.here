@@ -22,9 +22,9 @@ class Grid extends Grid_Events {
   
   function setup_locale() {
     $lang = 'en';
-    if (!empty($_GET['lang'])) {
-      setcookie('lang', $_GET['lang'], time() + 60 * 60 * 24 * 365, '/');
-      $lang = $_GET['lang'];
+    if (preg_match('/lang=(\w\w)/', $_SERVER['REQUEST_URI'], $matches)) {
+      $lang = $matches[1];
+      setcookie('lang', $lang, time() + 60 * 60 * 24 * 365, '/');
     } else if (!empty($_COOKIE['lang'])) {
       $lang = $_COOKIE['lang'];
     } else if (preg_match('/^[a-zA-Z]+/', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches)) {
