@@ -12,6 +12,8 @@ if (defined('READABILITY_API_KEY')) {
   $post_url = null;
 }
 
+check_for_import_content();
+
 $posts = get_posts(array(
   'where' => "parent_id = ? AND expires > ?",
   'values' => array($parent_id, $now),

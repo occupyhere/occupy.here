@@ -524,7 +524,11 @@ window.addEvent('domready', function() {
         new Request({
           url: '/admin/delete_post',
           onComplete: function() {
-            link.getParent('.post').destroy();
+            if ($('back')) {
+              window.location = $('back').get('href');
+            } else {
+              link.getParent('.post').destroy();
+            }
           }
         }).post({
           id: link.get('data-id')

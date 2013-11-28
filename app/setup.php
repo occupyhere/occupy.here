@@ -10,7 +10,6 @@ if (defined('READABILITY_API_KEY')) {
   setup_library();
 }
 check_for_expired_content();
-check_for_import_content();
 
 $grid->add_event('setup_response', 'setup_user');
 $grid->add_event('page_load', 'check_for_ssl');

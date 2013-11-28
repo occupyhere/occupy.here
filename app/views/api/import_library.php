@@ -60,10 +60,12 @@ function process_content($article) {
   if (!empty($article->content)) {
     $md5 = md5($article->url);
     $article->md5 = $md5;
+    $content = $article->content;
+    unset($article->content);
     $json = json_encode($article);
     $domain = str_replace('www.', '', $article->domain);
     $domain = "<a href=\"{$article->url}\">{$domain}</a>";
-    $meta = ($article->author) ? "By $article->author / $domain" : $domain;
+    $meta = ($article->author) ? "By $article->author<span class=\"short-url\"> / $domain</span><div class=\"full-url\">{$article->url}</div>" : "<div class=\"short-url\">$domain</div><div class=\"full-url\">{$article->url}</div>";
     $content = <<<END
 <!DOCTYPE html>
 <html>
@@ -108,6 +110,11 @@ function process_content($article) {
       text-transform: uppercase;
       border-top: 1px solid #ccc;
       padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    
+    #article-$md5 > .meta .full-url {
+      display: none;
     }
     
     #article-$md5 > .meta a {
@@ -121,8 +128,24 @@ function process_content($article) {
       padding-right: 15px;
     }
     
-    @media
-      only screen and (min-width: 580px) {
+    #article-$md5-links {
+      display: none;
+      font-size: 9px;
+      text-align: left;
+      padding-left: 0;
+      list-style-position: inside;
+      border-top: 1px dotted #ccc;
+      padding-top: 10px;
+      margin-top: 20px;
+    }
+    
+    #article-$md5-links li {
+      margin-top: 5px;
+      margin-left: 5px;
+      padding-left: 0;
+    }
+    
+    @media only screen and (min-width: 580px) {
       
       #article-$md5 {
         width: 550px;
@@ -136,6 +159,65 @@ function process_content($article) {
       
       #article-$md5 {
         font: 16px/24px serif;
+      }
+      
+      #article-$md5 > h1,
+      #article-$md5 > .meta,
+      #article-$md5 p {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      
+    }
+    
+    @media print {
+    
+      #article-$md5 {
+        font: 12px/18px serif;
+        padding-top: 0;
+        padding-bottom: 0;
+        column-count: 2;
+        column-gap: 20px;
+        -moz-column-count: 2;
+        -moz-column-gap: 20px;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 20px;
+       counter-reset: link;
+      }
+      
+      #article-$md5-links {
+        display: block;
+      }
+      
+      #article-$md5 a[href] {
+        color: #000;
+        text-decoration: none;
+        border-bottom: 1px dotted #ccc;
+      }
+      
+      #article-$md5 a[href]:after {
+        counter-increment: link;
+        content: counter(link);
+        vertical-align: super;
+        font-size: 50%;
+      }
+      
+      #article-$md5 > h1 {
+        font: bold 18px/18px helvetica neue, helvetica, sans-serif;
+        margin-top: 0;
+      }
+      
+      #article-$md5 > .meta {
+        font-size: 9px;
+        text-transform: none;
+      }
+      
+      #article-$md5 > .meta .short-url {
+        display: none;
+      }
+      
+      #article-$md5 > .meta .full-url {
+        display: block;
       }
       
       #article-$md5 > h1,
@@ -162,9 +244,11 @@ function process_content($article) {
         $meta
       </div>
       <div class="content">
-        $article->content
+        $content
       </div>
     </div>
+    <ol id="article-$md5-links" class="article-links">
+    </ol>
     <!-- occupy.here article end -->
   </body>
 </html>
@@ -201,6 +285,18 @@ END;
           $img->height = $height;
         }
       }
+    }
+    $links = array();
+    foreach ($html->find("#article-$md5 .content a[href]") as $link) {
+      $links[] = urldecode($link->href);
+    }
+    if (!empty($links)) {
+      $links = '<li>' . implode("</li>\n<li>", $links) . "</li>\n";
+      list($ol) = $html->find("#article-$md5-links");
+      $ol->innertext = $links;
+    } else {
+      list($ol) = $html->find("#article-$md5-links");
+      $ol->outertext = '';
     }
     return $html->save();
   }

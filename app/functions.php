@@ -351,8 +351,8 @@ function show_attachment($post) {
     return true;
   } else if (preg_match('/\.html$/i', $attachment->path)) {
     $html = file_get_contents(GRID_DIR . "/public/$attachment->path");
-    $start = mb_strpos($html, '<body>');
-    $end = mb_strpos($html, '</body>');
+    $start = mb_strpos($html, '<body>', 0, 'UTF-8');
+    $end = mb_strpos($html, '</body>', $start, 'UTF-8');
     $content = mb_substr($html, $start, $end - $start, 'UTF-8');
     echo "<div id=\"article\">
     <a href=\"$attachment->path\" class=\"download-article\" target=\"_blank\">download</a>

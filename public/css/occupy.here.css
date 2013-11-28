@@ -821,6 +821,14 @@ body.files #content ul .meta {
   color: #999;
 }
 
+#article .meta {
+  padding-bottom: 10px;
+}
+
+#article .meta .full-url {
+  display: none;
+}
+
 #article .download-article {
   position: absolute;
   top: -20px;
@@ -842,6 +850,10 @@ body.files #content ul .meta {
 
 #article blockquote {
   margin-left: 20px;
+}
+
+ol.article-links {
+  display: none;
 }
 
 #alert {
