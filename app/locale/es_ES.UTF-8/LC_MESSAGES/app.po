@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Occupy.here\n"
-"POT-Creation-Date: 2013-11-28 13:38-0500\n"
+"POT-Creation-Date: 2013-11-28 15:12-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -99,7 +99,7 @@ msgstr "Cancelar"
 
 #: /Users/dphiffer/Sites/occupy.here/app/layouts/layout.setup.php:17
 #: /Users/dphiffer/Sites/occupy.here/app/views/_menu.php:16
-#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:28
+#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:31
 msgid "Forum"
 msgstr "Foro"
 
@@ -154,7 +154,7 @@ msgid "delete"
 msgstr "borrar"
 
 #: /Users/dphiffer/Sites/occupy.here/app/views/_post.php:47
-#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:24
+#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:27
 msgid "In reply to"
 msgstr "En respuesta a"
 
@@ -348,6 +348,7 @@ msgid "about"
 msgstr "acerca de"
 
 #: /Users/dphiffer/Sites/occupy.here/app/views/library.php:7
+#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:22
 msgid "Library"
 msgstr "Biblioteca"
 
@@ -396,7 +397,8 @@ msgstr "Nombre de la red Wifi"
 
 #: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:31
 #: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:38
-#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:60
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:45
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:67
 msgid "Update"
 msgstr "Actualizar"
 
@@ -405,26 +407,30 @@ msgid "Base URL"
 msgstr "URL Base"
 
 #: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:43
+msgid "Default path"
+msgstr "Ruta predeterminada"
+
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:50
 msgid "Network configuration"
 msgstr "Configuración de la red"
 
-#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:45
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:52
 msgid "LAN mode (captive portal)"
 msgstr "Modo LAN (portal cautivo)"
 
-#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:46
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:53
 msgid "Ethernet is bridged to wifi"
 msgstr "Ethernet esta en puente con wifi"
 
-#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:49
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:56
 msgid "WAN mode (internet ready)"
 msgstr "Modo WAN (internet listo)"
 
-#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:53
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:60
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:56
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:63
 msgid "Wifi"
 msgstr "red inalambrica"
 
