@@ -33,7 +33,7 @@ class Grid extends Grid_Events {
     putenv("LC_ALL=$locale");
     setlocale(LC_ALL, $locale);
     if (function_exists('bindtextdomain')) {
-      bindtextdomain('app', GRID_DIR . '/locale');
+      bindtextdomain('app', GRID_DIR . '/app/locale');
     }
     if (function_exists('bind_textdomain_codeset')) {
       bind_textdomain_codeset('app', 'UTF-8');
