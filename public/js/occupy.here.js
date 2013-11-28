@@ -249,7 +249,9 @@ function showTopicForm() {
   $('topic-form').tween('height', height).retrieve('tween').chain(function() {
     setupAttachmentInput();
   });
-  $('post-button').set('html', '<span class="icon"></span> CANCEL');
+  var cancel = $('post-button').get('data-cancel');
+  $('post-button').store('original-text', $('post-button').get('html'));
+  $('post-button').set('html', '<span class="icon"></span> ' + cancel);
   new Fx.Scroll(window, {
     duration: 500,
     transition: Fx.Transitions.Quart.easeOut,
@@ -260,7 +262,8 @@ function hideTopicForm() {
   var height = $('topic-form').getSize().y;
   $('topic-form').setStyle('height', height);
   $('topic-form').tween('height', 0);
-  $('post-button').set('html', '<span class="icon"></span> POST');
+  var post = $('post-button').retrieve('original-text');
+  $('post-button').set('html', post);
 }
 
 window.addEvent('domready', function() {
@@ -548,6 +551,12 @@ window.addEvent('domready', function() {
         time: clientTime
       });
     }
+  }
+  
+  if ($('locale')) {
+    $('locale').addEvent('change', function() {
+      $('language').submit();
+    });
   }
   
 });

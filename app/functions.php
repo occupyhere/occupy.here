@@ -354,8 +354,9 @@ function show_attachment($post) {
     $start = mb_strpos($html, '<body>', 0, 'UTF-8');
     $end = mb_strpos($html, '</body>', $start, 'UTF-8');
     $content = mb_substr($html, $start, $end - $start, 'UTF-8');
+    $download = _('plain html');
     echo "<div id=\"article\">
-    <a href=\"$attachment->path\" class=\"download-article\" target=\"_blank\">download</a>
+    <a href=\"$attachment->path\" class=\"download-article\" target=\"_blank\">$download</a>
     $content
     </div>";
     return true;

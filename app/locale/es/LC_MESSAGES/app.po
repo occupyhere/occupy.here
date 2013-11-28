@@ -1,366 +1,478 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Occupy.here\n"
+"POT-Creation-Date: 2013-11-28 13:38-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: Occupy.here\n"
-"Language: es\n"
+"X-Generator: Poedit 1.5.7\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /Users/dphiffer/Sites/occupy.here\n"
 
-#: app/functions.php:148 app/layouts/layout.setup.php:11
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:148
+#: /Users/dphiffer/Sites/occupy.here/app/layouts/layout.setup.php:11
 msgid "Anonymous"
 msgstr "Anónimo"
 
-#: app/functions.php:308
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:308
 msgid "Loading"
 msgstr "Cargando"
 
-#: app/functions.php:326
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:326
 msgid "By"
 msgstr "Por"
 
-#: app/functions.php:389 app/views/_post_form.php:68
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:357
+msgid "plain html"
+msgstr "HTML plano"
+
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:400
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:68
 msgid "year"
 msgid_plural "years"
 msgstr[0] "año"
 msgstr[1] "años"
 
-#: app/functions.php:390 app/views/_post_form.php:69
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:401
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:69
 msgid "month"
 msgid_plural "months"
 msgstr[0] "mes"
 msgstr[1] "meses"
 
-#: app/functions.php:391 app/views/_post_form.php:70
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:402
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:70
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] "semana"
 msgstr[1] "semanas"
 
-#: app/functions.php:392 app/views/_post_form.php:71
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:403
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:71
 msgid "day"
 msgid_plural "days"
 msgstr[0] "día"
 msgstr[1] "días"
 
-#: app/functions.php:393 app/views/_post_form.php:72
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:404
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:72
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hora"
 msgstr[1] "horas"
 
-#: app/functions.php:394 app/views/_post_form.php:73
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:405
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:73
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minutos"
 
-#: app/functions.php:395
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:406
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "segundo"
 msgstr[1] "segundos"
 
-#: app/functions.php:398
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:409
+#, php-format
 msgid "%s ago"
 msgstr "hace %s"
 
-#: app/functions.php:400
+#: /Users/dphiffer/Sites/occupy.here/app/functions.php:411
 msgid "moments ago"
 msgstr "hace algunos momentos"
 
-#: app/layouts/layout.php:23
+#: /Users/dphiffer/Sites/occupy.here/app/layouts/layout.php:23
 msgid "Menu"
 msgstr "Menú"
 
-#: app/layouts/layout.setup.php:17 app/views/_menu.php:13
-#: app/views/topic.setup.php:28
+#: /Users/dphiffer/Sites/occupy.here/app/layouts/layout.php:25
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /Users/dphiffer/Sites/occupy.here/app/layouts/layout.setup.php:17
+#: /Users/dphiffer/Sites/occupy.here/app/views/_menu.php:16
+#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:28
 msgid "Forum"
 msgstr "Foro"
 
-#: app/layouts/layout.setup.php:20
+#: /Users/dphiffer/Sites/occupy.here/app/layouts/layout.setup.php:20
 msgid "Post"
 msgstr "Publicar"
 
-#: app/views/404.php:1
+#: /Users/dphiffer/Sites/occupy.here/app/views/404.php:1
 msgid "Page not found"
 msgstr "Página no encontrada"
 
-#: app/views/404.php:3
+#: /Users/dphiffer/Sites/occupy.here/app/views/404.php:3
 msgid "What you’re looking for is not here"
 msgstr "Lo que usted está buscando no está aquí"
 
-#: app/views/_menu.php:14 app/views/about.php:2
-#: app/views/announcements/_offline.php:7
+#: /Users/dphiffer/Sites/occupy.here/app/views/_import_form.php:3
+msgid "URLs to import (one per line)"
+msgstr "URLs para importar (una por línea)"
+
+#: /Users/dphiffer/Sites/occupy.here/app/views/_import_form.php:6
+#: /Users/dphiffer/Sites/occupy.here/app/views/library.setup.php:10
+msgid "Import"
+msgstr "Importar"
+
+#: /Users/dphiffer/Sites/occupy.here/app/views/_languages.php:2
+msgid "Language"
+msgstr "Idioma"
+
+#: /Users/dphiffer/Sites/occupy.here/app/views/_menu.php:17
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:2
+#: /Users/dphiffer/Sites/occupy.here/app/views/announcements/_offline.php:7
 msgid "About"
 msgstr "Acerca de"
 
-#: app/views/_menu.php:15
+#: /Users/dphiffer/Sites/occupy.here/app/views/_menu.php:18
 msgid "Admin"
 msgstr "Admin"
 
-#: app/views/_post.php:32
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post.php:32
 msgid "post a reply"
 msgstr "publicar una respuesta"
 
-#: app/views/_post.php:34
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post.php:34
+#, php-format
 msgid "%d reply"
 msgid_plural "%d replies"
 msgstr[0] "%d respuesta"
 msgstr[1] "%d respuestas"
 
-#: app/views/_post.php:39
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post.php:39
 msgid "delete"
 msgstr "borrar"
 
-#: app/views/_post.php:47 app/views/topic.setup.php:24
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post.php:47
+#: /Users/dphiffer/Sites/occupy.here/app/views/topic.setup.php:24
 msgid "In reply to"
 msgstr "En respuesta a"
 
-#: app/views/_post_form.php:6
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:6
 msgid "Type your message here"
 msgstr "Escriba aquí su mensaje"
 
-#: app/views/_post_form.php:20
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:20
 msgid "edit name/colors"
 msgstr "editar nombre/colores"
 
-#: app/views/_post_form.php:25
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:25
 msgid "edit colors"
 msgstr "editar colores"
 
-#: app/views/_post_form.php:29 app/views/_post_form.php:34
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:29
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:34
 msgid "Swipe to adjust"
 msgstr "Deslizar para ajustar"
 
-#: app/views/_post_form.php:40
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:40
 msgid "options"
 msgstr "opciones"
 
-#: app/views/_post_form.php:46
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:46
 msgid "File under"
 msgstr "Archivo bajo"
 
-#: app/views/_post_form.php:48
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:48
 msgid "Top level"
 msgstr "Nivel superior"
 
-#: app/views/_post_form.php:62
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:62
 msgid "New container"
 msgstr "Nuevo contenedor"
 
-#: app/views/_post_form.php:66
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:66
 msgid "Expires in"
 msgstr "Expira en"
 
-#: app/views/_post_form.php:79
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:79
 msgid "Submit"
 msgstr "Enviar"
 
-#: app/views/_post_form.php:80
+#: /Users/dphiffer/Sites/occupy.here/app/views/_post_form.php:80
 msgid "Attach"
 msgstr "Adjuntar"
 
-#: app/views/_sequence.php:4
+#: /Users/dphiffer/Sites/occupy.here/app/views/_sequence.php:4
 msgid "Go to previous page"
 msgstr "Ir a la página anterior"
 
-#: app/views/_sequence.php:18
+#: /Users/dphiffer/Sites/occupy.here/app/views/_sequence.php:18
 msgid "There is nothing here yet"
 msgstr "Aquí no hay nada aún"
 
-#: app/views/_sequence.php:20
+#: /Users/dphiffer/Sites/occupy.here/app/views/_sequence.php:20
 msgid "You have reached the end"
 msgstr "Usted ha llegado al final"
 
-#: app/views/_sequence.php:24
+#: /Users/dphiffer/Sites/occupy.here/app/views/_sequence.php:24
 msgid "Go to next page"
 msgstr "Ir a la página siguiente"
 
-#: app/views/about.php:3
-msgid "Occupy.here is a free, anonymous, and uncensored resource for you and your neighbors. You can post messages, share media files, and occupy the virtual space here as you wish."
-msgstr "Occupy.here es un recurso gratuito, anónimo y sin censura para usted y sus vecinos. Puede enviar mensajes, compartir archivos multimedia, y ocupar el espacio virtual aquí como desee."
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:3
+msgid ""
+"Occupy.here is a free, anonymous, and uncensored resource for you and your "
+"neighbors. You can post messages, share media files, and occupy the virtual "
+"space here as you wish."
+msgstr ""
+"Occupy.here es un recurso gratuito, anónimo y sin censura para usted y sus "
+"vecinos. Puede enviar mensajes, compartir archivos multimedia, y ocupar el "
+"espacio virtual aquí como desee."
 
-#: app/views/about.php:4
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:4
 msgid "You are not on the internet"
 msgstr "Usted no está en el Internet"
 
-#: app/views/about.php:5
-msgid "You are connected to a wifi router that’s been hacked to connect you to other people nearby. You are “offline” in relation to the rest of the Internet, but “online” in a way that connects you to others within range of the wifi signal."
-msgstr "Usted está conectado a un router wifi que ha sido hackeado para conectarse con otras personas cerca. Usted está \"offline\" en relación con el resto de la Internet, pero \"en línea\" de una manera en que le conecta con los demás dentro de la cobertura de esta señal wifi."
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:5
+msgid ""
+"You are connected to a wifi router that’s been hacked to connect you to "
+"other people nearby. You are “offline” in relation to the rest of the "
+"Internet, but “online” in a way that connects you to others within range of "
+"the wifi signal."
+msgstr ""
+"Usted está conectado a un router wifi que ha sido hackeado para conectarse "
+"con otras personas cerca. Usted está \"offline\" en relación con el resto de "
+"la Internet, pero \"en línea\" de una manera en que le conecta con los demás "
+"dentro de la cobertura de esta señal wifi."
 
-#: app/views/about.php:6
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:6
 msgid "Occupy.here is a network"
 msgstr "Occupy.here es una red"
 
-#: app/views/about.php:7
-msgid "While this wifi router is not directly wired to any upstream network provider, it’s also not entirely isolated. There is another way that data can be transmitted to other occupy.here routers. The router’s local database has been quietly backed up onto your browser. Upon connecting to another Occupy.here router, the data you’ve carried with you will be synced and merged into that node’s database."
-msgstr "Que este enrutador wifi no este conectado a la internet directamente, no quiere decir q este aislado por completo. La informaciónpuede ser transmitida a otros enlaces occupy.here\n"
-"La base de datos local del enrutador ha sido cautelosamente guardada en su navegador. Al conectar a otro router Occupy.here, los datos que hemos llevado con usted se sincronizarán y se fusionarán en la base de datos de ese nodo."
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:7
+msgid ""
+"While this wifi router is not directly wired to any upstream network "
+"provider, it’s also not entirely isolated. There is another way that data "
+"can be transmitted to other occupy.here routers. The router’s local database "
+"has been quietly backed up onto your browser. Upon connecting to another "
+"Occupy.here router, the data you’ve carried with you will be synced and "
+"merged into that node’s database."
+msgstr ""
+"Que este enrutador wifi no este conectado a la internet directamente, no "
+"quiere decir q este aislado por completo. La informaciónpuede ser "
+"transmitida a otros enlaces occupy.here\n"
+"La base de datos local del enrutador ha sido cautelosamente guardada en su "
+"navegador. Al conectar a otro router Occupy.here, los datos que hemos "
+"llevado con usted se sincronizarán y se fusionarán en la base de datos de "
+"ese nodo."
 
-#: app/views/about.php:8
-msgid "Messages can propagate across the network, but your device is the conduit instead of an upstream ISP. The network of Occupy.here routers is very loosely connected, data moves slowly using a process that resembles insects polinating flowers."
-msgstr "Los Mensajes pueden ser propagados a través de la red, pero el dispositivo es el canal en lugar de un ISP (prestador de servicio web). La red de enrutadores Occupy.here es una red poco conectada, los datos se mueven lentamente mediante un proceso que se asemeja al de los insectos polinizando las flores."
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:8
+msgid ""
+"Messages can propagate across the network, but your device is the conduit "
+"instead of an upstream ISP. The network of Occupy.here routers is very "
+"loosely connected, data moves slowly using a process that resembles insects "
+"polinating flowers."
+msgstr ""
+"Los Mensajes pueden ser propagados a través de la red, pero el dispositivo "
+"es el canal en lugar de un ISP (prestador de servicio web). La red de "
+"enrutadores Occupy.here es una red poco conectada, los datos se mueven "
+"lentamente mediante un proceso que se asemeja al de los insectos polinizando "
+"las flores."
 
-#: app/views/about.php:9
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:9
 msgid "Named, anonymous accounts"
 msgstr "Nombre, cuentas anónimas"
 
-#: app/views/about.php:10
-msgid "On Occupy.here you post anonymously like with weblog comments. You have a named account, but there is no password or verification process. Content you post here may be copied to other Occupy.here wifi routers."
-msgstr "En Occupy.here usted Publicar anónimamente como con los comentarios de un blog. Usted tiene una cuenta con nombre, pero no hay ninguna contraseña o proceso de verificación. El contenido que publique aquí puede ser copiado a otros routers wifi Occupy.here."
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:10
+msgid ""
+"On Occupy.here you post anonymously like with weblog comments. You have a "
+"named account, but there is no password or verification process. Content you "
+"post here may be copied to other Occupy.here wifi routers."
+msgstr ""
+"En Occupy.here usted Publicar anónimamente como con los comentarios de un "
+"blog. Usted tiene una cuenta con nombre, pero no hay ninguna contraseña o "
+"proceso de verificación. El contenido que publique aquí puede ser copiado a "
+"otros routers wifi Occupy.here."
 
-#: app/views/about.php:11
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:11
 msgid "Help us build Occupy.here"
 msgstr "Ayúdanos a construir Occupy.here"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "Occupy.here is all-volunteer"
 msgstr "Occupy.here es totalmente voluntario"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "open source"
 msgstr "de código abierto"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "and"
 msgstr "y"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "Free Software"
 msgstr "Software Libre"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "is the founder and lead developer, with contributions from"
 msgstr "es el fundador y desarrollador lider, con la colaboración de"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "and GitHub user"
 msgstr "y el usuario GitHub"
 
-#: app/views/about.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:12
 msgid "In 2012 the project was fortunate to receive a commissions grant from"
-msgstr "En 2012, el proyecto tuvo la suerte de recibir una subvención comisiones de"
+msgstr ""
+"En 2012, el proyecto tuvo la suerte de recibir una subvención comisiones de"
 
-#: app/views/about.php:13
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:13
 msgid "Setting up your own router"
 msgstr "Creación de su propio router"
 
-#: app/views/about.php:14
-msgid "Occupy.here is designed to be replicated. You can install the custom OpenWRT image on your own router. Visit"
-msgstr "Occupy.here está diseñado para ser replicado. Usted puede instalar la imagen personalizada OpenWRT en su propio router. Visite"
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:14
+msgid ""
+"Occupy.here is designed to be replicated. You can install the custom OpenWRT "
+"image on your own router. Visit"
+msgstr ""
+"Occupy.here está diseñado para ser replicado. Usted puede instalar la imagen "
+"personalizada OpenWRT en su propio router. Visite"
 
-#: app/views/about.php:14
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.php:14
 msgid "for the step-by-step installation guide."
 msgstr "para obtener la guía de instalación paso a paso."
 
-#: app/views/about.setup.php:3
+#: /Users/dphiffer/Sites/occupy.here/app/views/about.setup.php:3
 msgid "about"
 msgstr "acerca de"
 
-#: app/views/topic.php:14
+#: /Users/dphiffer/Sites/occupy.here/app/views/library.php:7
+msgid "Library"
+msgstr "Biblioteca"
+
+#: /Users/dphiffer/Sites/occupy.here/app/views/library.php:16
+msgid "Edit"
+msgstr "Editar"
+
+#: /Users/dphiffer/Sites/occupy.here/app/views/topic.php:14
 msgid "Post a reply"
 msgstr "Publicar una respuesta"
 
-#: app/views/user.php:1
+#: /Users/dphiffer/Sites/occupy.here/app/views/user.php:1
 msgid "Posts by"
 msgstr "Mensajes de"
 
-#: app/views/admin/_config_form.php:3
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:3
 msgid "Occupy.here administration"
 msgstr "Occupy.here administración"
 
-#: app/views/admin/_config_form.php:4
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:4
 msgid "You are logged in as an administrator."
 msgstr "Ha iniciado la sesión como administrador."
 
-#: app/views/admin/_config_form.php:4
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:4
 msgid "Logout"
 msgstr "Salir"
 
-#: app/views/admin/_config_form.php:7
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:7
 msgid "Backup"
 msgstr "Copia de resplado"
 
-#: app/views/admin/_config_form.php:8
-msgid "Download an archive of the database, uploaded files, and diagnostic logs."
-msgstr "Descarga un archivo de la base de datos, archivos cargados, y los registros de diagnóstico."
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:8
+msgid ""
+"Download an archive of the database, uploaded files, and diagnostic logs."
+msgstr ""
+"Descarga un archivo de la base de datos, archivos cargados, y los registros "
+"de diagnóstico."
 
-#: app/views/admin/_config_form.php:12
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:12
 msgid "Download backup"
 msgstr "Descarga backup"
 
-#: app/views/admin/_config_form.php:29
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:29
 msgid "Wifi network name"
 msgstr "Nombre de la red Wifi"
 
-#: app/views/admin/_config_form.php:31 app/views/admin/_config_form.php:38
-#: app/views/admin/_config_form.php:60
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:31
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:38
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:60
 msgid "Update"
 msgstr "Actualizar"
 
-#: app/views/admin/_config_form.php:36
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:36
 msgid "Base URL"
 msgstr "URL Base"
 
-#: app/views/admin/_config_form.php:43
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:43
 msgid "Network configuration"
 msgstr "Configuración de la red"
 
-#: app/views/admin/_config_form.php:45
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:45
 msgid "LAN mode (captive portal)"
 msgstr "Modo LAN (portal cautivo)"
 
-#: app/views/admin/_config_form.php:46
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:46
 msgid "Ethernet is bridged to wifi"
 msgstr "Ethernet esta en puente con wifi"
 
-#: app/views/admin/_config_form.php:49
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:49
 msgid "WAN mode (internet ready)"
 msgstr "Modo WAN (internet listo)"
 
-#: app/views/admin/_config_form.php:53
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:53
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: app/views/admin/_config_form.php:56
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_config_form.php:56
 msgid "Wifi"
 msgstr "red inalambrica"
 
-#: app/views/admin/_login_form.php:3
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_login_form.php:3
 msgid "Sorry that login didn’t match any known account"
-msgstr "Lo sentimos sus datos de sesión no coinciden con ninguna cuenta conocida"
+msgstr ""
+"Lo sentimos sus datos de sesión no coinciden con ninguna cuenta conocida"
 
-#: app/views/admin/_login_form.php:6
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_login_form.php:6
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: app/views/admin/_login_form.php:10
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_login_form.php:10
 msgid "Password"
 msgstr "Contraseña"
 
-#: app/views/admin/_login_form.php:13
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/_login_form.php:13
 msgid "Login"
 msgstr "Inicio"
 
-#: app/views/admin/backup_download.php:4
+#: /Users/dphiffer/Sites/occupy.here/app/views/admin/backup_download.php:4
 msgid "Sorry, backups are restricted to admin users"
-msgstr "Lo sentimos, las copias de seguridad están restringidas para administradores"
+msgstr ""
+"Lo sentimos, las copias de seguridad están restringidas para administradores"
 
-#: app/views/announcements/_offline.php:3
+#: /Users/dphiffer/Sites/occupy.here/app/views/announcements/_offline.php:3
 msgid "Welcome to occupy.here!"
 msgstr "Bienvenido a occupy.here!"
 
-#: app/views/announcements/_offline.php:4
+#: /Users/dphiffer/Sites/occupy.here/app/views/announcements/_offline.php:4
 msgid "Expand"
 msgstr "Ampliar"
 
-#: app/views/announcements/_offline.php:5
-msgid "You are not connected to the Internet. This wifi network is a kind of LAN island where you can share messages and files with those nearby. It is part of an archipelago of afiliated occupy.here nodes, so be aware that things you post here will persist and be copied onto other nodes."
-msgstr "Usted no está conectado a Internet. Esta red wifi es una especie de isla LAN donde puedes compartir mensajes y archivos a los que están cerca. Es parte de un archipiélago de nodos occupy.here vinculados, así que tenga cuidado de que las cosas que publique aquí van a persistir y se copiarán entre nodos."
+#: /Users/dphiffer/Sites/occupy.here/app/views/announcements/_offline.php:5
+msgid ""
+"You are not connected to the Internet. This wifi network is a kind of LAN "
+"island where you can share messages and files with those nearby. It is part "
+"of an archipelago of afiliated occupy.here nodes, so be aware that things "
+"you post here will persist and be copied onto other nodes."
+msgstr ""
+"Usted no está conectado a Internet. Esta red wifi es una especie de isla LAN "
+"donde puedes compartir mensajes y archivos a los que están cerca. Es parte "
+"de un archipiélago de nodos occupy.here vinculados, así que tenga cuidado de "
+"que las cosas que publique aquí van a persistir y se copiarán entre nodos."
 
-#: app/views/announcements/_offline.php:7
+#: /Users/dphiffer/Sites/occupy.here/app/views/announcements/_offline.php:7
 msgid "Hide"
 msgstr "Ocultar"
 
+#~ msgid "November"
+#~ msgstr "Noviembre"

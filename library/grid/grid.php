@@ -30,6 +30,7 @@ class Grid extends Grid_Events {
     } else if (preg_match('/[a-z]+/', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches)) {
       $locale = $matches[0];
     }
+    $this->locale = $locale;
     putenv("LC_ALL=$locale");
     setlocale(LC_ALL, $locale);
     if (function_exists('bindtextdomain')) {

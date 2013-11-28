@@ -18,6 +18,9 @@ $post->reply_count = count($replies);
 if (!empty($post->parent_id)) {
   if (substr($post->parent_id, 0, 2) == 'c/') {
     $container = $grid->db->record('container', substr($post->parent_id, 2));
+    if ($container->id == 'library') {
+      $container->name = _('Library');
+    }
     $back_title = esc($container->name);
     $back_url = GRID_URL . $post->parent_id;
   } else {

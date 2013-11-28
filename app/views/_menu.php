@@ -5,6 +5,9 @@
         <?php
         
         foreach ($containers as $container) {
+          if ($container->id == 'library') {
+            $container->name = _($container->name);
+          }
           $name = htmlentities($container->name,  ENT_COMPAT, 'UTF-8');
           echo "<li><a href=\"c/$container->id\">$name</a></li>\n";
         }

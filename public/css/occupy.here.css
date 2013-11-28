@@ -994,6 +994,18 @@ body.files #topic-form article .container {
   margin-bottom: 20px;
 }
 
+#language {
+  border-top: 1px solid #666;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+#language label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #999;
+}
+
 @media
   only screen and (min-width: 590px) {
   
