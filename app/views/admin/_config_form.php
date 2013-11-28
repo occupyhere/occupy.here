@@ -38,6 +38,13 @@
       <input type="submit" class="button" value="<?php echo _('Update'); ?>">
     </form>
   </section>
+  <section id="update_default_path">
+    <form action="admin/update_default_path" method="post">
+      <h2 class="top"><?php echo _('Default path'); ?></h2>
+      <input type="text" value="<?php echo get_default_path(); ?>" name="default_path" id="default_path">
+      <input type="submit" class="button" value="<?php echo _('Update'); ?>">
+    </form>
+  </section>
   <!--<section id="network_mode">
     <form action="admin/update_network" method="post">
       <h2 class="top"><?php echo _('Network configuration'); ?></h2>

@@ -13,7 +13,8 @@ if (defined('HOSTNAME') && strtolower($_SERVER['HTTP_HOST']) != HOSTNAME) {
 $ssl_enabled = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ||
                 $_SERVER['SERVER_PORT'] == 443);
 
-$grid->response->redirect('/forum');
+$default_path = get_default_path();
+$grid->response->redirect($default_path);
 exit;
 
 ?>

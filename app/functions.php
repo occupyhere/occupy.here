@@ -614,6 +614,15 @@ function get_current_hostname() {
   return HOSTNAME;
 }
 
+function get_default_path() {
+  global $grid;
+  if (empty($grid->meta['default_path'])) {
+    return '/forum';
+  } else {
+    return $grid->meta['default_path'];
+  }
+}
+
 function esc($text) {
   return htmlentities($text, ENT_COMPAT, 'UTF-8');
 }
