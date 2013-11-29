@@ -12,7 +12,7 @@
       <?php foreach ($posts as $post) { ?>
         <li id="post_<?php echo $post->id; ?>" class="file user_<?php echo $post->user_id; ?>" data-colors="<?php echo get_colors($post->user_id); ?>">
           <span class="meta"><?php echo elapsed_time($post->created); ?></span><br>
-          <a href="<?php echo "p/$post->id"; ?>" class="filename"><?php echo $post->content; ?></a>
+          <a href="<?php echo "p/$post->id"; ?>" class="filename"><?php echo esc($post->content); ?></a>
           <a href="<?php echo "p/$post->id/edit"; ?>" class="edit"><?php echo _('Edit'); ?></a>
         </li>
       <?php } ?>
