@@ -351,8 +351,11 @@ function show_attachment($post) {
     return true;
   } else if (preg_match('/\.html$/i', $attachment->path)) {
     $html = file_get_contents(GRID_DIR . "/public/$attachment->path");
-    $start = mb_strpos($html, '<body>', 0, 'UTF-8');
-    $end = mb_strpos($html, '</body>', $start, 'UTF-8');
+    $start = mb_strpos($html, '<!-- occupy.here article start -->', 0, 'UTF-8');
+    if ($start === false) {
+      return false;
+    }
+    $end = mb_strpos($html, '<!-- occupy.here article end -->', $start, 'UTF-8');
     $content = mb_substr($html, $start, $end - $start, 'UTF-8');
     $download = _('plain html');
     echo "<div id=\"article\">
