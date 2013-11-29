@@ -3,10 +3,10 @@
 MAC_ADDRESS=$(/sbin/ifconfig | grep 'eth0' | tr -s ' ' | cut -d ' ' -f5 | sed "s/://g")
 
 if [ ! -e /usb/occupy.here ] &&
-   [ -e /usb/occupy.here-r5 ]
+   [ -e /usb/occupy.here-r7 ]
 then
-  echo "Renamed /usb/occupy.here-r5 to /usb/occupy.here"
-  mv /usb/occupy.here-r5 /usb/occupy.here
+  echo "Renamed /usb/occupy.here-r7 to /usb/occupy.here"
+  mv /usb/occupy.here-r7 /usb/occupy.here
 fi
 
 if [ ! -e /var/.password_set ]
