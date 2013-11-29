@@ -237,8 +237,8 @@ function process_content($article) {
     var meta = $json;
     </script>
     <!-- occupy.here meta end -->
-    <!-- occupy.here article start -->
     <div id="article-$md5">
+      <!-- occupy.here article start -->
       <h1>$article->title</h1>
       <div class="meta">
         $meta
@@ -246,10 +246,10 @@ function process_content($article) {
       <div class="content">
         $content
       </div>
+      <!-- occupy.here article end -->
     </div>
     <ol id="article-$md5-links" class="article-links">
     </ol>
-    <!-- occupy.here article end -->
   </body>
 </html>
 END;
