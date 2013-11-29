@@ -200,6 +200,7 @@ function process_content($article) {
         content: counter(link);
         vertical-align: super;
         font-size: 50%;
+        line-height: 0;
       }
       
       #article-$md5 > h1 {
