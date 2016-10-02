@@ -65,6 +65,8 @@ if (empty($form_class)) {
       <label>
         <span class="text"><?php echo _('Expires in'); ?>:</span>
         <select name="ttl">
+          <option value="3153600000">1 <?php echo _('century'); ?></option>
+          <option value="315360000">1 <?php echo _('decade'); ?></option>
           <option value="31536000">1 <?php echo _('year'); ?></option>
           <option value="2592000">1 <?php echo _('month'); ?></option>
           <option value="604800">1 <?php echo _('week'); ?></option>
